@@ -6,9 +6,9 @@ config_version=5
 
 [application]
 
-config/name="Neon Hollow"
-config/description="A top-down cyberpunk action RPG set in the vertical city of Neon Hollow."
-run/main_scene="res://scenes/boot.tscn"
+config/name="NEON ECHOES"
+config/description="Neon Echoes is an isometric pixel-art cyberpunk action RPG."
+run/main_scene="res://scenes/iso_demo.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 boot_splash/bg_color=Color(0.0862745, 0.0705882, 0.121569, 1)

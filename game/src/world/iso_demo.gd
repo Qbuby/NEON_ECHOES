@@ -1,0 +1,191 @@
+extends Node2D
+## Proof-of-renderer scene: builds a real isometric street block from the tile
+## atlas, with extruded walls, props, an actor that walks the grid, and a camera
+## that follows in screen space.
+##
+## This is the smallest thing that can answer the question the whole redesign
+## turns on: does an isometric renderer at this camera scale actually look like
+## the concept art? Everything else is built on the answer.
+
+const IsoGridScript := preload("res://src/world/iso_grid.gd")
+const IsoWorldScript := preload("res://src/world/iso_world.gd")
+const ATLAS := "res://assets/tiles/corp_iso/corp_iso.json"
+
+var world: IsoWorld
+var camera: Camera2D
+var player: Node2D
+var level_data: Dictionary
+var player_cell := Vector2i(8, 12)
+var move_target := Vector2i(8, 12)
+var facing := "s"
+
+var _hud: CanvasLayer
+var _label: Label
+
+
+func _ready() -> void:
+	_build_level()
+	world = IsoWorldScript.new()
+	world.name = "IsoWorld"
+	add_child(world)
+	var atlas: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(ATLAS))
+	world.load_level(level_data, atlas)
+	world.position = _map_center()
+	_make_player()
+	_make_camera()
+	_make_hud()
+	print("ISO_DEMO ready cells=%d" % (level_data["w"] * level_data["h"]))
+
+
+func _build_level() -> void:
+	# A 20x20 block: a street running north-south, buildings either side, a
+	# plaza pocket and two alleys. Enough variety to judge depth and shading.
+	var w := 20
+	var h := 20
+	var rows := []
+	for y in h:
+		var row := ""
+		for x in w:
+			var ch := "."
+			if x < 3 or x > 16:
+				ch = "#"                       # side buildings
+			elif y < 3 or y > 16:
+				ch = "#"                       # end buildings
+			elif (x == 3 or x == 16) and (y % 7 == 0):
+				ch = "D"                       # doorway gap in the wall
+			elif (x >= 8 and x <= 11) and (y >= 8 and y <= 11):
+				ch = "P"                       # plaza marble
+			row += ch
+		rows.append(row)
+	# punch a street through both ends so it reads as a through-route
+	var lvl := {
+		"w": w, "h": h, "floor": rows,
+		"legend": {
+			".": {"floor": "floor_a"},
+			"#": {"floor": "floor_concrete", "wall": 2.0, "wall_tile": "wall_h32"},
+			"B": {"floor": "floor_plaza", "wall": 3.0, "wall_tile": "wall_h48"},
+			"D": {"floor": "floor_b"},
+			"P": {"floor": "floor_marble"},
+		},
+		"props": [
+			{"id": "prop_crate", "cell": [5, 7]},
+			{"id": "prop_vend", "cell": [15, 9]},
+			{"id": "prop_sign", "cell": [12, 3]},
+			{"id": "prop_crate", "cell": [7, 14]},
+		],
+		"actors": [],
+	}
+	level_data = lvl
+
+
+func _map_center() -> Vector2:
+	var size: Vector2i = IsoGridScript.block_size(level_data["w"], level_data["h"])
+	return Vector2(size.x * 0.5, size.y * 0.5)
+
+
+func _make_player() -> void:
+	player = Node2D.new()
+	player.name = "Rin"
+	# A placeholder capsule in the character palette until the sprite is authored.
+	var body := Polygon2D.new()
+	body.polygon = PackedVector2Array([
+		Vector2(-7, -30), Vector2(7, -30), Vector2(9, -12),
+		Vector2(6, 0), Vector2(-6, 0), Vector2(-9, -12),
+	])
+	body.color = Color("#d8dce8")
+	player.add_child(body)
+	var coat := Polygon2D.new()
+	coat.polygon = PackedVector2Array([
+		Vector2(-9, -20), Vector2(9, -20), Vector2(11, -2),
+		Vector2(7, 2), Vector2(-7, 2), Vector2(-11, -2),
+	])
+	coat.color = Color("#12141c")
+	coat.position = Vector2(0, 1)
+	player.add_child(coat)
+	var eye := Polygon2D.new()
+	eye.polygon = PackedVector2Array([
+		Vector2(2, -26), Vector2(7, -25), Vector2(6, -22), Vector2(2, -23),
+	])
+	eye.color = Color("#38d8ff")
+	player.add_child(eye)
+	player.position = world.cell_center(player_cell)
+	world.actor_root.add_child(player)
+	world.register_actor(player)
+
+
+func _make_camera() -> void:
+	camera = Camera2D.new()
+	camera.name = "Camera"
+	camera.zoom = Vector2(1.0, 1.0)
+	camera.position_smoothing_enabled = true
+	camera.position_smoothing_speed = 9.0
+	player.add_child(camera)
+	camera.make_current()
+
+
+func _make_hud() -> void:
+	_hud = CanvasLayer.new()
+	_hud.layer = 10
+	add_child(_hud)
+	_label = Label.new()
+	_label.position = Vector2(12, 8)
+	_label.add_theme_font_size_override("font_size", 12)
+	_label.add_theme_color_override("font_color", Color("#cfe6ff"))
+	_hud.add_child(_label)
+	_refresh_hud()
+
+
+func _refresh_hud() -> void:
+	_label.text = "NEON ECHOES  iso demo\ncell %s  facing %s\nWASD/click to move" % [
+		str(player_cell), facing]
+
+
+func _process(delta: float) -> void:
+	var step := 0.0
+	var dir := Vector2i.ZERO
+	if Input.is_action_pressed("move_left"):
+		dir += Vector2i(-1, 0)
+	if Input.is_action_pressed("move_right"):
+		dir += Vector2i(1, 0)
+	if Input.is_action_pressed("move_up"):
+		dir += Vector2i(0, -1)
+	if Input.is_action_pressed("move_down"):
+		dir += Vector2i(0, 1)
+	if dir != Vector2i.ZERO:
+		move_target = player_cell + dir.sign()
+	# slide toward the target cell in screen space; the actor's depth key follows
+	# its own cell so it passes behind and in front of walls correctly
+	var target: Vector2 = world.cell_center(move_target)
+	var to_target: Vector2 = target - player.position
+	if to_target.length() > 1.0:
+		player.position += to_target.normalized() * minf(to_target.length(), 180.0 * delta)
+		if dir.x > 0:
+			facing = "e"
+		elif dir.x < 0:
+			facing = "w"
+		elif dir.y > 0:
+			facing = "s"
+		elif dir.y < 0:
+			facing = "n"
+	else:
+		player.position = target
+		if player_cell != move_target:
+			player_cell = move_target
+			world.update_actor_cell(player, player_cell)
+			_refresh_hud()
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		var local: Vector2 = world.to_local(get_global_mouse_position())
+		var cell: Vector2i = world.cell_at_screen(local)
+		if _walkable(cell):
+			move_target = cell
+
+
+func _walkable(cell: Vector2i) -> bool:
+	if cell.x < 0 or cell.y < 0 or cell.x >= level_data["w"] or cell.y >= level_data["h"]:
+		return false
+	var row: String = level_data["floor"][cell.y]
+	var ch := row[cell.x]
+	return ch == "." or ch == "P" or ch == "D"
