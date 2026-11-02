@@ -1,0 +1,374 @@
+{
+	"engine": "4.7.2-stable (official)",
+	"failed": 14,
+	"generated_at": "2026-11-02T11:53:43",
+	"passed": 59,
+	"results": [
+		{
+			"detail": "10",
+			"ok": true,
+			"test": "weapons == 10"
+		},
+		{
+			"detail": "6",
+			"ok": true,
+			"test": "enemies == 6"
+		},
+		{
+			"detail": "3",
+			"ok": true,
+			"test": "bosses == 3"
+		},
+		{
+			"detail": "24",
+			"ok": true,
+			"test": "skill nodes == 24"
+		},
+		{
+			"detail": "12",
+			"ok": true,
+			"test": "cyberware == 12"
+		},
+		{
+			"detail": "35",
+			"ok": true,
+			"test": "items >= 35"
+		},
+		{
+			"detail": "8",
+			"ok": true,
+			"test": "main quests == 8"
+		},
+		{
+			"detail": "12",
+			"ok": true,
+			"test": "side quests == 12"
+		},
+		{
+			"detail": "32",
+			"ok": true,
+			"test": "dialogue nodes >= 30"
+		},
+		{
+			"detail": "16",
+			"ok": true,
+			"test": "choice points >= 15"
+		},
+		{
+			"detail": "3",
+			"ok": true,
+			"test": "endings == 3"
+		},
+		{
+			"detail": "10 unique configs",
+			"ok": true,
+			"test": "10 weapons, full config, all distinct"
+		},
+		{
+			"detail": "deadlocks=0 transitions=38",
+			"ok": true,
+			"test": "100 state transitions, no deadlock"
+		},
+		{
+			"detail": "missing=[]",
+			"ok": true,
+			"test": "all 9 states reachable"
+		},
+		{
+			"detail": "gained=4 level=5 points=4",
+			"ok": true,
+			"test": "level up grants skill points"
+		},
+		{
+			"detail": "hp 116.0 -> 124.0",
+			"ok": true,
+			"test": "attribute raises derived stats"
+		},
+		{
+			"detail": "[\"strength\", \"reflex\", \"tech\", \"intel\", \"will\"]",
+			"ok": true,
+			"test": "5 attributes exist"
+		},
+		{
+			"detail": "c3 requires c2",
+			"ok": true,
+			"test": "skill gated by prerequisite"
+		},
+		{
+			"detail": "damage_mul 1.00 -> 1.15",
+			"ok": true,
+			"test": "skill effect applied"
+		},
+		{
+			"detail": "[8, 8, 8]",
+			"ok": true,
+			"test": "3 trees x 8 nodes"
+		},
+		{
+			"detail": "hp 116 -> 136 armor 0.25",
+			"ok": true,
+			"test": "cyberware equip changes stats"
+		},
+		{
+			"detail": "hp back to 116",
+			"ok": true,
+			"test": "unequip restores stats"
+		},
+		{
+			"detail": "none equipped (expected)",
+			"ok": true,
+			"test": "4+ cyberware have active abilities"
+		},
+		{
+			"detail": "8/12",
+			"ok": true,
+			"test": "main/side counts"
+		},
+		{
+			"detail": "8",
+			"ok": true,
+			"test": "5+ quests with multiple solutions"
+		},
+		{
+			"detail": "completed=20 bad=[]",
+			"ok": true,
+			"test": "all 20 quests complete"
+		},
+		{
+			"detail": "cred=6220 xp=3930",
+			"ok": true,
+			"test": "quest rewards accumulate"
+		},
+		{
+			"detail": "hack_debtor_account vs intimidate_debtor",
+			"ok": true,
+			"test": "different solutions recorded distinctly"
+		},
+		{
+			"detail": "e_burn / e_chair / e_walk",
+			"ok": true,
+			"test": "3 endings reachable from 3 states"
+		},
+		{
+			"detail": "3",
+			"ok": true,
+			"test": "3 save slots exist"
+		},
+		{
+			"detail": "identical=50 corrupt=0",
+			"ok": true,
+			"test": "50 save/load cycles identical"
+		},
+		{
+			"detail": "20 -> 14.0",
+			"ok": true,
+			"test": "armor reduces damage"
+		},
+		{
+			"detail": "20 -> 40.0",
+			"ok": true,
+			"test": "crit doubles damage"
+		},
+		{
+			"detail": "1.0",
+			"ok": true,
+			"test": "damage floor is 1"
+		},
+		{
+			"detail": "all ok",
+			"ok": true,
+			"test": "10 weapons: fire, empty, reload correct"
+		},
+		{
+			"detail": "shots=100 hits=67",
+			"ok": true,
+			"test": "100-shot loop: ammo accounting stable"
+		},
+		{
+			"detail": "[\"ranged_cover\", \"melee_charge\", \"sniper_hold\", \"heavy_advance\", \"hacker_disrupt\", \"drone_strafe\"]",
+			"ok": true,
+			"test": "6 distinct enemy behaviours"
+		},
+		{
+			"detail": "ranges=[240.0, 38.0, 700.0, 46.0, 320.0, 260.0]",
+			"ok": true,
+			"test": "enemy configs complete and ranged distinctly"
+		},
+		{
+			"detail": "all ok",
+			"ok": true,
+			"test": "3 bosses: 2 phases, 3+ attacks, telegraph, reward"
+		},
+		{
+			"detail": "open ground",
+			"ok": true,
+			"test": "1. guard sees player in view cone"
+		},
+		{
+			"detail": "wall at x=100",
+			"ok": true,
+			"test": "2. wall blocks line of sight"
+		},
+		{
+			"detail": "60px away",
+			"ok": true,
+			"test": "3. noise is heard nearby"
+		},
+		{
+			"detail": "state=0",
+			"ok": true,
+			"test": "4. sustained sight -> combat"
+		},
+		{
+			"detail": "search_seen=true final=0",
+			"ok": true,
+			"test": "5. losing target -> search -> calm"
+		},
+		{
+			"detail": "behind ok, front refused",
+			"ok": true,
+			"test": "6. takedown only from behind"
+		},
+		{
+			"detail": "refused",
+			"ok": true,
+			"test": "7. no takedown in combat"
+		},
+		{
+			"detail": "[\"camera_slice\", \"device_toggle\", \"optics_glitch\", \"weapon_lock\", \"turret_hijack\", \"trap_trigger\"]",
+			"ok": true,
+			"test": "6 hacking operations"
+		},
+		{
+			"detail": "all ok",
+			"ok": true,
+			"test": "all 6 operations execute with real effect"
+		},
+		{
+			"detail": "insufficient_ram",
+			"ok": true,
+			"test": "insufficient RAM fails"
+		},
+		{
+			"detail": "cooldown",
+			"ok": true,
+			"test": "cooldown blocks repeat"
+		},
+		{
+			"detail": "out_of_range",
+			"ok": true,
+			"test": "out of range fails"
+		},
+		{
+			"detail": "all ok",
+			"ok": true,
+			"test": "6 enemies × 10 sims: distinct actions, death stops, armor applies"
+		},
+		{
+			"detail": "all ok",
+			"ok": true,
+			"test": "3 bosses: phase 0->1 transition, 3+ attacks each, killable"
+		},
+		{
+			"detail": "3",
+			"ok": true,
+			"test": "3 districts"
+		},
+		{
+			"detail": "[\"corporate:map_0x0\", \"corporate:doors=0\", \"corporate:secrets=0\", \"industrial:map_0x0\", \"industrial:doors=0\", \"industrial:secrets=0\", \"nightlife:map_0x0\", \"nightlife:doors=0\", \"nightlife:secrets=0\"]",
+			"ok": false,
+			"test": "3 districts: 80x80 maps, 4+ doors, 5+ secrets, 3 visuals, 2+ enemy mix"
+		},
+		{
+			"detail": "12",
+			"ok": true,
+			"test": "12 interiors"
+		},
+		{
+			"detail": "30",
+			"ok": true,
+			"test": "15+ NPC placements"
+		},
+		{
+			"detail": "30",
+			"ok": true,
+			"test": "18+ interactable kinds"
+		},
+		{
+			"detail": "0",
+			"ok": false,
+			"test": "15+ secrets total"
+		},
+		{
+			"detail": "[\"res://assets/levels/corporate_spire_lobby.json\", \"res://assets/levels/corporate_boardroom.json\", \"res://assets/levels/corporate_server_vault.json\", \"res://assets/levels/corporate_exec_office.json\", \"res://assets/levels/industrial_foundry_floor.json\", \"res://assets/levels/industrial_warehouse.json\", \"res://assets/levels/industrial_black_market.json\", \"res://assets/levels/industrial_repair_bay.json\", \"res://assets/levels/nightlife_main_club.json\", \"res://assets/levels/nightlife_backstage.json\", \"res://assets/levels/nightlife_vip_lounge.json\", \"res://assets/levels/nightlife_alley_market.json\"]",
+			"ok": false,
+			"test": "all 12 interior files exist"
+		},
+		{
+			"detail": "[\"corporate:missing\", \"industrial:missing\", \"nightlife:missing\", \"corporate_spire_lobby:missing\", \"corporate_boardroom:missing\", \"corporate_server_vault:missing\"]",
+			"ok": false,
+			"test": "all 15 levels: spawn walkable, every door+secret reachable"
+		},
+		{
+			"detail": "0 doors",
+			"ok": false,
+			"test": "9+ inter-area connections"
+		},
+		{
+			"detail": "0",
+			"ok": false,
+			"test": "audio: 10 gun sounds"
+		},
+		{
+			"detail": "0",
+			"ok": false,
+			"test": "audio: 5 melee sounds"
+		},
+		{
+			"detail": "0",
+			"ok": false,
+			"test": "audio: 10 skill+hack sounds"
+		},
+		{
+			"detail": "0",
+			"ok": false,
+			"test": "audio: 8 UI sounds"
+		},
+		{
+			"detail": "0",
+			"ok": false,
+			"test": "audio: 10 interaction sounds"
+		},
+		{
+			"detail": "amb=0 mus=0",
+			"ok": false,
+			"test": "audio: 6 ambience + 3 music"
+		},
+		{
+			"detail": "[]",
+			"ok": true,
+			"test": "every audio entry rendered to a WAV"
+		},
+		{
+			"detail": "built=0 missing=[]",
+			"ok": true,
+			"test": "all manifest assets built"
+		},
+		{
+			"detail": "{  }",
+			"ok": false,
+			"test": "20 effects authored"
+		},
+		{
+			"detail": "corporate/industrial/nightlife",
+			"ok": false,
+			"test": "3 tilesets carry terrain data"
+		},
+		{
+			"detail": "count=0 ok=true",
+			"ok": false,
+			"test": "20+ rendered characters with SpriteFrames"
+		}
+	],
+	"total": 73
+}
