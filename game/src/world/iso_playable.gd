@@ -85,6 +85,24 @@ func setup(id: String) -> bool:
 	return true
 
 
+## Juice is optional too: the scene works headless, where there is no viewport.
+func _juice(method: String, a = null, b = null, c = null, d = null) -> void:
+	var tree := get_tree()
+	var j = tree.root.get_node_or_null("Juice") if tree != null else null
+	if j == null:
+		return
+	if d != null:
+		j.call(method, a, b, c, d)
+	elif c != null:
+		j.call(method, a, b, c)
+	elif b != null:
+		j.call(method, a, b)
+	elif a != null:
+		j.call(method, a)
+	else:
+		j.call(method)
+
+
 ## Audio is feedback, not a dependency: a missing file logs once, never throws.
 func _sfx(name: String) -> void:
 	var tree := get_tree()
@@ -510,6 +528,8 @@ func _try_attack() -> void:
 	bullets.append({"pos": player.position + Vector2(0, -18), "dir": aim,
 		"ttl": 0.55, "damage": 18.0})
 	_sfx("gun_pistol")
+	_juice("shake", 1.6, 0.06)
+	_juice("burst", player.position + aim * 22.0, "res://src/fx/impact.tscn", 0.0, 0.9)
 
 
 func _aim_vector() -> Vector2:
@@ -541,9 +561,20 @@ func _tick_bullets(delta: float) -> void:
 				var res: Dictionary = ai.take_damage(float(b["damage"]))
 				hit = true
 				_sfx("melee_slash")
+				# the feedback that makes a hit land: freeze, shake, burst,
+				# number, and flash the struck body
+				_juice("hit_stop", 0.045)
+				_juice("shake", 2.6, 0.12)
+				_juice("burst", ai.pos, "res://src/fx/impact.tscn", 0.0, 1.4)
+				_juice("number", ai.pos + Vector2(0, -20), int(res["applied"]))
+				var hit_node: Node2D = e["node"]
+				if is_instance_valid(hit_node):
+					_juice("flash", hit_node)
 				if bool(res["dead"]):
 					kills += 1
 					_sfx("melee_hit")
+					_juice("shake", 4.0, 0.18)
+					_juice("burst", ai.pos, "res://src/fx/impact.tscn", 0.0, 2.2)
 					advance_quest("kill")
 					enemy_killed.emit(str(e["id"]))
 					hud.show_toast("TARGET DOWN")
@@ -564,11 +595,28 @@ func _tick_enemies(delta: float) -> void:
 		var to_player: Vector2 = world.cell_center(player_cell) - ai.pos
 		var sees := to_player.length() < 420.0
 		ai.tick(delta, world.cell_center(player_cell), sees)
+		# keep the body inside the district and off solid cells: the AI has no
+		# map of its own and will otherwise walk out of the world
+		var cell: Vector2i = IsoGridScript.pick(ai.pos)
+		if not bool(walkable.get(cell, false)) or blocks.has(cell):
+			var back: Vector2i = e.get("cell", cell)
+			ai.pos = world.cell_center(back)
+			cell = back
+		else:
+			e["cell"] = cell
 		var node: Node2D = e["node"]
 		if is_instance_valid(node):
 			node.position = ai.pos
-			var cell: Vector2i = IsoGridScript.pick(ai.pos)
 			node.set_meta("cell", cell)
+
+
+## The grid cell an actor currently stands on.
+func _cell_of_actor(node: Node2D) -> Vector2i:
+	if node == null or not is_instance_valid(node):
+		return player_cell
+	if node.has_meta("cell"):
+		return node.get_meta("cell")
+	return IsoGridScript.pick(node.position)
 
 
 # ---- state for tests and the playtest harness ------------------------------------

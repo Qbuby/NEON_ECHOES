@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://src/fx/fx.gd" id="1_fx"]
-[ext_resource type="SpriteFrames" path="res://assets/fx/impact/impact.tres" id="2_frames"]
+[ext_resource type="SpriteFrames" path="res://assets/fx/impact_spark/impact_spark.tres" id="2_frames"]
 
 [node name="Impact" type="AnimatedSprite2D"]
 texture_filter = 1

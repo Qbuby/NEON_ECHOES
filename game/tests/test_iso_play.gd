@@ -97,6 +97,21 @@ func _initialize() -> void:
 				untouched = false
 	_check(untouched, "an unrelated action does not advance a quest")
 
+	# The AI advances its own position and has no map, so it can walk out of the
+	# world. Run it hard against a far-away player and prove every body stays on
+	# a walkable cell inside the district.
+	var escaped: Array = []
+	node.player_cell = Vector2i(1, 1)
+	for i in 600:
+		node._tick_enemies(1.0 / 60.0)
+	for e in node.enemies:
+		var c: Vector2i = node._cell_of_actor(e["node"])
+		if c.x < 0 or c.y < 0 or c.x >= int(node.level["w"]) or c.y >= int(node.level["h"]):
+			escaped.append([e["id"], c.x, c.y])
+		elif not bool(node.walkable.get(c, false)):
+			escaped.append([e["id"], c.x, c.y, "solid"])
+	_check(escaped.is_empty(), "no enemy walks off the map after 600 ticks %s" % str(escaped))
+
 	# every district in the list loads
 	for id in ["ind_belt", "night_row"]:
 		var n2: Node2D = PlayScript.new()
