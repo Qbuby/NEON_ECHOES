@@ -22,10 +22,13 @@ share. The rebuild is compared against them directly:
 | p95 luminance | 158–184 | 110 | **161** |
 | pixels >180 (highlights) | 3.1–5.7 % | 0.6 % | **3.0 %** |
 | pixels <25 (shadow) | 14–27 % | 26.6 % | **29.0 %** |
-| mean chroma | 37–43 | 33 | **33** |
+| mean chroma | 37–43 | 33 | **41** |
 
-Value structure and highlight distribution are **inside the reference range**.
-Saturation is still below it (33 vs 37–43) — the one metric the gate flags.
+**All five metrics are now inside the concept art's own ranges.** The last gap
+was saturation: the shadows were neutral grey, while the reference's shadows are
+coloured (cool blue in the corporate district, warm rust in the industrial belt,
+violet in the nightlife row). Giving each district a hue cast in its floor and
+prop ramps lifted chroma from 33 to 41 without spending the highlight budget.
 
 ## What changed structurally
 
