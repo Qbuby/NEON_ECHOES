@@ -43,6 +43,7 @@ var _sheet: Texture2D
 var _sheet_path := ""
 var _sheets: Dictionary = {}
 var _sheet_by_tile: Dictionary = {}
+var _facade_debug := 0
 
 
 func load_level(data: Dictionary, atlas: Dictionary) -> void:
@@ -75,10 +76,13 @@ func load_level(data: Dictionary, atlas: Dictionary) -> void:
 		_sheet_by_tile[str(tname)] = prop_sheet
 	for child in get_children():
 		child.queue_free()
-	floor_root = _make_root("Floor", 0)
-	wall_root = _make_root("Walls", 0)
-	prop_root = _make_root("Props", 0)
-	actor_root = _make_root("Actors", 0)
+	# A single container each for organisation, but all sprites are children of
+	# the same node so the one sorted z_index list actually orders them. Separate
+	# roots at equal z_index would be painted in child order instead.
+	floor_root = self
+	wall_root = self
+	prop_root = self
+	actor_root = self
 	_nodes.clear()
 	heights.clear()
 	_build_floor()
@@ -149,7 +153,7 @@ func _add_floor_tile(cell: Vector2i, tile: String, wall_h: float) -> void:
 	# tile above the cell centre.
 	spr.position = cell_center(cell) + Vector2(-IsoGrid.HW, -IsoGrid.HH)
 	floor_root.add_child(spr)
-	_nodes.append({"node": spr, "key": -100000.0 + float(cell.x + cell.y) * 0.01})
+	_nodes.append({"node": spr, "key": float(cell.x + cell.y) * 0.01})
 	heights[cell] = wall_h
 
 
@@ -157,8 +161,11 @@ func _add_floor_tile(cell: Vector2i, tile: String, wall_h: float) -> void:
 
 func _build_walls() -> void:
 	# A building is a mass, not a pile of cubes: every solid cell gets one roof
-	# diamond, and only its exposed edges get a facade. Drawing a full prism per
-	# cell made multi-cell buildings read as separate stacks of blocks.
+	# diamond, and only its exposed edges get a facade.
+	#
+	# The lift is taken from the facade art itself, not from the legend's storey
+	# count: the art is authored at fixed pixel heights (48/96/144 px of body),
+	# and lifting by anything else leaves the roof floating above the facade.
 	for y in mini(h, floor_chars.size()):
 		var row := str(floor_chars[y])
 		for x in mini(w, row.length()):
@@ -167,13 +174,45 @@ func _build_walls() -> void:
 			if wh <= 0.0:
 				continue
 			var cell := Vector2i(x, y)
-			_add_roof(cell, wh)
-			# south facade: nothing solid below this cell
+			var tile := _face_tile_for(wh, "s")
+			if tile == "":
+				continue
+			var lift := float(_atlas[tile][3]) - float(IsoGrid.TILE_H)
+			_add_roof(cell, lift)
 			if not _solid(cell + Vector2i(0, 1)):
-				_add_face(cell, wh, "s")
-			# east facade: nothing solid to the right
+				_add_face(cell, lift, "s")
 			if not _solid(cell + Vector2i(1, 0)):
-				_add_face(cell, wh, "e")
+				_add_face(cell, lift, "e")
+
+
+## Pick the facade whose authored body height is closest to the requested storeys.
+func _face_tile_for(storeys: float, which: String) -> String:
+	var want := storeys * float(IsoGrid.TILE_H)
+	var suffix := "s" if which == "s" else "e"
+	var best := ""
+	var best_d := 1e9
+	for name in _atlas.keys():
+		var n := str(name)
+		# exact family: face_s, face_s_low, face_s_tall (never face_e*)
+		if not (n == "face_" + suffix or n.begins_with("face_" + suffix + "_")):
+			continue
+		var body := float(_atlas[n][3]) - float(IsoGrid.TILE_H)
+		if body <= 0.0:
+			continue
+		var d := absf(body - want)
+		if d < best_d:
+			best_d = d
+			best = n
+	return best
+
+
+func _char_at(cell: Vector2i) -> String:
+	if cell.y < 0 or cell.y >= floor_chars.size():
+		return ""
+	var row := str(floor_chars[cell.y])
+	if cell.x < 0 or cell.x >= row.length():
+		return ""
+	return row[cell.x]
 
 
 func _solid(cell: Vector2i) -> bool:
@@ -186,7 +225,7 @@ func _solid(cell: Vector2i) -> bool:
 	return float(def.get("wall", 0.0)) > 0.0
 
 
-func _add_roof(cell: Vector2i, height_units: float) -> void:
+func _add_roof(cell: Vector2i, lift_px: float) -> void:
 	var tile := "roof"
 	if not _atlas.has(tile):
 		return
@@ -198,17 +237,13 @@ func _add_roof(cell: Vector2i, height_units: float) -> void:
 	spr.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	spr.centered = false
 	# lift the roof by the storey height so it caps the facades
-	spr.position = cell_center(cell) + Vector2(-IsoGrid.HW, -IsoGrid.HH - height_units * IsoGrid.TILE_H)
+	spr.position = cell_center(cell) + Vector2(-IsoGrid.HW, -IsoGrid.HH - lift_px)
 	wall_root.add_child(spr)
-	_nodes.append({"node": spr, "key": IsoGrid.depth_key(cell, height_units) + 0.002})
+	_nodes.append({"node": spr, "key": IsoGrid.depth_key(cell, lift_px / IsoGrid.TILE_H) + 0.002})
 
 
-func _add_face(cell: Vector2i, height_units: float, which: String) -> void:
-	var tall := "face_s_tall" if height_units >= 1.4 else "face_s"
-	var low := "face_e_low" if height_units < 1.0 else "face_e"
-	var tile := tall if which == "s" else low
-	if not _atlas.has(tile):
-		tile = "face_s" if _atlas.has("face_s") else ""
+func _add_face(cell: Vector2i, lift_px: float, which: String) -> void:
+	var tile := _face_tile_for(lift_px / float(IsoGrid.TILE_H), which)
 	if tile == "":
 		return
 	var r: Array = _atlas[tile]
@@ -220,9 +255,9 @@ func _add_face(cell: Vector2i, height_units: float, which: String) -> void:
 	spr.centered = false
 	# The face art already includes the top half of the diamond, so it aligns to
 	# the cell centre - half the face height, exactly like a prism.
-	spr.position = cell_center(cell) + Vector2(-IsoGrid.HW, -IsoGrid.HH - height_units * IsoGrid.TILE_H)
+	spr.position = cell_center(cell) + Vector2(-IsoGrid.HW, -IsoGrid.HH - lift_px)
 	wall_root.add_child(spr)
-	_nodes.append({"node": spr, "key": IsoGrid.depth_key(cell, height_units) + 0.004})
+	_nodes.append({"node": spr, "key": IsoGrid.depth_key(cell, lift_px / IsoGrid.TILE_H) + 0.004})
 
 
 # ---- props and actors -----------------------------------------------------------
@@ -256,6 +291,15 @@ func _build_props(list: Array) -> void:
 			"mount":
 				# bottom edge sits one tile up, so the sign hangs over the street
 				spr.position = at + Vector2(-tw * 0.5, -th - IsoGrid.HH - lift)
+			"roof":
+				# rest on the roof plane, which is the block height above the cell
+				var block_h := 0.0
+				var def2: Dictionary = legend.get(_char_at(c), {})
+				block_h = float(def2.get("wall", 0.0)) * float(IsoGrid.TILE_H)
+				var face := _face_tile_for(float(def2.get("wall", 0.0)), "s")
+				if face != "":
+					block_h = float(_atlas[face][3]) - float(IsoGrid.TILE_H)
+				spr.position = at + Vector2(-tw * 0.5, -th + IsoGrid.HH - block_h)
 			_:
 				spr.position = at + Vector2(-tw * 0.5, -th + IsoGrid.HH)
 		prop_root.add_child(spr)
@@ -309,14 +353,13 @@ func sort_now() -> void:
 	_nodes.sort_custom(func(a, b): return float(a["key"]) < float(b["key"]))
 	# Painters order: assign drawn order through z_index on a single layer so
 	# the engine honours it inside each root.
-	# Godot's z_index range is +-4096, so map the sorted position into it.
-	# The relative order is what matters; the absolute value is arbitrary.
-	var n := _nodes.size()
-	var span := 4000.0
-	for i in n:
+	# Godot's z_index range is +-4096. Floors share a cell's depth key with the
+	# wall on it, so assign each sprite its rank directly: 2,000 sorted items map
+	# to 2,000 distinct z values, which is well inside the range.
+	for i in _nodes.size():
 		var node = _nodes[i].get("node")
 		if is_instance_valid(node):
-			node.z_index = int(-2000.0 + span * float(i) / maxf(1.0, float(n - 1)))
+			node.z_index = i - 2000
 
 
 func actor_count() -> int:

@@ -34,8 +34,9 @@ PALETTES = {
         "plaza":    ("#101724", "#19222f", "#27334a"),
         "marble":   ("#0d1320", "#19202e", "#2e3d55"),
         "concrete": ("#1a2231", "#25304a", "#36445f"),
-        "wall_lit": ("#25324a", "#33445f", "#465e80"),
-        "wall_drk": ("#0e1420", "#161f2e", "#1f2a3c"),
+        # roof (brightest) / south face (mid) / east face (darkest)
+        "wall_lit": ("#5a7699", "#7492b4", "#93b2d0"),
+        "wall_drk": ("#2e4160", "#3d5578", "#4e6a92"),
         "neon":     ("#2ab8e0", "#7ceaff", "#e8fdff"),
         "accent":   ("#ff2fb4", "#ff8ad8", "#ffd0f0"),
     },
@@ -44,8 +45,8 @@ PALETTES = {
         "plaza":    ("#171310", "#211b14", "#2c2418"),
         "marble":   ("#141009", "#1e1710", "#2b2318"),
         "concrete": ("#1c1812", "#29231a", "#372e21"),
-        "wall_lit": ("#3a2f20", "#4d3f2a", "#63523a"),
-        "wall_drk": ("#100c08", "#1a140e", "#241b12"),
+        "wall_lit": ("#8a7050", "#a98a62", "#c4a67c"),
+        "wall_drk": ("#4a3a26", "#5e4a30", "#755c3c"),
         "neon":     ("#c07a20", "#ffb648", "#fff0c0"),
         "accent":   ("#d8622a", "#ff8a44", "#ffc09a"),
     },
@@ -54,8 +55,8 @@ PALETTES = {
         "plaza":    ("#120c1a", "#1b1225", "#271832"),
         "marble":   ("#0e0816", "#181021", "#251630"),
         "concrete": ("#191022", "#251631", "#322040"),
-        "wall_lit": ("#3a2350", "#4d2f68", "#66417f"),
-        "wall_drk": ("#0b0710", "#150d1d", "#1f1429"),
+        "wall_lit": ("#7a5598", "#986db8", "#b58cd2"),
+        "wall_drk": ("#3a2450", "#4c3068", "#603f80"),
         "neon":     ("#e0189c", "#ff6ccc", "#ffe4f6"),
         "accent":   ("#2fb4c8", "#6ee0f0", "#c8faff"),
     },
@@ -213,27 +214,38 @@ def roof_tile(pal, rng, windows=False):
 def south_face(pal, rng, height=32, windows=True):
     """The face that hangs from the diamond's two lower edges (the near side)."""
     lit, drk = pal["wall_lit"], pal["wall_drk"]
-    body = rgb(drk[1])
-    body_l = rgb(drk[0])
+    # south face sits between the bright roof and the shadowed east face
+    body = rgb(mix(rgb(drk[2]), rgb(lit[0]), 0.55)) if False else rgb(drk[2])
+    body_l = rgb(drk[1])
     img = Image.new("RGBA", (W, H + height), (0, 0, 0, 0))
     px = img.load()
     # The face is bounded above by the diamond's lower half and below by the
     # same shape shifted down by `height`. Row y in [16, 16+height] spans the
     # full 64 px; the top 16 rows only fill the widening lower V of the diamond.
+    # Flat-topped facade: rows 0..H are the *lower* half of the diamond only,
+    # so the tile's own silhouette is a rectangle topped by a V. The roof tile
+    # supplies the upper half, and adjacent facades then meet in a straight line
+    # instead of a sawtooth.
     for y in range(H + height):
         if y < H:
             half = int(round(HW * (y / float(HH - 1))))
             x0, x1 = HW - half - 1, HW + half
+            if y < HH:
+                continue
         else:
             x0, x1 = 0, W - 1
-        k = min(1.0, max(0.0, (y - HH) / float(max(1, height)))) * 0.34
+        k = min(1.0, max(0.0, (y - HH) / float(max(1, height)))) * 0.18
         for x in range(max(0, x0), min(W, x1 + 1)):
             c = body_l if x < HW else body
             px[x, y] = (*shade(c, 1.0 - k), 255)
     if windows and height >= 20:
         win = rgb(pal["neon"][1])
         rngw = random.Random(rng.randint(0, 1 << 20))
-        for row_y in range(H - 6, H + height - 8, 10):
+        # floor pitch: fixed 16px storeys measured from the base, so every
+        # facade in the city shares a storey height
+        floors = max(1, (height - 4) // 16)
+        for f in range(floors):
+            row_y = H + height - 20 - f * 16
             for col in range(5):
                 if rngw.random() < 0.35:
                     continue
@@ -245,17 +257,24 @@ def south_face(pal, rng, height=32, windows=True):
                             px[xx, yy] = (*shade(win, 0.58 + 0.42 * (dy / 5.0)), 255)
         # a thin bloom line just below each window row
         bloom = rgb(pal["neon"][2])
-        for row_y in range(H - 6, H + height - 8, 10):
+        for f in range(floors):
+            row_y = H + height - 20 - f * 16
             for xx in range(3, W - 3):
                 yy = row_y + 5
                 if 0 <= yy < H + height and px[xx, yy][3]:
-                    px[xx, yy] = (*mix(px[xx, yy][:3], bloom, 0.45), 255)
+                    px[xx, yy] = (*mix(px[xx, yy][:3], bloom, 0.50), 255)
         # a lit shopfront band along the base
         band = rgb(pal["neon"][0])
         for x in range(2, W - 2):
             for yy in (H + height - 4, H + height - 3):
                 if px[x, yy][3]:
                     px[x, yy] = (*band, 255)
+    # base AO: buildings must meet the ground, not hover over it
+    for k2 in range(3):
+        yy = H + height - 1 - k2
+        for x in range(W):
+            if 0 <= yy < H + height and px[x, yy][3]:
+                px[x, yy] = (*shade(px[x, yy][:3], 0.55 - k2 * 0.12), 255)
     _outline_partial(px, W, H + height, drk[0], top_open=True)
     return img
 
@@ -273,7 +292,7 @@ def east_face(pal, rng, height=32, windows=True):
             x0, x1 = HW, HW + half
         else:
             x0, x1 = HW, W - 1
-        k = min(1.0, max(0.0, (y - HH) / float(max(1, height)))) * 0.30
+        k = min(1.0, max(0.0, (y - HH) / float(max(1, height)))) * 0.16
         for x in range(max(0, x0), min(W, x1 + 1)):
             px[x, y] = (*shade(body, 1.0 - k), 255)
     if windows and height >= 20:
@@ -369,11 +388,12 @@ def build(district, pal):
         tiles.append((f"floor_{key}", floor_diamond(pal[key], rng, "joints")))
     # building pieces, composed by the renderer from the map's neighbour test
     tiles.append(("roof", roof_tile(pal, rng)))
-    tiles.append(("face_s", south_face(pal, rng, 32, True)))
-    tiles.append(("face_e", east_face(pal, rng, 32, True)))
-    tiles.append(("face_s_low", south_face(pal, rng, 16, False)))
-    tiles.append(("face_e_low", east_face(pal, rng, 16, False)))
-    tiles.append(("face_s_tall", south_face(pal, rng, 48, True)))
+    tiles.append(("face_s", south_face(pal, rng, 96, True)))
+    tiles.append(("face_e", east_face(pal, rng, 96, True)))
+    tiles.append(("face_s_low", south_face(pal, rng, 48, False)))
+    tiles.append(("face_e_low", east_face(pal, rng, 48, False)))
+    tiles.append(("face_s_tall", south_face(pal, rng, 144, True)))
+    tiles.append(("face_e_tall", east_face(pal, rng, 144, True)))
 
     pad = 2
     cols = 6
