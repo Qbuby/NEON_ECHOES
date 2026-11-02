@@ -388,13 +388,18 @@ func sort_now() -> void:
 	_nodes.sort_custom(func(a, b): return float(a["key"]) < float(b["key"]))
 	# Painters order: assign drawn order through z_index on a single layer so
 	# the engine honours it inside each root.
-	# Godot's z_index range is +-4096. Floors share a cell's depth key with the
-	# wall on it, so assign each sprite its rank directly: 2,000 sorted items map
-	# to 2,000 distinct z values, which is well inside the range.
-	for i in _nodes.size():
-		var node = _nodes[i].get("node")
-		if is_instance_valid(node):
-			node.z_index = i - 2000
+	# Godot's z_index range is +-4096, but an 80x80 district holds ~21,000
+	# sprites. Rather than compress the ranking (which would create ties), keep
+	# every sprite at z_index 0 and let child order carry the painter's order:
+	# the nodes are already in sorted order, so re-appending them in that order
+	# makes the tree itself the draw list.
+	var ordered: Array = []
+	for entry in _nodes:
+		var n = entry.get("node")
+		if is_instance_valid(n) and n.get_parent() == self:
+			ordered.append(n)
+	for n in ordered:
+		move_child(n, -1)
 
 
 func actor_count() -> int:
