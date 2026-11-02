@@ -1,0 +1,9 @@
+{
+  "name": "gun_energy",
+  "preset": "powerUp",
+  "params": {
+    "sound_vol": 0.2,
+    "env_decay": 0.16,
+    "wave_type": 1
+  }
+}

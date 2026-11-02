@@ -1,0 +1,9 @@
+{
+  "name": "gun_sniper",
+  "preset": "explosion",
+  "params": {
+    "sound_vol": 0.3,
+    "env_decay": 0.28,
+    "p_base_freq": 0.22
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "skill_dash",
+  "preset": "blipSelect",
+  "params": {
+    "sound_vol": 0.18,
+    "env_decay": 0.2
+  }
+}

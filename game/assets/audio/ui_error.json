@@ -1,0 +1,8 @@
+{
+  "name": "ui_error",
+  "preset": "hitHurt",
+  "params": {
+    "p_base_freq": 0.72,
+    "sound_vol": 0.16
+  }
+}

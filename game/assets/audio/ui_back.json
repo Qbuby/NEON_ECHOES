@@ -1,0 +1,7 @@
+{
+  "name": "ui_back",
+  "preset": "click",
+  "params": {
+    "sound_vol": 0.16
+  }
+}

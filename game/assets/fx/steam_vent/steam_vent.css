@@ -1,0 +1,19 @@
+/* Pixelbolt: atlas coordinates are pixels at the exported scale. */
+.pf-steam_vent {
+  display: inline-block;
+  width: 24px; height: 32px;
+  background-image: url("steam_vent.png");
+  background-repeat: no-repeat; image-rendering: pixelated;
+}
+.pf-steam_vent-smoke { background-position: -1px -1px; animation: pf-steam_vent-smoke 300ms steps(1, end) infinite; }
+@keyframes pf-steam_vent-smoke {
+  0% { background-position: -1px -1px; }
+  20% { background-position: -27px -1px; }
+  40% { background-position: -53px -1px; }
+  60% { background-position: -79px -1px; }
+  80% { background-position: -105px -1px; }
+  100% { background-position: -1px -1px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pf-steam_vent-smoke { animation: none; }
+}

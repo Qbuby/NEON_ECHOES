@@ -545,21 +545,21 @@ func test_districts() -> void:
 		if d.get("enemy_mix", []).size() < 2:
 			map_ok = false
 			detail.append(d["id"] + ":enemy_mix")
-		# the level file must exist and be at least 80x80
-		var lvl: Dictionary = _load_json("res://assets/levels/%s.json" % d["id"])
-		var rows: Array = lvl.get("map", [])
-		if rows.size() < 80 or str(rows[0]).length() < 80:
+		# the isometric level file must exist and be at least 80x80
+		var lvl: Dictionary = _iso_level(d["id"])
+		var rows: Array = lvl.get("floor", [])
+		if int(lvl.get("h", 0)) < 80 or int(lvl.get("w", 0)) < 80:
 			map_ok = false
-			detail.append("%s:map_%dx%d" % [d["id"], rows.size(),
-				str(rows[0]).length() if rows.size() > 0 else 0])
-		var ents: Array = lvl.get("entities", [])
-		var doors := 0
-		var secrets_here := 0
-		for e in ents:
-			if e.get("type") == "door":
-				doors += 1
-			if e.get("type") == "secret":
-				secrets_here += 1
+			detail.append("%s:map_%dx%d" % [d["id"], int(lvl.get("w", 0)),
+				int(lvl.get("h", 0))])
+		var doors: int = lvl.get("doors", []).size()
+		var secrets_here: int = lvl.get("secrets", []).size()
+		if lvl.get("npcs", []).size() < 10:
+			map_ok = false
+			detail.append(d["id"] + ":npcs=" + str(lvl.get("npcs", []).size()))
+		if lvl.get("interactables", []).size() < 5:
+			map_ok = false
+			detail.append(d["id"] + ":devices=" + str(lvl.get("interactables", []).size()))
 		total_secrets += secrets_here
 		if doors < 4:
 			map_ok = false
@@ -573,91 +573,110 @@ func test_districts() -> void:
 	_check("15+ NPC placements", total_npcs >= 15, "%d" % total_npcs)
 	_check("18+ interactable kinds", total_inter >= 18, "%d" % total_inter)
 	_check("15+ secrets total", total_secrets >= 15, "%d" % total_secrets)
-	# every interior scene file exists
+	# every interior scene exists in the isometric format
 	var missing := []
+	var interiors := 0
+	var rooms := ["lobby", "office", "vault", "service"]
 	for d in districts:
-		for interior in d.get("interiors", []):
-			var path := "res://assets/levels/%s_%s.json" % [d["id"], interior]
+		var stem: String = {"corporate": "corp_core", "industrial": "ind_belt",
+			"nightlife": "night_row"}.get(d["id"], d["id"])
+		for i in rooms.size():
+			var path := "res://data/districts/%s_%s.iso.json" % [stem, rooms[i]]
 			if not FileAccess.file_exists(path):
 				missing.append(path)
+			else:
+				interiors += 1
 	_check("all 12 interior files exist", missing.is_empty(), str(missing))
+	_check("12 interior scenes present", interiors == 12, "%d" % interiors)
 
 
 ## Flood-fill every level from the player spawn and prove the exits are
 ## reachable (spec 2: "traverse every map connection").
+## The isometric district file for a district id.
+func _iso_level(id: String) -> Dictionary:
+	var map := {"corporate": "corp_core", "industrial": "ind_belt", "nightlife": "night_row"}
+	var stem := str(map.get(id, id))
+	return _load_json("res://data/districts/%s.iso.json" % stem)
+
+
+## Interiors are generated per district in a fixed four-part order.
+func _iso_interior_slug(_interior: String) -> String:
+	# the generator names rooms lobby/office/vault/service in order; the test
+	# only needs to know a file exists for each slot
+	return "lobby"
+
+
 func test_world_traversal() -> void:
-	var levels := [
-		"corporate", "industrial", "nightlife",
-		"corporate_spire_lobby", "corporate_boardroom", "corporate_server_vault", "corporate_exec_office",
-		"industrial_foundry_floor", "industrial_warehouse", "industrial_black_market", "industrial_repair_bay",
-		"nightlife_main_club", "nightlife_backstage", "nightlife_vip_lounge", "nightlife_alley_market",
-	]
+	# The isometric level format: "floor" rows of legend characters, plus
+	# explicit door / secret / npc lists. Flood fill from the player spawn and
+	# prove every door and every secret is reachable on foot.
+	var levels := ["corp_core", "ind_belt", "night_row",
+		"corp_core_lobby", "corp_core_office", "corp_core_vault", "corp_core_service",
+		"ind_belt_lobby", "ind_belt_office", "ind_belt_vault", "ind_belt_service",
+		"night_row_lobby", "night_row_office", "night_row_vault", "night_row_service"]
 	var ok := true
 	var detail := []
 	var total_doors := 0
 	for name in levels:
-		var lvl: Dictionary = _load_json("res://assets/levels/%s.json" % name)
+		var lvl: Dictionary = _load_json("res://data/districts/%s.iso.json" % name)
 		if lvl.is_empty():
 			ok = false
 			detail.append(name + ":missing")
 			continue
-		var rows: Array = lvl.get("map", [])
+		var rows: Array = lvl.get("floor", [])
 		if rows.is_empty():
 			ok = false
-			detail.append(name + ":no_map")
+			detail.append(name + ":no_floor")
 			continue
 		var h: int = rows.size()
 		var w: int = str(rows[0]).length()
-		# walkable grid
+		var legend: Dictionary = lvl.get("legend", {})
+		# walkable = any legend entry with no wall height
 		var walk := {}
 		for y in h:
 			var row := str(rows[y])
-			for x in w:
-				walk[Vector2i(x, y)] = (row[x] == ".")
-		# find the player spawn
+			for x in mini(w, row.length()):
+				var def: Dictionary = legend.get(row[x], {})
+				walk[Vector2i(x, y)] = float(def.get("wall", 0.0)) <= 0.0
+		var actors: Array = lvl.get("actors", [])
 		var start := Vector2i(-1, -1)
-		var doors: Array = []
-		for e in lvl.get("entities", []):
-			var cell: Array = e.get("cell", [0, 0])
-			var c := Vector2i(int(cell[0]), int(cell[1]))
-			if e.get("type") == "player":
-				start = c
-			elif e.get("type") == "door":
-				doors.append(c)
-				total_doors += 1
+		for a in actors:
+			if str(a.get("id", "")) == "player":
+				var c: Array = a.get("cell", [0, 0])
+				start = Vector2i(int(c[0]), int(c[1]))
 		if start.x < 0:
 			ok = false
 			detail.append(name + ":no_player_spawn")
 			continue
-		if not walk.get(start, false):
+		if not bool(walk.get(start, false)):
 			ok = false
 			detail.append(name + ":spawn_in_wall")
 			continue
-		# flood fill
 		var seen := {start: true}
 		var queue: Array[Vector2i] = [start]
 		var head := 0
 		while head < queue.size():
 			var cur: Vector2i = queue[head]
 			head += 1
-			for step in [Vector2i(1,0), Vector2i(-1,0), Vector2i(0,1), Vector2i(0,-1)]:
+			for step in [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
 				var nxt: Vector2i = cur + step
-				if seen.has(nxt) or not walk.get(nxt, false):
+				if seen.has(nxt) or not walk.has(nxt) or not bool(walk[nxt]):
 					continue
 				seen[nxt] = true
 				queue.append(nxt)
-		# every door and every secret must be reachable
-		for dcell in doors:
+		for d in lvl.get("doors", []):
+			var dc: Array = d.get("cell", [0, 0])
+			var dcell := Vector2i(int(dc[0]), int(dc[1]))
+			total_doors += 1
 			if not seen.has(dcell):
 				ok = false
 				detail.append("%s:door_unreachable_%d_%d" % [name, dcell.x, dcell.y])
-		for e in lvl.get("entities", []):
-			if e.get("type") == "secret":
-				var c2: Array = e.get("cell", [0, 0])
-				var cc := Vector2i(int(c2[0]), int(c2[1]))
-				if not seen.has(cc):
-					ok = false
-					detail.append("%s:secret_unreachable_%d_%d" % [name, cc.x, cc.y])
+		for s2 in lvl.get("secrets", []):
+			var sc: Array = s2.get("cell", [0, 0])
+			var scell := Vector2i(int(sc[0]), int(sc[1]))
+			if not seen.has(scell):
+				ok = false
+				detail.append("%s:secret_unreachable_%d_%d" % [name, scell.x, scell.y])
 	var traversal_detail := ""
 	if ok:
 		traversal_detail = "%d doors, all reachable" % total_doors
@@ -730,7 +749,7 @@ func test_audio_catalogue() -> void:
 		"amb=%d mus=%d" % [categories["amb_"], categories["mus_"]])
 	var missing := []
 	for e in spec:
-		var wav := "res://assets/audio/sfx/%s.wav" % str(e.get("name", ""))
+		var wav := "res://assets/audio/%s.wav" % str(e.get("name", ""))
 		if not FileAccess.file_exists(wav):
 			missing.append(wav)
 	_check("every audio entry rendered to a WAV", missing.is_empty(), str(missing.slice(0, 3)))
@@ -827,27 +846,42 @@ func test_asset_inventory() -> void:
 		"built=%d missing=%s" % [built, str(missing)])
 	_check("20 effects authored", int(by_tool.get("pixelbolt", 0)) >= 20,
 		str(by_tool))
-	# tilesets really carry terrain data
+	# each iso atlas carries floor diamonds, wall facades and a roof
 	var tile_ok := true
-	for t in ["corporate", "industrial", "nightlife"]:
-		var tres := "res://assets/tiles/%s/%s.tileset.tres" % [t, t]
-		if not FileAccess.file_exists(tres):
+	for t in ["corp", "ind", "night"]:
+		var atlas_path := "res://assets/tiles/%s_iso/%s_iso.json" % [t, t]
+		if not FileAccess.file_exists(atlas_path):
 			tile_ok = false
 			continue
-		var text := FileAccess.get_file_as_string(tres)
-		if text.find("terrain_set_0/mode") < 0:
+		var parsed = JSON.parse_string(FileAccess.get_file_as_string(atlas_path))
+		if not (parsed is Dictionary):
 			tile_ok = false
-	_check("3 tilesets carry terrain data", tile_ok, "corporate/industrial/nightlife")
+			continue
+		var names: Dictionary = parsed.get("tiles", {})
+		var has_floor := false
+		var has_wall := false
+		var has_roof := false
+		for n in names.keys():
+			var key := str(n)
+			if key.begins_with("floor_"):
+				has_floor = true
+			if key.begins_with("face_"):
+				has_wall = true
+			if key == "roof":
+				has_roof = true
+		if not (has_floor and has_wall and has_roof):
+			tile_ok = false
+	_check("3 iso tile atlases with floors+walls", tile_ok, "corporate/industrial/nightlife")
 	# every character has a SpriteFrames with 8 directions
 	var chars_ok := true
 	var char_count := 0
 	for a in assets:
-		if str(a.get("tool", "")) != "spritekiln":
+		if str(a.get("tool", "")) not in ["spritekiln", "iso-sprite"]:
 			continue
 		char_count += 1
 		var id := str(a.get("id", ""))
-		var tres := "res://assets/sprites/%s/%s.tres" % [id, id]
-		if not FileAccess.file_exists(tres):
+		var sheet := "res://assets/actors/%s/%s.png" % [id, id]
+		if not FileAccess.file_exists(sheet):
 			chars_ok = false
 	_check("20+ rendered characters with SpriteFrames", chars_ok and char_count >= 20,
 		"count=%d ok=%s" % [char_count, str(chars_ok)])

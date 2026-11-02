@@ -1,0 +1,8 @@
+{
+  "name": "ui_levelup",
+  "preset": "powerUp",
+  "params": {
+    "sound_vol": 0.26,
+    "env_decay": 0.42
+  }
+}

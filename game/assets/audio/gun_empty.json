@@ -1,0 +1,7 @@
+{
+  "name": "gun_empty",
+  "preset": "click",
+  "params": {
+    "sound_vol": 0.14
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "name": "ui_confirm",
+  "preset": "blipSelect",
+  "params": {
+    "sound_vol": 0.2
+  }
+}

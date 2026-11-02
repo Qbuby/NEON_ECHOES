@@ -1,0 +1,148 @@
+{
+  "version": 1,
+  "name": "impact_blood",
+  "width": 16,
+  "height": 16,
+  "palette": {
+    "k": "#08080f",
+    "r": "#b83a3a",
+    "R": "#e0685a",
+    "d": "#7d2233"
+  },
+  "frames": [
+    {
+      "name": "f0",
+      "duration": 60,
+      "ops": [
+        {
+          "op": "ellipse",
+          "x": 5,
+          "y": 5,
+          "w": 6,
+          "h": 6,
+          "color": "r"
+        },
+        {
+          "op": "ellipse",
+          "x": 8,
+          "y": 8,
+          "w": 2,
+          "h": 2,
+          "color": "R"
+        },
+        {
+          "op": "ellipse",
+          "x": 6,
+          "y": 6,
+          "w": 4,
+          "h": 4,
+          "color": "#ffffff"
+        }
+      ]
+    },
+    {
+      "name": "f1",
+      "duration": 60,
+      "ops": [
+        {
+          "op": "ellipse",
+          "x": 4,
+          "y": 4,
+          "w": 8,
+          "h": 8,
+          "color": "r"
+        },
+        {
+          "op": "ellipse",
+          "x": 7,
+          "y": 7,
+          "w": 2,
+          "h": 2,
+          "color": "R"
+        },
+        {
+          "op": "ellipse",
+          "x": 6,
+          "y": 6,
+          "w": 4,
+          "h": 4,
+          "color": "#ffffff"
+        }
+      ]
+    },
+    {
+      "name": "f2",
+      "duration": 60,
+      "ops": [
+        {
+          "op": "ellipse",
+          "x": 2,
+          "y": 2,
+          "w": 12,
+          "h": 12,
+          "color": "r"
+        },
+        {
+          "op": "ellipse",
+          "x": 5,
+          "y": 5,
+          "w": 6,
+          "h": 6,
+          "color": "R"
+        },
+        {
+          "op": "ellipse",
+          "x": 6,
+          "y": 6,
+          "w": 4,
+          "h": 4,
+          "color": "#ffffff"
+        }
+      ]
+    },
+    {
+      "name": "f3",
+      "duration": 60,
+      "ops": [
+        {
+          "op": "ellipse",
+          "x": 0,
+          "y": 0,
+          "w": 16,
+          "h": 16,
+          "color": "r"
+        },
+        {
+          "op": "ellipse",
+          "x": 3,
+          "y": 3,
+          "w": 10,
+          "h": 10,
+          "color": "R"
+        },
+        {
+          "op": "ellipse",
+          "x": 6,
+          "y": 6,
+          "w": 4,
+          "h": 4,
+          "color": "#ffffff"
+        }
+      ]
+    }
+  ],
+  "animations": {
+    "hit": {
+      "frames": [
+        "f0",
+        "f1",
+        "f2",
+        "f3"
+      ]
+    }
+  },
+  "sheet": {
+    "columns": 4,
+    "padding": 1
+  }
+}

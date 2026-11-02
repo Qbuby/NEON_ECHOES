@@ -1,0 +1,8 @@
+{
+  "name": "gun_shotgun",
+  "preset": "explosion",
+  "params": {
+    "sound_vol": 0.28,
+    "env_decay": 0.18
+  }
+}

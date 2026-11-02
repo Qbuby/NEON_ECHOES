@@ -1,0 +1,115 @@
+{
+ "version": 1,
+ "name": "hack_connect",
+ "width": 32,
+ "height": 32,
+ "palette": {
+  "k": "#08080f",
+  "c": "#38d8ff",
+  "C": "#a8f0ff"
+ },
+ "frames": [
+  {
+   "name": "f0",
+   "duration": 60,
+   "ops": [
+    {
+     "op": "line",
+     "x": 2,
+     "y": 16,
+     "x2": 29,
+     "y2": 16,
+     "color": "c"
+    },
+    {
+     "op": "rect",
+     "x": 2,
+     "y": 14,
+     "w": 4,
+     "h": 4,
+     "color": "C"
+    }
+   ]
+  },
+  {
+   "name": "f1",
+   "duration": 60,
+   "ops": [
+    {
+     "op": "line",
+     "x": 2,
+     "y": 16,
+     "x2": 29,
+     "y2": 16,
+     "color": "c"
+    },
+    {
+     "op": "rect",
+     "x": 10,
+     "y": 14,
+     "w": 4,
+     "h": 4,
+     "color": "C"
+    }
+   ]
+  },
+  {
+   "name": "f2",
+   "duration": 60,
+   "ops": [
+    {
+     "op": "line",
+     "x": 2,
+     "y": 16,
+     "x2": 29,
+     "y2": 16,
+     "color": "c"
+    },
+    {
+     "op": "rect",
+     "x": 19,
+     "y": 14,
+     "w": 4,
+     "h": 4,
+     "color": "C"
+    }
+   ]
+  },
+  {
+   "name": "f3",
+   "duration": 60,
+   "ops": [
+    {
+     "op": "line",
+     "x": 2,
+     "y": 16,
+     "x2": 29,
+     "y2": 16,
+     "color": "c"
+    },
+    {
+     "op": "rect",
+     "x": 28,
+     "y": 14,
+     "w": 4,
+     "h": 4,
+     "color": "C"
+    }
+   ]
+  }
+ ],
+ "animations": {
+  "link": {
+   "frames": [
+    "f0",
+    "f1",
+    "f2",
+    "f3"
+   ]
+  }
+ },
+ "sheet": {
+  "columns": 4,
+  "padding": 1
+ }
+}

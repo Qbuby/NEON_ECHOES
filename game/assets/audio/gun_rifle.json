@@ -1,0 +1,9 @@
+{
+  "name": "gun_rifle",
+  "preset": "laserShoot",
+  "params": {
+    "p_base_freq": 0.42,
+    "sound_vol": 0.18,
+    "env_decay": 0.09
+  }
+}

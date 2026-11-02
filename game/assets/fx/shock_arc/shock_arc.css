@@ -1,0 +1,18 @@
+/* Pixelbolt: atlas coordinates are pixels at the exported scale. */
+.pf-shock_arc {
+  display: inline-block;
+  width: 32px; height: 32px;
+  background-image: url("shock_arc.png");
+  background-repeat: no-repeat; image-rendering: pixelated;
+}
+.pf-shock_arc-arc { background-position: -1px -1px; animation: pf-shock_arc-arc 240ms steps(1, end) infinite; }
+@keyframes pf-shock_arc-arc {
+  0% { background-position: -1px -1px; }
+  25% { background-position: -35px -1px; }
+  50% { background-position: -69px -1px; }
+  75% { background-position: -103px -1px; }
+  100% { background-position: -1px -1px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pf-shock_arc-arc { animation: none; }
+}

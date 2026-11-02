@@ -1447,7 +1447,7 @@
   {
    "id": "night_row_cache_1",
    "cell": [
-    2,
+    8,
     74
    ],
    "item": "cred_medium"
@@ -1455,15 +1455,15 @@
   {
    "id": "night_row_cache_2",
    "cell": [
-    77,
-    10
+    74,
+    20
    ],
    "item": "cred_small"
   },
   {
    "id": "night_row_cache_3",
    "cell": [
-    2,
+    9,
     30
    ],
    "item": "cred_medium"
@@ -1471,7 +1471,7 @@
   {
    "id": "night_row_cache_4",
    "cell": [
-    72,
+    73,
     76
    ],
    "item": "cred_small"

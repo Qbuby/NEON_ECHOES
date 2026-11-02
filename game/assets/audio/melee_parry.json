@@ -1,0 +1,7 @@
+{
+  "name": "melee_parry",
+  "preset": "blipSelect",
+  "params": {
+    "sound_vol": 0.18
+  }
+}

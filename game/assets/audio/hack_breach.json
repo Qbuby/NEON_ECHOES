@@ -1,0 +1,8 @@
+{
+  "name": "hack_breach",
+  "preset": "powerUp",
+  "params": {
+    "sound_vol": 0.18,
+    "env_decay": 0.2
+  }
+}

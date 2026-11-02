@@ -1,0 +1,18 @@
+/* Pixelbolt: atlas coordinates are pixels at the exported scale. */
+.pf-shield_burst {
+  display: inline-block;
+  width: 40px; height: 40px;
+  background-image: url("shield_burst.png");
+  background-repeat: no-repeat; image-rendering: pixelated;
+}
+.pf-shield_burst-ring { background-position: -1px -1px; animation: pf-shield_burst-ring 240ms steps(1, end) infinite; }
+@keyframes pf-shield_burst-ring {
+  0% { background-position: -1px -1px; }
+  25% { background-position: -43px -1px; }
+  50% { background-position: -85px -1px; }
+  75% { background-position: -127px -1px; }
+  100% { background-position: -1px -1px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pf-shield_burst-ring { animation: none; }
+}

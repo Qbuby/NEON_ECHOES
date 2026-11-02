@@ -1,0 +1,8 @@
+{
+  "name": "int_locked",
+  "preset": "click",
+  "params": {
+    "sound_vol": 0.14,
+    "p_base_freq": 0.42000000000000004
+  }
+}

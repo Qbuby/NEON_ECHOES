@@ -1,0 +1,7 @@
+{
+  "name": "ui_equip",
+  "preset": "powerUp",
+  "params": {
+    "sound_vol": 0.2
+  }
+}

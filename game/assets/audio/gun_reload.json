@@ -1,0 +1,7 @@
+{
+  "name": "gun_reload",
+  "preset": "blipSelect",
+  "params": {
+    "sound_vol": 0.16
+  }
+}

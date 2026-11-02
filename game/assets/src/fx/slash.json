@@ -1,0 +1,137 @@
+{
+  "version": 1,
+  "name": "slash",
+  "width": 24,
+  "height": 24,
+  "palette": {
+    "ink": "#16121f",
+    "steel_d": "#4b5566",
+    "steel": "#7d8aa0",
+    "steel_l": "#b9c6d6",
+    "white": "#f6f3ea"
+  },
+  "frames": [
+    {
+      "name": "s0",
+      "duration": 50,
+      "ops": [
+        {
+          "op": "ellipse",
+          "x": 3,
+          "y": 5,
+          "w": 16,
+          "h": 16,
+          "color": "steel"
+        },
+        {
+          "op": "clear",
+          "x": 10,
+          "y": 7,
+          "w": 14,
+          "h": 14
+        },
+        {
+          "op": "outline",
+          "color": "ink"
+        }
+      ]
+    },
+    {
+      "name": "s1",
+      "duration": 50,
+      "ops": [
+        {
+          "op": "ellipse",
+          "x": 2,
+          "y": 4,
+          "w": 19,
+          "h": 18,
+          "color": "steel_l"
+        },
+        {
+          "op": "clear",
+          "x": 10,
+          "y": 7,
+          "w": 14,
+          "h": 14
+        },
+        {
+          "op": "line",
+          "x": 4,
+          "y": 6,
+          "x2": 4,
+          "y2": 18,
+          "color": "white"
+        },
+        {
+          "op": "outline",
+          "color": "ink"
+        }
+      ]
+    },
+    {
+      "name": "s2",
+      "duration": 50,
+      "ops": [
+        {
+          "op": "ellipse",
+          "x": 2,
+          "y": 3,
+          "w": 21,
+          "h": 20,
+          "color": "white"
+        },
+        {
+          "op": "clear",
+          "x": 11,
+          "y": 7,
+          "w": 15,
+          "h": 15
+        },
+        {
+          "op": "outline",
+          "color": "ink"
+        }
+      ]
+    },
+    {
+      "name": "s3",
+      "duration": 60,
+      "ops": [
+        {
+          "op": "ellipse",
+          "x": 3,
+          "y": 4,
+          "w": 20,
+          "h": 19,
+          "color": "steel"
+        },
+        {
+          "op": "clear",
+          "x": 11,
+          "y": 7,
+          "w": 15,
+          "h": 15
+        },
+        {
+          "op": "outline",
+          "color": "ink"
+        }
+      ]
+    }
+  ],
+  "animations": {
+    "slash": {
+      "frames": [
+        "s0",
+        "s1",
+        "s2",
+        "s3"
+      ]
+    }
+  },
+  "sheet": {
+    "columns": 4,
+    "padding": 1
+  }
+}

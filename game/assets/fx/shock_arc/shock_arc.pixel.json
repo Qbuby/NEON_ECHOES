@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "name": "shock_arc",
+  "width": 32,
+  "height": 32,
+  "palette": {
+    "k": "#08080f",
+    "c": "#38d8ff",
+    "C": "#a8f0ff",
+    "w": "#ffffff"
+  },
+  "frames": [
+    {
+      "name": "f0",
+      "duration": 60,
+      "ops": []
+    },
+    {
+      "name": "f1",
+      "duration": 60,
+      "ops": []
+    },
+    {
+      "name": "f2",
+      "duration": 60,
+      "ops": []
+    },
+    {
+      "name": "f3",
+      "duration": 60,
+      "ops": []
+    }
+  ],
+  "animations": {
+    "arc": {
+      "frames": [
+        "f0",
+        "f1",
+        "f2",
+        "f3"
+      ]
+    }
+  },
+  "sheet": {
+    "columns": 4,
+    "padding": 1
+  }
+}

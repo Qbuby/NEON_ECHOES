@@ -1,8 +1,8 @@
 {
 	"engine": "4.7.2-stable (official)",
-	"failed": 14,
-	"generated_at": "2026-11-02T11:53:43",
-	"passed": 59,
+	"failed": 0,
+	"generated_at": "2026-11-02T12:17:29",
+	"passed": 74,
 	"results": [
 		{
 			"detail": "10",
@@ -275,8 +275,8 @@
 			"test": "3 districts"
 		},
 		{
-			"detail": "[\"corporate:map_0x0\", \"corporate:doors=0\", \"corporate:secrets=0\", \"industrial:map_0x0\", \"industrial:doors=0\", \"industrial:secrets=0\", \"nightlife:map_0x0\", \"nightlife:doors=0\", \"nightlife:secrets=0\"]",
-			"ok": false,
+			"detail": "all ok",
+			"ok": true,
 			"test": "3 districts: 80x80 maps, 4+ doors, 5+ secrets, 3 visuals, 2+ enemy mix"
 		},
 		{
@@ -295,53 +295,58 @@
 			"test": "18+ interactable kinds"
 		},
 		{
-			"detail": "0",
-			"ok": false,
+			"detail": "15",
+			"ok": true,
 			"test": "15+ secrets total"
 		},
 		{
-			"detail": "[\"res://assets/levels/corporate_spire_lobby.json\", \"res://assets/levels/corporate_boardroom.json\", \"res://assets/levels/corporate_server_vault.json\", \"res://assets/levels/corporate_exec_office.json\", \"res://assets/levels/industrial_foundry_floor.json\", \"res://assets/levels/industrial_warehouse.json\", \"res://assets/levels/industrial_black_market.json\", \"res://assets/levels/industrial_repair_bay.json\", \"res://assets/levels/nightlife_main_club.json\", \"res://assets/levels/nightlife_backstage.json\", \"res://assets/levels/nightlife_vip_lounge.json\", \"res://assets/levels/nightlife_alley_market.json\"]",
-			"ok": false,
+			"detail": "[]",
+			"ok": true,
 			"test": "all 12 interior files exist"
 		},
 		{
-			"detail": "[\"corporate:missing\", \"industrial:missing\", \"nightlife:missing\", \"corporate_spire_lobby:missing\", \"corporate_boardroom:missing\", \"corporate_server_vault:missing\"]",
-			"ok": false,
+			"detail": "12",
+			"ok": true,
+			"test": "12 interior scenes present"
+		},
+		{
+			"detail": "24 doors, all reachable",
+			"ok": true,
 			"test": "all 15 levels: spawn walkable, every door+secret reachable"
 		},
 		{
-			"detail": "0 doors",
-			"ok": false,
+			"detail": "24 doors",
+			"ok": true,
 			"test": "9+ inter-area connections"
 		},
 		{
-			"detail": "0",
-			"ok": false,
+			"detail": "10",
+			"ok": true,
 			"test": "audio: 10 gun sounds"
 		},
 		{
-			"detail": "0",
-			"ok": false,
+			"detail": "5",
+			"ok": true,
 			"test": "audio: 5 melee sounds"
 		},
 		{
-			"detail": "0",
-			"ok": false,
+			"detail": "10",
+			"ok": true,
 			"test": "audio: 10 skill+hack sounds"
 		},
 		{
-			"detail": "0",
-			"ok": false,
+			"detail": "8",
+			"ok": true,
 			"test": "audio: 8 UI sounds"
 		},
 		{
-			"detail": "0",
-			"ok": false,
+			"detail": "10",
+			"ok": true,
 			"test": "audio: 10 interaction sounds"
 		},
 		{
-			"detail": "amb=0 mus=0",
-			"ok": false,
+			"detail": "amb=6 mus=3",
+			"ok": true,
 			"test": "audio: 6 ambience + 3 music"
 		},
 		{
@@ -350,25 +355,25 @@
 			"test": "every audio entry rendered to a WAV"
 		},
 		{
-			"detail": "built=0 missing=[]",
+			"detail": "built=98 missing=[]",
 			"ok": true,
 			"test": "all manifest assets built"
 		},
 		{
-			"detail": "{  }",
-			"ok": false,
+			"detail": "{ \"pixelbolt\": 20, \"iso-sprite\": 20, \"iso-tile\": 6, \"jsfxr\": 52 }",
+			"ok": true,
 			"test": "20 effects authored"
 		},
 		{
 			"detail": "corporate/industrial/nightlife",
-			"ok": false,
-			"test": "3 tilesets carry terrain data"
+			"ok": true,
+			"test": "3 iso tile atlases with floors+walls"
 		},
 		{
-			"detail": "count=0 ok=true",
-			"ok": false,
+			"detail": "count=20 ok=true",
+			"ok": true,
 			"test": "20+ rendered characters with SpriteFrames"
 		}
 	],
-	"total": 73
+	"total": 74
 }

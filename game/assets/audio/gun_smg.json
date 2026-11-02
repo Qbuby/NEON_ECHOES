@@ -1,0 +1,9 @@
+{
+  "name": "gun_smg",
+  "preset": "laserShoot",
+  "params": {
+    "p_base_freq": 0.55,
+    "sound_vol": 0.14,
+    "env_decay": 0.06
+  }
+}

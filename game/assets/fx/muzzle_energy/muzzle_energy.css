@@ -1,0 +1,18 @@
+/* Pixelbolt: atlas coordinates are pixels at the exported scale. */
+.pf-muzzle_energy {
+  display: inline-block;
+  width: 24px; height: 24px;
+  background-image: url("muzzle_energy.png");
+  background-repeat: no-repeat; image-rendering: pixelated;
+}
+.pf-muzzle_energy-burst { background-position: -1px -1px; animation: pf-muzzle_energy-burst 240ms steps(1, end) infinite; }
+@keyframes pf-muzzle_energy-burst {
+  0% { background-position: -1px -1px; }
+  25% { background-position: -27px -1px; }
+  50% { background-position: -53px -1px; }
+  75% { background-position: -79px -1px; }
+  100% { background-position: -1px -1px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pf-muzzle_energy-burst { animation: none; }
+}

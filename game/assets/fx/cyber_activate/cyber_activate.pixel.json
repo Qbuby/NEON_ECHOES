@@ -1,0 +1,111 @@
+{
+  "version": 1,
+  "name": "cyber_activate",
+  "width": 32,
+  "height": 32,
+  "palette": {
+    "k": "#08080f",
+    "c": "#38d8ff",
+    "w": "#ffffff"
+  },
+  "frames": [
+    {
+      "name": "f0",
+      "duration": 60,
+      "ops": [
+        {
+          "op": "ellipse",
+          "x": 12,
+          "y": 12,
+          "w": 8,
+          "h": 8,
+          "color": "c"
+        },
+        {
+          "op": "clear",
+          "x": 15,
+          "y": 15,
+          "w": 2,
+          "h": 2
+        }
+      ]
+    },
+    {
+      "name": "f1",
+      "duration": 60,
+      "ops": [
+        {
+          "op": "ellipse",
+          "x": 8,
+          "y": 8,
+          "w": 16,
+          "h": 16,
+          "color": "c"
+        },
+        {
+          "op": "clear",
+          "x": 11,
+          "y": 11,
+          "w": 10,
+          "h": 10
+        }
+      ]
+    },
+    {
+      "name": "f2",
+      "duration": 60,
+      "ops": [
+        {
+          "op": "ellipse",
+          "x": 4,
+          "y": 4,
+          "w": 24,
+          "h": 24,
+          "color": "c"
+        },
+        {
+          "op": "clear",
+          "x": 7,
+          "y": 7,
+          "w": 18,
+          "h": 18
+        }
+      ]
+    },
+    {
+      "name": "f3",
+      "duration": 60,
+      "ops": [
+        {
+          "op": "ellipse",
+          "x": 0,
+          "y": 0,
+          "w": 32,
+          "h": 32,
+          "color": "c"
+        },
+        {
+          "op": "clear",
+          "x": 3,
+          "y": 3,
+          "w": 26,
+          "h": 26
+        }
+      ]
+    }
+  ],
+  "animations": {
+    "ring": {
+      "frames": [
+        "f0",
+        "f1",
+        "f2",
+        "f3"
+      ]
+    }
+  },
+  "sheet": {
+    "columns": 4,
+    "padding": 1
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "amb_club",
+  "preset": "tone",
+  "params": {
+    "sound_vol": 0.1,
+    "p_base_freq": 0.24,
+    "env_decay": 2,
+    "env_attack": 0.5
+  }
+}

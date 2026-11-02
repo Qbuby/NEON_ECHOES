@@ -1,0 +1,138 @@
+{
+ "version": 1,
+ "name": "smoke_puff",
+ "width": 32,
+ "height": 32,
+ "palette": {
+  "k": "#08080f",
+  "s": "#5a5a68",
+  "S": "#8a8a98"
+ },
+ "frames": [
+  {
+   "name": "f0",
+   "duration": 60,
+   "ops": [
+    {
+     "op": "ellipse",
+     "x": 12,
+     "y": 12,
+     "w": 8,
+     "h": 8,
+     "color": "s"
+    },
+    {
+     "op": "ellipse",
+     "x": 14,
+     "y": 14,
+     "w": 4,
+     "h": 4,
+     "color": "S"
+    }
+   ]
+  },
+  {
+   "name": "f1",
+   "duration": 60,
+   "ops": [
+    {
+     "op": "ellipse",
+     "x": 9,
+     "y": 8,
+     "w": 14,
+     "h": 14,
+     "color": "s"
+    },
+    {
+     "op": "ellipse",
+     "x": 13,
+     "y": 11,
+     "w": 7,
+     "h": 7,
+     "color": "S"
+    }
+   ]
+  },
+  {
+   "name": "f2",
+   "duration": 60,
+   "ops": [
+    {
+     "op": "ellipse",
+     "x": 6,
+     "y": 3,
+     "w": 20,
+     "h": 20,
+     "color": "s"
+    },
+    {
+     "op": "ellipse",
+     "x": 11,
+     "y": 6,
+     "w": 10,
+     "h": 10,
+     "color": "S"
+    }
+   ]
+  },
+  {
+   "name": "f3",
+   "duration": 60,
+   "ops": [
+    {
+     "op": "ellipse",
+     "x": 3,
+     "y": -1,
+     "w": 26,
+     "h": 26,
+     "color": "s"
+    },
+    {
+     "op": "ellipse",
+     "x": 10,
+     "y": 3,
+     "w": 13,
+     "h": 13,
+     "color": "S"
+    }
+   ]
+  },
+  {
+   "name": "f4",
+   "duration": 60,
+   "ops": [
+    {
+     "op": "ellipse",
+     "x": 0,
+     "y": -6,
+     "w": 32,
+     "h": 32,
+     "color": "s"
+    },
+    {
+     "op": "ellipse",
+     "x": 8,
+     "y": -2,
+     "w": 16,
+     "h": 16,
+     "color": "S"
+    }
+   ]
+  }
+ ],
+ "animations": {
+  "smoke": {
+   "frames": [
+    "f0",
+    "f1",
+    "f2",
+    "f3",
+    "f4"
+   ]
+  }
+ },
+ "sheet": {
+  "columns": 5,
+  "padding": 1
+ }
+}

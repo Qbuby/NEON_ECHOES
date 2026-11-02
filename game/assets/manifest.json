@@ -1,0 +1,699 @@
+{
+ "style": {
+  "grid": "2:1 isometric",
+  "tile": [
+   64,
+   32
+  ],
+  "renderer": "gl_compatibility",
+  "scale": "integer 2x"
+ },
+ "assets": [
+  {
+   "id": "bullet_trail",
+   "tool": "pixelbolt",
+   "type": "effect",
+   "source": "assets/src/fx/bullet_trail.json",
+   "out": "assets/fx/bullet_trail"
+  },
+  {
+   "id": "crit_burst",
+   "tool": "pixelbolt",
+   "type": "effect",
+   "source": "assets/src/fx/crit_burst.json",
+   "out": "assets/fx/crit_burst"
+  },
+  {
+   "id": "cyber_activate",
+   "tool": "pixelbolt",
+   "type": "effect",
+   "source": "assets/src/fx/cyber_activate.json",
+   "out": "assets/fx/cyber_activate"
+  },
+  {
+   "id": "debris_burst",
+   "tool": "pixelbolt",
+   "type": "effect",
+   "source": "assets/src/fx/debris_burst.json",
+   "out": "assets/fx/debris_burst"
+  },
+  {
+   "id": "explosion",
+   "tool": "pixelbolt",
+   "type": "effect",
+   "source": "assets/src/fx/explosion.json",
+   "out": "assets/fx/explosion"
+  },
+  {
+   "id": "fire_patch",
+   "tool": "pixelbolt",
+   "type": "effect",
+   "source": "assets/src/fx/fire_patch.json",
+   "out": "assets/fx/fire_patch"
+  },
+  {
+   "id": "glitch_field",
+   "tool": "pixelbolt",
+   "type": "effect",
+   "source": "assets/src/fx/glitch_field.json",
+   "out": "assets/fx/glitch_field"
+  },
+  {
+   "id": "hack_connect",
+   "tool": "pixelbolt",
+   "type": "effect",
+   "source": "assets/src/fx/hack_connect.json",
+   "out": "assets/fx/hack_connect"
+  },
+  {
+   "id": "impact_blood",
+   "tool": "pixelbolt",
+   "type": "effect",
+   "source": "assets/src/fx/impact_blood.json",
+   "out": "assets/fx/impact_blood"
+  },
+  {
+   "id": "impact_spark",
+   "tool": "pixelbolt",
+   "type": "effect",
+   "source": "assets/src/fx/impact_spark.json",
+   "out": "assets/fx/impact_spark"
+  },
+  {
+   "id": "muzzle_energy",
+   "tool": "pixelbolt",
+   "type": "effect",
+   "source": "assets/src/fx/muzzle_energy.json",
+   "out": "assets/fx/muzzle_energy"
+  },
+  {
+   "id": "muzzle_large",
+   "tool": "pixelbolt",
+   "type": "effect",
+   "source": "assets/src/fx/muzzle_large.json",
+   "out": "assets/fx/muzzle_large"
+  },
+  {
+   "id": "muzzle_medium",
+   "tool": "pixelbolt",
+   "type": "effect",
+   "source": "assets/src/fx/muzzle_medium.json",
+   "out": "assets/fx/muzzle_medium"
+  },
+  {
+   "id": "muzzle_small",
+   "tool": "pixelbolt",
+   "type": "effect",
+   "source": "assets/src/fx/muzzle_small.json",
+   "out": "assets/fx/muzzle_small"
+  },
+  {
+   "id": "shield_burst",
+   "tool": "pixelbolt",
+   "type": "effect",
+   "source": "assets/src/fx/shield_burst.json",
+   "out": "assets/fx/shield_burst"
+  },
+  {
+   "id": "shock_arc",
+   "tool": "pixelbolt",
+   "type": "effect",
+   "source": "assets/src/fx/shock_arc.json",
+   "out": "assets/fx/shock_arc"
+  },
+  {
+   "id": "slash_heavy",
+   "tool": "pixelbolt",
+   "type": "effect",
+   "source": "assets/src/fx/slash_heavy.json",
+   "out": "assets/fx/slash_heavy"
+  },
+  {
+   "id": "slash_small",
+   "tool": "pixelbolt",
+   "type": "effect",
+   "source": "assets/src/fx/slash_small.json",
+   "out": "assets/fx/slash_small"
+  },
+  {
+   "id": "smoke_puff",
+   "tool": "pixelbolt",
+   "type": "effect",
+   "source": "assets/src/fx/smoke_puff.json",
+   "out": "assets/fx/smoke_puff"
+  },
+  {
+   "id": "steam_vent",
+   "tool": "pixelbolt",
+   "type": "effect",
+   "source": "assets/src/fx/steam_vent.json",
+   "out": "assets/fx/steam_vent"
+  },
+  {
+   "id": "boss_curator",
+   "tool": "iso-sprite",
+   "type": "character",
+   "source": "assets/actors/boss_curator/boss_curator.png",
+   "out": "assets/actors/boss_curator"
+  },
+  {
+   "id": "boss_matriarch",
+   "tool": "iso-sprite",
+   "type": "character",
+   "source": "assets/actors/boss_matriarch/boss_matriarch.png",
+   "out": "assets/actors/boss_matriarch"
+  },
+  {
+   "id": "boss_warden",
+   "tool": "iso-sprite",
+   "type": "character",
+   "source": "assets/actors/boss_warden/boss_warden.png",
+   "out": "assets/actors/boss_warden"
+  },
+  {
+   "id": "enemy_drone",
+   "tool": "iso-sprite",
+   "type": "character",
+   "source": "assets/actors/enemy_drone/enemy_drone.png",
+   "out": "assets/actors/enemy_drone"
+  },
+  {
+   "id": "enemy_gunner",
+   "tool": "iso-sprite",
+   "type": "character",
+   "source": "assets/actors/enemy_gunner/enemy_gunner.png",
+   "out": "assets/actors/enemy_gunner"
+  },
+  {
+   "id": "enemy_heavy",
+   "tool": "iso-sprite",
+   "type": "character",
+   "source": "assets/actors/enemy_heavy/enemy_heavy.png",
+   "out": "assets/actors/enemy_heavy"
+  },
+  {
+   "id": "enemy_netrunner",
+   "tool": "iso-sprite",
+   "type": "character",
+   "source": "assets/actors/enemy_netrunner/enemy_netrunner.png",
+   "out": "assets/actors/enemy_netrunner"
+  },
+  {
+   "id": "enemy_rusher",
+   "tool": "iso-sprite",
+   "type": "character",
+   "source": "assets/actors/enemy_rusher/enemy_rusher.png",
+   "out": "assets/actors/enemy_rusher"
+  },
+  {
+   "id": "enemy_sniper",
+   "tool": "iso-sprite",
+   "type": "character",
+   "source": "assets/actors/enemy_sniper/enemy_sniper.png",
+   "out": "assets/actors/enemy_sniper"
+  },
+  {
+   "id": "npc_bartender",
+   "tool": "iso-sprite",
+   "type": "character",
+   "source": "assets/actors/npc_bartender/npc_bartender.png",
+   "out": "assets/actors/npc_bartender"
+  },
+  {
+   "id": "npc_curator",
+   "tool": "iso-sprite",
+   "type": "character",
+   "source": "assets/actors/npc_curator/npc_curator.png",
+   "out": "assets/actors/npc_curator"
+  },
+  {
+   "id": "npc_dealer",
+   "tool": "iso-sprite",
+   "type": "character",
+   "source": "assets/actors/npc_dealer/npc_dealer.png",
+   "out": "assets/actors/npc_dealer"
+  },
+  {
+   "id": "npc_fixer",
+   "tool": "iso-sprite",
+   "type": "character",
+   "source": "assets/actors/npc_fixer/npc_fixer.png",
+   "out": "assets/actors/npc_fixer"
+  },
+  {
+   "id": "npc_guard",
+   "tool": "iso-sprite",
+   "type": "character",
+   "source": "assets/actors/npc_guard/npc_guard.png",
+   "out": "assets/actors/npc_guard"
+  },
+  {
+   "id": "npc_journalist",
+   "tool": "iso-sprite",
+   "type": "character",
+   "source": "assets/actors/npc_journalist/npc_journalist.png",
+   "out": "assets/actors/npc_journalist"
+  },
+  {
+   "id": "npc_landlord",
+   "tool": "iso-sprite",
+   "type": "character",
+   "source": "assets/actors/npc_landlord/npc_landlord.png",
+   "out": "assets/actors/npc_landlord"
+  },
+  {
+   "id": "npc_medic",
+   "tool": "iso-sprite",
+   "type": "character",
+   "source": "assets/actors/npc_medic/npc_medic.png",
+   "out": "assets/actors/npc_medic"
+  },
+  {
+   "id": "npc_netrunner",
+   "tool": "iso-sprite",
+   "type": "character",
+   "source": "assets/actors/npc_netrunner/npc_netrunner.png",
+   "out": "assets/actors/npc_netrunner"
+  },
+  {
+   "id": "npc_techie",
+   "tool": "iso-sprite",
+   "type": "character",
+   "source": "assets/actors/npc_techie/npc_techie.png",
+   "out": "assets/actors/npc_techie"
+  },
+  {
+   "id": "rin",
+   "tool": "iso-sprite",
+   "type": "character",
+   "source": "assets/actors/rin/rin.png",
+   "out": "assets/actors/rin"
+  },
+  {
+   "id": "corp_iso",
+   "tool": "iso-tile",
+   "type": "tileset",
+   "source": "assets/tiles/corp_iso/corp_iso.png",
+   "out": "assets/tiles/corp_iso"
+  },
+  {
+   "id": "corp_props",
+   "tool": "iso-tile",
+   "type": "tileset",
+   "source": "assets/tiles/corp_props/corp_props.png",
+   "out": "assets/tiles/corp_props"
+  },
+  {
+   "id": "ind_iso",
+   "tool": "iso-tile",
+   "type": "tileset",
+   "source": "assets/tiles/ind_iso/ind_iso.png",
+   "out": "assets/tiles/ind_iso"
+  },
+  {
+   "id": "ind_props",
+   "tool": "iso-tile",
+   "type": "tileset",
+   "source": "assets/tiles/ind_props/ind_props.png",
+   "out": "assets/tiles/ind_props"
+  },
+  {
+   "id": "night_iso",
+   "tool": "iso-tile",
+   "type": "tileset",
+   "source": "assets/tiles/night_iso/night_iso.png",
+   "out": "assets/tiles/night_iso"
+  },
+  {
+   "id": "night_props",
+   "tool": "iso-tile",
+   "type": "tileset",
+   "source": "assets/tiles/night_props/night_props.png",
+   "out": "assets/tiles/night_props"
+  },
+  {
+   "id": "amb_club",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "amb_corp",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "amb_crowd",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "amb_factory",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "amb_rain",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "amb_wind",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "cyber_activate",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "cyber_damage",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "gun_dmr",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "gun_empty",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "gun_energy",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "gun_heavy_pistol",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "gun_pistol",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "gun_reload",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "gun_rifle",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "gun_shotgun",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "gun_smg",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "gun_sniper",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "hack_breach",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "hack_connect",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "hack_fail",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "hack_success",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "hack_upload",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "int_alarm",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "int_ambient_burst",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "int_camera",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "int_door",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "int_locked",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "int_pickup",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "int_secret",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "int_terminal",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "int_turret",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "int_vending",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "melee_heavy",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "melee_hit",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "melee_parry",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "melee_slash",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "melee_takedown",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "mus_calm",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "mus_combat",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "mus_menu",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "skill_dash",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "skill_overload",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "skill_shield",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "ui_back",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "ui_confirm",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "ui_equip",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "ui_error",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "ui_hover",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "ui_levelup",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "ui_open",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  },
+  {
+   "id": "ui_quest",
+   "tool": "jsfxr",
+   "type": "audio",
+   "source": "assets/src/audio/sfx.json",
+   "out": "assets/audio"
+  }
+ ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "amb_corp",
+  "preset": "tone",
+  "params": {
+    "sound_vol": 0.1,
+    "p_base_freq": 0.18,
+    "env_decay": 2,
+    "env_attack": 0.5
+  }
+}

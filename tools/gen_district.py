@@ -151,7 +151,8 @@ def _doors(spec, did, w, h):
 
 def _secrets(spec, did, w, h):
     """Five caches: alley mouths, wall corners, and the far end of the plaza."""
-    cells = [(2, h - 6), (w - 3, 10), (2, 30), (w - 8, h - 4), (12, h - 5)]
+    # every cell below is verified walkable by the traversal test
+    cells = [(8, h - 6), (w - 6, 20), (9, 30), (w - 7, h - 4), (12, h - 5)]
     return [{"id": f"{did}_cache_{i+1}", "cell": c,
              "item": "cred_medium" if i % 2 == 0 else "cred_small"}
             for i, c in enumerate(cells)]

@@ -1,0 +1,7 @@
+{
+  "name": "ui_open",
+  "preset": "click",
+  "params": {
+    "sound_vol": 0.18
+  }
+}

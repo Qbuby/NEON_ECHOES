@@ -1,0 +1,8 @@
+{
+  "name": "int_turret",
+  "preset": "blipSelect",
+  "params": {
+    "sound_vol": 0.14,
+    "p_base_freq": 0.48000000000000004
+  }
+}

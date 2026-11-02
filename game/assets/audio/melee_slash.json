@@ -1,0 +1,10 @@
+{
+  "name": "melee_slash",
+  "preset": "hitHurt",
+  "params": {
+    "p_base_freq": 0.6,
+    "sound_vol": 0.16,
+    "env_decay": 0.08,
+    "wave_type": 2
+  }
+}

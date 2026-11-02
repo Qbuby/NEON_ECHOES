@@ -1,0 +1,442 @@
+[
+  {
+    "name": "gun_pistol",
+    "preset": "hitHurt",
+    "params": {
+      "p_base_freq": 0.42,
+      "sound_vol": 0.2,
+      "env_decay": 0.09,
+      "wave_type": 2
+    }
+  },
+  {
+    "name": "gun_heavy_pistol",
+    "preset": "hitHurt",
+    "params": {
+      "p_base_freq": 0.3,
+      "sound_vol": 0.26,
+      "env_decay": 0.14,
+      "wave_type": 2
+    }
+  },
+  {
+    "name": "gun_smg",
+    "preset": "laserShoot",
+    "params": {
+      "p_base_freq": 0.55,
+      "sound_vol": 0.14,
+      "env_decay": 0.06
+    }
+  },
+  {
+    "name": "gun_rifle",
+    "preset": "laserShoot",
+    "params": {
+      "p_base_freq": 0.42,
+      "sound_vol": 0.18,
+      "env_decay": 0.09
+    }
+  },
+  {
+    "name": "gun_dmr",
+    "preset": "hitHurt",
+    "params": {
+      "p_base_freq": 0.36,
+      "sound_vol": 0.24,
+      "env_decay": 0.16,
+      "wave_type": 3
+    }
+  },
+  {
+    "name": "gun_sniper",
+    "preset": "explosion",
+    "params": {
+      "sound_vol": 0.3,
+      "env_decay": 0.28,
+      "p_base_freq": 0.22
+    }
+  },
+  {
+    "name": "gun_shotgun",
+    "preset": "explosion",
+    "params": {
+      "sound_vol": 0.28,
+      "env_decay": 0.18
+    }
+  },
+  {
+    "name": "gun_energy",
+    "preset": "powerUp",
+    "params": {
+      "sound_vol": 0.2,
+      "env_decay": 0.16,
+      "wave_type": 1
+    }
+  },
+  {
+    "name": "gun_empty",
+    "preset": "click",
+    "params": {
+      "sound_vol": 0.14
+    }
+  },
+  {
+    "name": "gun_reload",
+    "preset": "blipSelect",
+    "params": {
+      "sound_vol": 0.16
+    }
+  },
+  {
+    "name": "melee_slash",
+    "preset": "hitHurt",
+    "params": {
+      "p_base_freq": 0.6,
+      "sound_vol": 0.16,
+      "env_decay": 0.08,
+      "wave_type": 2
+    }
+  },
+  {
+    "name": "melee_heavy",
+    "preset": "hitHurt",
+    "params": {
+      "p_base_freq": 0.28,
+      "sound_vol": 0.24,
+      "env_decay": 0.2,
+      "wave_type": 3
+    }
+  },
+  {
+    "name": "melee_hit",
+    "preset": "hitHurt",
+    "params": {
+      "p_base_freq": 0.34,
+      "sound_vol": 0.22,
+      "env_decay": 0.12
+    }
+  },
+  {
+    "name": "melee_parry",
+    "preset": "blipSelect",
+    "params": {
+      "sound_vol": 0.18
+    }
+  },
+  {
+    "name": "melee_takedown",
+    "preset": "powerUp",
+    "params": {
+      "sound_vol": 0.18,
+      "env_decay": 0.22
+    }
+  },
+  {
+    "name": "hack_connect",
+    "preset": "powerUp",
+    "params": {
+      "sound_vol": 0.18,
+      "env_decay": 0.2
+    }
+  },
+  {
+    "name": "hack_success",
+    "preset": "blipSelect",
+    "params": {
+      "sound_vol": 0.18,
+      "env_decay": 0.2
+    }
+  },
+  {
+    "name": "hack_fail",
+    "preset": "powerUp",
+    "params": {
+      "sound_vol": 0.18,
+      "env_decay": 0.2
+    }
+  },
+  {
+    "name": "hack_upload",
+    "preset": "blipSelect",
+    "params": {
+      "sound_vol": 0.18,
+      "env_decay": 0.2
+    }
+  },
+  {
+    "name": "hack_breach",
+    "preset": "powerUp",
+    "params": {
+      "sound_vol": 0.18,
+      "env_decay": 0.2
+    }
+  },
+  {
+    "name": "skill_dash",
+    "preset": "blipSelect",
+    "params": {
+      "sound_vol": 0.18,
+      "env_decay": 0.2
+    }
+  },
+  {
+    "name": "skill_shield",
+    "preset": "powerUp",
+    "params": {
+      "sound_vol": 0.18,
+      "env_decay": 0.2
+    }
+  },
+  {
+    "name": "skill_overload",
+    "preset": "blipSelect",
+    "params": {
+      "sound_vol": 0.18,
+      "env_decay": 0.2
+    }
+  },
+  {
+    "name": "cyber_activate",
+    "preset": "powerUp",
+    "params": {
+      "sound_vol": 0.18,
+      "env_decay": 0.2
+    }
+  },
+  {
+    "name": "cyber_damage",
+    "preset": "blipSelect",
+    "params": {
+      "sound_vol": 0.18,
+      "env_decay": 0.2
+    }
+  },
+  {
+    "name": "ui_confirm",
+    "preset": "blipSelect",
+    "params": {
+      "sound_vol": 0.2
+    }
+  },
+  {
+    "name": "ui_back",
+    "preset": "click",
+    "params": {
+      "sound_vol": 0.16
+    }
+  },
+  {
+    "name": "ui_open",
+    "preset": "click",
+    "params": {
+      "sound_vol": 0.18
+    }
+  },
+  {
+    "name": "ui_error",
+    "preset": "hitHurt",
+    "params": {
+      "p_base_freq": 0.72,
+      "sound_vol": 0.16
+    }
+  },
+  {
+    "name": "ui_hover",
+    "preset": "click",
+    "params": {
+      "sound_vol": 0.1
+    }
+  },
+  {
+    "name": "ui_equip",
+    "preset": "powerUp",
+    "params": {
+      "sound_vol": 0.2
+    }
+  },
+  {
+    "name": "ui_levelup",
+    "preset": "powerUp",
+    "params": {
+      "sound_vol": 0.26,
+      "env_decay": 0.42
+    }
+  },
+  {
+    "name": "ui_quest",
+    "preset": "blipSelect",
+    "params": {
+      "sound_vol": 0.2
+    }
+  },
+  {
+    "name": "int_door",
+    "preset": "tone",
+    "params": {
+      "sound_vol": 0.14,
+      "p_base_freq": 0.4
+    }
+  },
+  {
+    "name": "int_locked",
+    "preset": "click",
+    "params": {
+      "sound_vol": 0.14,
+      "p_base_freq": 0.42000000000000004
+    }
+  },
+  {
+    "name": "int_terminal",
+    "preset": "blipSelect",
+    "params": {
+      "sound_vol": 0.14,
+      "p_base_freq": 0.44
+    }
+  },
+  {
+    "name": "int_vending",
+    "preset": "tone",
+    "params": {
+      "sound_vol": 0.14,
+      "p_base_freq": 0.46
+    }
+  },
+  {
+    "name": "int_turret",
+    "preset": "blipSelect",
+    "params": {
+      "sound_vol": 0.14,
+      "p_base_freq": 0.48000000000000004
+    }
+  },
+  {
+    "name": "int_camera",
+    "preset": "click",
+    "params": {
+      "sound_vol": 0.14,
+      "p_base_freq": 0.5
+    }
+  },
+  {
+    "name": "int_alarm",
+    "preset": "tone",
+    "params": {
+      "sound_vol": 0.14,
+      "p_base_freq": 0.52
+    }
+  },
+  {
+    "name": "int_pickup",
+    "preset": "click",
+    "params": {
+      "sound_vol": 0.14,
+      "p_base_freq": 0.54
+    }
+  },
+  {
+    "name": "int_secret",
+    "preset": "blipSelect",
+    "params": {
+      "sound_vol": 0.14,
+      "p_base_freq": 0.56
+    }
+  },
+  {
+    "name": "int_ambient_burst",
+    "preset": "tone",
+    "params": {
+      "sound_vol": 0.14,
+      "p_base_freq": 0.5800000000000001
+    }
+  },
+  {
+    "name": "amb_corp",
+    "preset": "tone",
+    "params": {
+      "sound_vol": 0.1,
+      "p_base_freq": 0.18,
+      "env_decay": 2.0,
+      "env_attack": 0.5
+    }
+  },
+  {
+    "name": "amb_factory",
+    "preset": "tone",
+    "params": {
+      "sound_vol": 0.1,
+      "p_base_freq": 0.21,
+      "env_decay": 2.0,
+      "env_attack": 0.5
+    }
+  },
+  {
+    "name": "amb_club",
+    "preset": "tone",
+    "params": {
+      "sound_vol": 0.1,
+      "p_base_freq": 0.24,
+      "env_decay": 2.0,
+      "env_attack": 0.5
+    }
+  },
+  {
+    "name": "amb_rain",
+    "preset": "tone",
+    "params": {
+      "sound_vol": 0.1,
+      "p_base_freq": 0.27,
+      "env_decay": 2.0,
+      "env_attack": 0.5
+    }
+  },
+  {
+    "name": "amb_crowd",
+    "preset": "tone",
+    "params": {
+      "sound_vol": 0.1,
+      "p_base_freq": 0.3,
+      "env_decay": 2.0,
+      "env_attack": 0.5
+    }
+  },
+  {
+    "name": "amb_wind",
+    "preset": "tone",
+    "params": {
+      "sound_vol": 0.1,
+      "p_base_freq": 0.32999999999999996,
+      "env_decay": 2.0,
+      "env_attack": 0.5
+    }
+  },
+  {
+    "name": "mus_menu",
+    "preset": "tone",
+    "params": {
+      "sound_vol": 0.12,
+      "p_base_freq": 0.22,
+      "env_decay": 3.0,
+      "env_attack": 0.6
+    }
+  },
+  {
+    "name": "mus_combat",
+    "preset": "synth",
+    "params": {
+      "sound_vol": 0.12,
+      "p_base_freq": 0.22,
+      "env_decay": 3.0,
+      "env_attack": 0.6
+    }
+  },
+  {
+    "name": "mus_calm",
+    "preset": "tone",
+    "params": {
+      "sound_vol": 0.12,
+      "p_base_freq": 0.22,
+      "env_decay": 3.0,
+      "env_attack": 0.6
+    }
+  }
+]

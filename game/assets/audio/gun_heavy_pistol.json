@@ -1,0 +1,10 @@
+{
+  "name": "gun_heavy_pistol",
+  "preset": "hitHurt",
+  "params": {
+    "p_base_freq": 0.3,
+    "sound_vol": 0.26,
+    "env_decay": 0.14,
+    "wave_type": 2
+  }
+}

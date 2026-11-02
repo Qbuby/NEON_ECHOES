@@ -1,0 +1,7 @@
+{
+  "name": "ui_hover",
+  "preset": "click",
+  "params": {
+    "sound_vol": 0.1
+  }
+}

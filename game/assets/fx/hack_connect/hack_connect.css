@@ -1,0 +1,18 @@
+/* Pixelbolt: atlas coordinates are pixels at the exported scale. */
+.pf-hack_connect {
+  display: inline-block;
+  width: 32px; height: 32px;
+  background-image: url("hack_connect.png");
+  background-repeat: no-repeat; image-rendering: pixelated;
+}
+.pf-hack_connect-link { background-position: -1px -1px; animation: pf-hack_connect-link 240ms steps(1, end) infinite; }
+@keyframes pf-hack_connect-link {
+  0% { background-position: -1px -1px; }
+  25% { background-position: -35px -1px; }
+  50% { background-position: -69px -1px; }
+  75% { background-position: -103px -1px; }
+  100% { background-position: -1px -1px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pf-hack_connect-link { animation: none; }
+}

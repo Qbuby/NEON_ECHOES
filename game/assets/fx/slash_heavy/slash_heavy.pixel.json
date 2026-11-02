@@ -1,0 +1,174 @@
+{
+  "version": 1,
+  "name": "slash_heavy",
+  "width": 48,
+  "height": 48,
+  "palette": {
+    "k": "#08080f",
+    "r": "#ff6b3d",
+    "y": "#ffe066",
+    "w": "#ffffff"
+  },
+  "frames": [
+    {
+      "name": "f0",
+      "duration": 60,
+      "ops": [
+        {
+          "op": "ellipse",
+          "x": 8,
+          "y": 8,
+          "w": 32,
+          "h": 32,
+          "color": "r"
+        },
+        {
+          "op": "clear",
+          "x": 16,
+          "y": 16,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "op": "line",
+          "x": 3,
+          "y": 24,
+          "x2": 44,
+          "y2": 24,
+          "color": "w"
+        }
+      ]
+    },
+    {
+      "name": "f1",
+      "duration": 60,
+      "ops": [
+        {
+          "op": "ellipse",
+          "x": 5,
+          "y": 5,
+          "w": 38,
+          "h": 38,
+          "color": "r"
+        },
+        {
+          "op": "clear",
+          "x": 15,
+          "y": 15,
+          "w": 19,
+          "h": 19
+        },
+        {
+          "op": "line",
+          "x": 3,
+          "y": 24,
+          "x2": 44,
+          "y2": 24,
+          "color": "w"
+        }
+      ]
+    },
+    {
+      "name": "f2",
+      "duration": 60,
+      "ops": [
+        {
+          "op": "ellipse",
+          "x": 2,
+          "y": 2,
+          "w": 44,
+          "h": 44,
+          "color": "r"
+        },
+        {
+          "op": "clear",
+          "x": 13,
+          "y": 13,
+          "w": 22,
+          "h": 22
+        },
+        {
+          "op": "line",
+          "x": 3,
+          "y": 24,
+          "x2": 44,
+          "y2": 24,
+          "color": "w"
+        }
+      ]
+    },
+    {
+      "name": "f3",
+      "duration": 60,
+      "ops": [
+        {
+          "op": "ellipse",
+          "x": -1,
+          "y": -1,
+          "w": 50,
+          "h": 50,
+          "color": "r"
+        },
+        {
+          "op": "clear",
+          "x": 12,
+          "y": 12,
+          "w": 25,
+          "h": 25
+        },
+        {
+          "op": "line",
+          "x": 3,
+          "y": 24,
+          "x2": 44,
+          "y2": 24,
+          "color": "w"
+        }
+      ]
+    },
+    {
+      "name": "f4",
+      "duration": 60,
+      "ops": [
+        {
+          "op": "ellipse",
+          "x": -4,
+          "y": -4,
+          "w": 56,
+          "h": 56,
+          "color": "r"
+        },
+        {
+          "op": "clear",
+          "x": 10,
+          "y": 10,
+          "w": 28,
+          "h": 28
+        },
+        {
+          "op": "line",
+          "x": 3,
+          "y": 24,
+          "x2": 44,
+          "y2": 24,
+          "color": "w"
+        }
+      ]
+    }
+  ],
+  "animations": {
+    "slash": {
+      "frames": [
+        "f0",
+        "f1",
+        "f2",
+        "f3",
+        "f4"
+      ]
+    }
+  },
+  "sheet": {
+    "columns": 5,
+    "padding": 1
+  }
+}

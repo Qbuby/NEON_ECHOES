@@ -1,0 +1,18 @@
+/* Pixelbolt: atlas coordinates are pixels at the exported scale. */
+.pf-impact_blood {
+  display: inline-block;
+  width: 16px; height: 16px;
+  background-image: url("impact_blood.png");
+  background-repeat: no-repeat; image-rendering: pixelated;
+}
+.pf-impact_blood-hit { background-position: -1px -1px; animation: pf-impact_blood-hit 240ms steps(1, end) infinite; }
+@keyframes pf-impact_blood-hit {
+  0% { background-position: -1px -1px; }
+  25% { background-position: -19px -1px; }
+  50% { background-position: -37px -1px; }
+  75% { background-position: -55px -1px; }
+  100% { background-position: -1px -1px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pf-impact_blood-hit { animation: none; }
+}
