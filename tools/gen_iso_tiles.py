@@ -30,34 +30,34 @@ OUT = pathlib.Path(__file__).resolve().parent.parent / "game" / "assets" / "tile
 # Per-district palettes, taken from the concept images.
 PALETTES = {
     "corp": {
-        "asphalt":  ("#151c29", "#1e2738", "#2a3549"),
-        "plaza":    ("#101724", "#19222f", "#27334a"),
-        "marble":   ("#0d1320", "#19202e", "#2e3d55"),
-        "concrete": ("#1a2231", "#25304a", "#36445f"),
+        "asphalt":  ("#080b12", "#111722", "#1d2736"),
+        "plaza":    ("#060910", "#0e1420", "#1a2432"),
+        "marble":   ("#070a12", "#101724", "#1f2a3c"),
+        "concrete": ("#0b1018", "#161f2c", "#26334a"),
         # roof (brightest) / south face (mid) / east face (darkest)
         "wall_lit": ("#5a7699", "#7492b4", "#93b2d0"),
         "wall_drk": ("#2e4160", "#3d5578", "#4e6a92"),
-        "neon":     ("#2ab8e0", "#7ceaff", "#e8fdff"),
+        "neon":     ("#3ad0f0", "#a8f4ff", "#ffffff"),
         "accent":   ("#ff2fb4", "#ff8ad8", "#ffd0f0"),
     },
     "ind": {
-        "asphalt":  ("#1a1611", "#241d16", "#302619"),
-        "plaza":    ("#171310", "#211b14", "#2c2418"),
-        "marble":   ("#141009", "#1e1710", "#2b2318"),
-        "concrete": ("#1c1812", "#29231a", "#372e21"),
+        "asphalt":  ("#0a0806", "#14100b", "#211a12"),
+        "plaza":    ("#080605", "#110e0a", "#1d1710"),
+        "marble":   ("#080605", "#120e09", "#1e1811"),
+        "concrete": ("#0d0a07", "#18130d", "#281f15"),
         "wall_lit": ("#8a7050", "#a98a62", "#c4a67c"),
         "wall_drk": ("#4a3a26", "#5e4a30", "#755c3c"),
-        "neon":     ("#c07a20", "#ffb648", "#fff0c0"),
+        "neon":     ("#e09028", "#ffd070", "#fffdf0"),
         "accent":   ("#d8622a", "#ff8a44", "#ffc09a"),
     },
     "night": {
-        "asphalt":  ("#150e1e", "#1f1529", "#2a1b38"),
-        "plaza":    ("#120c1a", "#1b1225", "#271832"),
-        "marble":   ("#0e0816", "#181021", "#251630"),
-        "concrete": ("#191022", "#251631", "#322040"),
+        "asphalt":  ("#08050c", "#110a18", "#1c1226"),
+        "plaza":    ("#060409", "#0d0813", "#181022"),
+        "marble":   ("#060409", "#0e0915", "#1a1124"),
+        "concrete": ("#0a0610", "#140d1c", "#22172e"),
         "wall_lit": ("#7a5598", "#986db8", "#b58cd2"),
         "wall_drk": ("#3a2450", "#4c3068", "#603f80"),
-        "neon":     ("#e0189c", "#ff6ccc", "#ffe4f6"),
+        "neon":     ("#ff2ab0", "#ff9ad8", "#ffffff"),
         "accent":   ("#2fb4c8", "#6ee0f0", "#c8faff"),
     },
 }
@@ -247,11 +247,11 @@ def south_face(pal, rng, height=32, windows=True):
         for f in range(floors):
             row_y = H + height - 20 - f * 16
             for col in range(5):
-                if rngw.random() < 0.35:
+                if rngw.random() < 0.22:
                     continue
-                x0 = 4 + col * 12
-                for dy in range(5):
-                    for dx in range(7):
+                x0 = 3 + col * 12
+                for dy in range(7):
+                    for dx in range(9):
                         xx, yy = x0 + dx, row_y + dy
                         if 0 <= xx < W and 0 <= yy < H + height and px[xx, yy][3]:
                             px[xx, yy] = (*shade(win, 0.58 + 0.42 * (dy / 5.0)), 255)
@@ -264,9 +264,9 @@ def south_face(pal, rng, height=32, windows=True):
                 if 0 <= yy < H + height and px[xx, yy][3]:
                     px[xx, yy] = (*mix(px[xx, yy][:3], bloom, 0.50), 255)
         # a lit shopfront band along the base
-        band = rgb(pal["neon"][0])
+        band = rgb(pal["neon"][1])
         for x in range(2, W - 2):
-            for yy in (H + height - 4, H + height - 3):
+            for yy in (H + height - 6, H + height - 5, H + height - 4, H + height - 3):
                 if px[x, yy][3]:
                     px[x, yy] = (*band, 255)
     # base AO: buildings must meet the ground, not hover over it
