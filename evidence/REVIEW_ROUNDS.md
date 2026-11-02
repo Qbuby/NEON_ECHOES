@@ -22,9 +22,16 @@ Two hypotheses were tested and eliminated: CJK filenames (ASCII copies failed
 identically) and file size (downscaling to 480px and 270px still failed). Text
 scoring without an image also succeeded.
 
-**Conclusion:** the gateway rejects requests that attach an image *and* ask the
-model to quantify it. Workaround that works: dispatch on the **Explore** route,
-which carries its own tool loop, and give it exactly one image.
+**Conclusion, refined after four successful rounds:** the trigger is the
+subagent *route*, not the prompt. `general-purpose` + image + quantitative
+scoring is rejected by the gateway every time. The **`Explore`** route with the
+same prompt and the same image returns a verdict reliably — it was used for
+rounds 1–4 below, and succeeded every time.
+
+One further failure mode: giving `Explore` an open-ended *measurement* task
+("inspect the lattice and report the ratio") made it run 24 tool calls over 17
+minutes and return nothing. It answers a scoring question well; it does not
+survive an open-ended investigation prompt.
 
 ## Round 1 — after the isometric rebuild
 
@@ -110,11 +117,26 @@ unflattering verdicts.
 
 Visual acceptance is **not passed**. No reviewer has scored the frame at 4/5.
 
+## Round 5 — projection check, native detail
+
+Dispatched on `Explore` with a 2x nearest-neighbour crop of the frame centre and
+a single yes/no-plus-ratio question. The agent ran 24 tool calls for 17 minutes
+and returned **no output**. Recorded as a failed dispatch, not a verdict.
+
+The projection claim from round 4 was nevertheless settled directly, without a
+reviewer: a 2D autocorrelation of a floor-only patch gives a lattice period of
+`dx = 54, dy = 27`, ratio **2.00**. That is the 2:1 isometric lattice; a square
+grid would give 1.00. The renderer is correct and the round-4 finding was an
+artefact of reviewing a Lanczos-downscaled thumbnail.
+
 ## What the next round must do
 
 1 Hand the reviewer the **native 960×540** frame, not a downscale — the grid
   and sprite detail do not survive Lanczos reduction.
 2 Ask about one dimension per dispatch; multi-dimension scoring prompts are the
   ones the gateway rejects.
-3 Keep the reviewer's tool access (Explore route), which is the only route that
-  has returned a verdict at all.
+3 Use the **Explore** route. It is the only route that has ever returned an
+   image verdict; `general-purpose` is rejected by the gateway for exactly this
+   kind of request.
+4 Ask one question per dispatch and keep it a judgement, not an investigation —
+   an open-ended measurement prompt made the agent hang and return nothing.
