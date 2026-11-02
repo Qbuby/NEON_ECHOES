@@ -22,16 +22,23 @@ func _initialize() -> void:
 	_check(int(st["devices"]) >= 5, "devices placed (%d)" % int(st["devices"]))
 	_check(int(st["doors"]) >= 4, "doors placed (%d)" % int(st["doors"]))
 
-	# movement: walk one cell east if it is walkable
+	# movement: find a walkable, device-free neighbour and walk into it
 	var before: Array = st["player"]["cell"]
-	node.player_cell = Vector2i(int(before[0]), int(before[1]))
-	var east := Vector2i(int(before[0]) + 1, int(before[1]))
-	if bool(node.walkable.get(east, false)):
-		node.move_target = east
+	var start := Vector2i(int(before[0]), int(before[1]))
+	var step := Vector2i.ZERO
+	for cand in [Vector2i(1, 0), Vector2i(0, 1), Vector2i(-1, 0), Vector2i(0, -1)]:
+		var c: Vector2i = start + cand
+		if bool(node.walkable.get(c, false)) and not node.blocks.has(c):
+			step = c
+			break
+	if step != Vector2i.ZERO:
+		node.player_cell = start
+		node.move_target = step
 		for i in 40:
 			await physics_frame
 		var after: Array = node.get_state()["player"]["cell"]
-		_check(int(after[0]) == east.x, "player walks one cell east")
+		_check(Vector2i(int(after[0]), int(after[1])) == step,
+			"player walks into an adjacent free cell")
 
 	# a wall must refuse movement
 	var blocked := Vector2i(1, 1)

@@ -20,6 +20,7 @@ OUT = ROOT / "game" / "data" / "districts"
 DISTRICTS = {
     "corp_core": {
         "name": "企业核心区",
+        "stem": "corp_core",
         "tiles": "corp",
         "w": 80, "h": 80,
         "street": "vertical",       # a north-south street through the middle
@@ -27,6 +28,7 @@ DISTRICTS = {
     },
     "ind_belt": {
         "name": "工业贫民区",
+        "stem": "ind_belt",
         "tiles": "ind",
         "w": 80, "h": 80,
         "street": "vertical",
@@ -34,6 +36,7 @@ DISTRICTS = {
     },
     "night_row": {
         "name": "娱乐地下区",
+        "stem": "night_row",
         "tiles": "night",
         "w": 80, "h": 80,
         "street": "vertical",
@@ -142,7 +145,7 @@ def _doors(spec, did, w, h):
         out.append({
             "id": f"{did}_{kind}",
             "cell": [7, 12 + i * 15],
-            "target": f"{did}_{kind}",
+            "target": f"{spec['stem']}_{kind}",
             "spawn": "entry",
             "prompt": kind.upper(),
         })

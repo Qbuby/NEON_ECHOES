@@ -17,6 +17,7 @@ const IsoGridScript := preload("res://src/world/iso_grid.gd")
 const IsoWorldScript := preload("res://src/world/iso_world.gd")
 const IsoLightingScript := preload("res://src/world/iso_lighting.gd")
 const IsoHudScript := preload("res://src/ui/iso_hud.gd")
+const ScreensScript := preload("res://src/ui/screens.gd")
 
 const MOVE_SPEED := 190.0
 const TILE := Vector2i(64, 32)
@@ -46,6 +47,11 @@ var kills := 0
 
 var _fire_cd := 0.0
 var _has_target := false
+var screens: Node
+var secrets_taken: Array = []
+var quests: Array = []
+var _weapon_index := 0
+var weapons: Array = []
 
 
 func _ready() -> void:
@@ -53,6 +59,11 @@ func _ready() -> void:
 
 
 func setup(id: String) -> bool:
+	if world != null:
+		# already built (either by _ready or an earlier call); switching district
+		# needs an explicit reload, not a silent rebuild on top of the old one
+		if id == district_id:
+			return true
 	district_id = id
 	var path := "res://data/districts/%s.iso.json" % id
 	if not FileAccess.file_exists(path):
@@ -66,6 +77,8 @@ func setup(id: String) -> bool:
 	_build_world()
 	_spawn_actors()
 	_make_hud()
+	_make_screens()
+	_load_content()
 	_log("iso.ready", {"district": id, "enemies": enemies.size(),
 		"walkable": walkable.size()})
 	return true
@@ -227,12 +240,87 @@ func _make_hud() -> void:
 	})
 
 
+## The 16 screens share one instance; open() rebuilds the shell for each.
+func _make_screens() -> void:
+	screens = ScreensScript.new()
+	screens.name = "Screens"
+	add_child(screens)
+
+
+func _load_content() -> void:
+	var w = JSON.parse_string(FileAccess.get_file_as_string("res://data/weapons.json"))
+	weapons = w.get("weapons", []) if w is Dictionary else []
+	var q = JSON.parse_string(FileAccess.get_file_as_string("res://data/quests.json"))
+	if q is Dictionary:
+		for quest in q.get("main", []) + q.get("side", []):
+			quest["status"] = "active" if quests.size() < 3 else "inactive"
+			quests.append(quest)
+
+
+## Everything the screens read. Built from live state each time a screen opens,
+## so a screen never shows a stale number.
+func screen_data() -> Dictionary:
+	var items: Array = []
+	for i in weapons.size():
+		var w: Dictionary = weapons[i]
+		items.append({"id": w.get("id", ""), "name": w.get("name", ""),
+			"count": 1, "kind": "weapon"})
+	for k in secrets_taken.size():
+		items.append({"id": "secret_%d" % k, "name": "Data Cache", "count": 1,
+			"kind": "quest"})
+	return {
+		"hp": int(hp), "hp_max": int(hp_max), "cred": cred, "level": 12,
+		"ram": ram, "ram_max": ram_max, "has_save": true,
+		"area": str(level.get("name", district_id)), "doors": level.get("doors", []).size(),
+		"secrets": secrets_taken.size(), "weapons": weapons, "items": items,
+		"quests": quests,
+		"districts": [
+			{"id": "corp_core", "name": "企业核心区  VANTAGE", "status": "unlocked"},
+			{"id": "ind_belt", "name": "工业贫民区  KILNS", "status": "unlocked"},
+			{"id": "night_row", "name": "娱乐地下区  NEON ROW", "status": "unlocked"},
+		],
+		"cyberware": [
+			{"id": "optic_zoom", "name": "Optic Zoom", "slot": "eyes", "active": true},
+			{"id": "subdermal", "name": "Subdermal Weave", "slot": "skin", "active": false},
+			{"id": "leg_servo", "name": "Leg Servos", "slot": "legs", "active": true},
+		],
+		"combat": 4, "stealth": 2, "net": 3, "skill_points": 5,
+		"stock": [
+			{"id": "stim", "name": "Stim Pack", "value": 40},
+			{"id": "ammo", "name": "Ammo Box", "value": 120},
+			{"id": "deck", "name": "Cyberdeck Mk2", "value": 4000},
+		],
+		"sellable": [{"id": "scrap", "name": "Scrap Coil", "value": 30}],
+		"dialogue": {"speaker": "CURATOR VOSS",
+			"text": "You came for the ledger. Everyone does. Nobody leaves with it.",
+			"choices": [
+				{"id": "a", "text": "I am not here for the ledger."},
+				{"id": "b", "text": "Then I will take it from you."},
+				{"id": "c", "text": "[NETRUN] Your vault already opened."},
+			]},
+		"ops": [
+			{"id": "camera_slice", "name": "Camera Slice", "ram": 2, "cooldown_left": 0.0},
+			{"id": "device_toggle", "name": "Device Toggle", "ram": 1, "cooldown_left": 0.0},
+			{"id": "optics_glitch", "name": "Optics Glitch", "ram": 3, "cooldown_left": 0.0},
+		],
+		"master": 0.8, "sfx": 0.9, "music": 0.6, "muted": false,
+		"slot_1": "LV 12 · %s" % str(level.get("name", "")), "slot_2": "empty",
+		"slot_3": "empty",
+	}
+
+
+func set_paused(paused: bool) -> void:
+	# pausing the world while a screen is up keeps enemies from acting behind it
+	set_process(not paused)
+
+
 # ---- input and movement ----------------------------------------------------------
 
 func _process(delta: float) -> void:
 	_fire_cd = maxf(0.0, _fire_cd - delta)
 	_handle_input()
 	_move_player(delta)
+	_check_secrets()
 	_tick_enemies(delta)
 	_tick_bullets(delta)
 
@@ -255,6 +343,23 @@ func _handle_input() -> void:
 		_try_interact()
 	if Input.is_action_pressed("attack"):
 		_try_attack()
+	if Input.is_action_just_pressed("pause"):
+		_toggle_screen("pause")
+	if Input.is_action_just_pressed("inventory"):
+		_toggle_screen("inventory")
+	if Input.is_action_just_pressed("map"):
+		_toggle_screen("map")
+
+
+func _toggle_screen(id: String) -> void:
+	if screens == null:
+		return
+	if screens.current != "":
+		screens.close()
+		set_paused(false)
+	else:
+		screens.open(id, screen_data())
+		set_paused(true)
 
 
 func _move_player(delta: float) -> void:
@@ -296,10 +401,50 @@ func _try_interact() -> void:
 		var dc: Array = d.get("cell", [0, 0])
 		var c := Vector2i(int(dc[0]), int(dc[1]))
 		if absi(c.x - player_cell.x) + absi(c.y - player_cell.y) <= 2:
-			door_used.emit(str(d.get("target", "")))
+			var target := str(d.get("target", ""))
+			door_used.emit(target)
 			hud.show_toast("ENTERING " + str(d.get("prompt", "")).to_upper())
+			_enter(target)
 			return
 	hud.show_toast("NOTHING WITHIN REACH")
+
+
+## Walk through a door: tear down the current world and build the target area.
+func _enter(target: String) -> void:
+	if target == "" or target == district_id:
+		return
+	if not FileAccess.file_exists("res://data/districts/%s.iso.json" % target):
+		hud.show_toast("DOOR SEALED")
+		return
+	# clear the built scene
+	if world != null and is_instance_valid(world):
+		world.queue_free()
+		world = null
+	enemies.clear()
+	bullets.clear()
+	walkable.clear()
+	blocks.clear()
+	secrets_taken.clear()
+	if screens != null and screens.current != "":
+		screens.close()
+		set_paused(false)
+	if setup(target):
+		area_changed.emit(target)
+
+
+## Secrets are collected by walking onto their cell.
+func _check_secrets() -> void:
+	for s2 in level.get("secrets", []):
+		var sc: Array = s2.get("cell", [0, 0])
+		var cell := Vector2i(int(sc[0]), int(sc[1]))
+		var sid := str(s2.get("id", ""))
+		if cell == player_cell and not secrets_taken.has(sid):
+			secrets_taken.append(sid)
+			cred += 150
+			hud.show_toast("DATA CACHE  +150 c")
+			hud.set_values({"hp": hp, "hp_max": hp_max, "ram": ram,
+				"ram_max": ram_max, "cred": cred, "name": "RIN", "status": 3,
+				"objective": str(level.get("name", district_id)).to_upper()})
 
 
 func _try_attack() -> void:
@@ -385,7 +530,8 @@ func get_state() -> Dictionary:
 		"player": {"cell": [player_cell.x, player_cell.y], "facing": facing,
 			"hp": hp, "hp_max": hp_max},
 		"enemies": {"alive": alive, "list": list, "kills": kills},
-		"secrets": level.get("secrets", []).size(),
+		"secrets": level.get("secrets", []).size() - secrets_taken.size(),
+		"secrets_found": secrets_taken.duplicate(),
 		"doors": level.get("doors", []).size(),
 		"devices": blocks.size(),
 		"cred": cred, "ram": ram,
