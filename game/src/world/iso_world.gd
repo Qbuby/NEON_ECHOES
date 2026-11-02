@@ -339,6 +339,16 @@ func spawn_actor(actor_id: String, cell: Vector2i, opts: Dictionary = {}) -> Nod
 	return node
 
 
+var _shadow_colour := Color(0.03, 0.05, 0.09, 0.46)
+
+func set_shadow_tint(c: Color) -> void:
+	_shadow_colour = c
+
+
+func _shadow_tint() -> Color:
+	return _shadow_colour
+
+
 func _add_shadow(node: Node2D) -> void:
 	var img := Image.create(28, 10, false, Image.FORMAT_RGBA8)
 	img.fill(Color(0, 0, 0, 0))
@@ -347,7 +357,9 @@ func _add_shadow(node: Node2D) -> void:
 			var dx := (x - 13.5) / 14.0
 			var dy := (y - 4.5) / 5.0
 			if dx * dx + dy * dy <= 1.0:
-				img.set_pixel(x, y, Color(0, 0, 0, 0.40))
+				# a neutral black shadow flattens the palette; the concept's
+				# shadows carry the district's colour
+				img.set_pixel(x, y, _shadow_tint())
 	var sh := Sprite2D.new()
 	sh.texture = ImageTexture.create_from_image(img)
 	sh.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST

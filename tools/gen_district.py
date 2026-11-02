@@ -73,6 +73,19 @@ def build(spec, did):
     for y in range(9, 20):
         for x in range(0, 5):
             g[y][x] = "#"
+    # free-standing blocks inside the plaza: without these the middle of the map
+    # is 60 tiles of empty floor and any camera there frames nothing
+    # spread on a ~14-tile pitch so no camera position is more than a few tiles
+    # from a facade, matching the density of the concept city overviews
+    for bx, by, bw, bh in ((14, 12, 7, 8), (26, 14, 8, 9), (44, 12, 8, 8),
+                           (58, 20, 7, 9), (22, 30, 8, 8), (40, 30, 9, 8),
+                           (12, 34, 7, 9), (52, 44, 8, 7), (24, 46, 7, 10),
+                           (40, 46, 8, 7), (14, 52, 8, 8), (34, 60, 9, 7),
+                           (56, 58, 7, 8), (12, 66, 7, 8), (44, 66, 8, 7),
+                           (64, 34, 7, 7), (60, 64, 8, 7), (28, 24, 6, 7)):
+        for y in range(by, min(h - 4, by + bh)):
+            for x in range(bx, min(w - 6, bx + bw)):
+                g[y][x] = "#"
     # low service strip along the east edge (roofs + clutter, no tall wall)
     for y in range(7, h - 3):
         for x in range(w - 5, w):

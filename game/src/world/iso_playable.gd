@@ -160,6 +160,13 @@ func _build_world() -> void:
 	var atlas := _merged_atlas()
 	world.load_level(level, atlas)
 	world.position = Vector2(0, 0)
+	# shadows take the district's colour rather than neutral black
+	var tint := Color(0.04, 0.06, 0.11, 0.46)
+	if district_id.begins_with("ind_belt"):
+		tint = Color(0.10, 0.06, 0.03, 0.46)
+	elif district_id.begins_with("night_row"):
+		tint = Color(0.08, 0.04, 0.13, 0.46)
+	world.set_shadow_tint(tint)
 	_add_lighting()
 
 
