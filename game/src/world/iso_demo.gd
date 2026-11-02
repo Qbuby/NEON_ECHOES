@@ -10,6 +10,8 @@ extends Node2D
 const IsoGridScript := preload("res://src/world/iso_grid.gd")
 const IsoWorldScript := preload("res://src/world/iso_world.gd")
 const ATLAS := "res://assets/tiles/corp_iso/corp_iso.json"
+const PROPS_ATLAS := "res://assets/tiles/corp_props/corp_props.json"
+const DISTRICT := "res://data/districts/corp_core.iso.json"
 
 var world: IsoWorld
 var camera: Camera2D
@@ -29,6 +31,24 @@ func _ready() -> void:
 	world.name = "IsoWorld"
 	add_child(world)
 	var atlas: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(ATLAS))
+	# props live on their own sheet; merge their rects in and let the renderer
+	# resolve each rect against its own texture
+	var props_atlas: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(PROPS_ATLAS))
+	var merged: Dictionary = atlas.get("tiles", {}).duplicate()
+	var prop_names: Array = []
+	for k in props_atlas.get("tiles", {}):
+		merged[k] = props_atlas["tiles"][k]
+		prop_names.append(k)
+	atlas["tiles"] = merged
+	atlas["prop_tiles"] = prop_names
+	atlas["sheets"] = {"tiles": atlas["sheet"], "props": props_atlas["sheet"]}
+	level_data = JSON.parse_string(FileAccess.get_file_as_string(DISTRICT))
+	# take the spawn from the level, not a hardcoded demo cell
+	for a in level_data.get("actors", []):
+		if str(a.get("id", "")) == "player":
+			var c: Array = a.get("cell", [8, 12])
+			player_cell = Vector2i(int(c[0]), int(c[1]))
+			move_target = player_cell
 	world.load_level(level_data, atlas)
 	world.position = _map_center()
 	_make_player()
@@ -113,6 +133,8 @@ func _make_camera() -> void:
 	camera = Camera2D.new()
 	camera.name = "Camera"
 	camera.zoom = Vector2(1.35, 1.35)
+	# a camera on a Node2D child needs its own position reset to the player
+	camera.position = Vector2.ZERO
 	camera.position_smoothing_enabled = true
 	camera.position_smoothing_speed = 9.0
 	player.add_child(camera)

@@ -1,0 +1,91 @@
+{
+ "sheet": "res://assets/tiles/corp_props/corp_props.png",
+ "tile_w": 64,
+ "tile_h": 32,
+ "tiles": {
+  "prop_crate": [
+   16,
+   36,
+   57,
+   30
+  ],
+  "prop_crate2": [
+   113,
+   44,
+   44,
+   22
+  ],
+  "prop_barrel": [
+   207,
+   40,
+   38,
+   26
+  ],
+  "prop_bin": [
+   292,
+   35,
+   51,
+   31
+  ],
+  "prop_vending": [
+   380,
+   20,
+   57,
+   46
+  ],
+  "prop_terminal": [
+   474,
+   32,
+   51,
+   34
+  ],
+  "prop_barrier": [
+   0,
+   101,
+   89,
+   33
+  ],
+  "prop_planter": [
+   103,
+   106,
+   64,
+   28
+  ],
+  "prop_ac": [
+   194,
+   99,
+   64,
+   35
+  ],
+  "prop_kiosk": [
+   279,
+   87,
+   76,
+   47
+  ],
+  "prop_stack": [
+   383,
+   97,
+   51,
+   37
+  ],
+  "prop_bench": [
+   455,
+   107,
+   89,
+   27
+  ],
+  "prop_lamp": [
+   36,
+   136,
+   16,
+   66
+  ],
+  "prop_lamp2": [
+   127,
+   136,
+   16,
+   66
+  ]
+ }
+}

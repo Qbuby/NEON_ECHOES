@@ -41,6 +41,8 @@ var actor_root: Node2D
 var _atlas: Dictionary = {}          # tile name -> Rect2 in the sheet
 var _sheet: Texture2D
 var _sheet_path := ""
+var _sheets: Dictionary = {}
+var _sheet_by_tile: Dictionary = {}
 
 
 func load_level(data: Dictionary, atlas: Dictionary) -> void:
@@ -55,6 +57,22 @@ func load_level(data: Dictionary, atlas: Dictionary) -> void:
 	_sheet_path = str(atlas.get("sheet", ""))
 	if _sheet_path != "" and ResourceLoader.exists(_sheet_path):
 		_sheet = load(_sheet_path) as Texture2D
+	# props may come from a second sheet
+	if atlas.has("sheets"):
+		for name in atlas["sheets"]:
+			var p2 := str(atlas["sheets"][name])
+			if ResourceLoader.exists(p2):
+				_sheets[name] = load(p2) as Texture2D
+	# Route each tile name to its owning sheet. The caller merges prop rects into
+	# the same `tiles` map, so it must also declare which names came from where:
+	# atlas.prop_tiles = [names...]. Without this every prop sampled the tile
+	# sheet and rendered as a strip of floor pixels.
+	_sheet_by_tile.clear()
+	for tname in _atlas.keys():
+		_sheet_by_tile[tname] = _sheet
+	var prop_sheet: Texture2D = _sheets.get("props", _sheet)
+	for tname in atlas.get("prop_tiles", []):
+		_sheet_by_tile[str(tname)] = prop_sheet
 	for child in get_children():
 		child.queue_free()
 	floor_root = _make_root("Floor", 0)
@@ -122,7 +140,7 @@ func _build_floor() -> void:
 func _add_floor_tile(cell: Vector2i, tile: String, wall_h: float) -> void:
 	var r: Array = _atlas[tile]
 	var spr := Sprite2D.new()
-	spr.texture = _sheet
+	spr.texture = _sheet_by_tile.get(tile, _sheet)
 	spr.region_enabled = true
 	spr.region_rect = Rect2(float(r[0]), float(r[1]), float(IsoGrid.TILE_W), float(IsoGrid.TILE_H))
 	spr.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
@@ -138,6 +156,9 @@ func _add_floor_tile(cell: Vector2i, tile: String, wall_h: float) -> void:
 # ---- walls ----------------------------------------------------------------------
 
 func _build_walls() -> void:
+	# A building is a mass, not a pile of cubes: every solid cell gets one roof
+	# diamond, and only its exposed edges get a facade. Drawing a full prism per
+	# cell made multi-cell buildings read as separate stacks of blocks.
 	for y in mini(h, floor_chars.size()):
 		var row := str(floor_chars[y])
 		for x in mini(w, row.length()):
@@ -146,37 +167,62 @@ func _build_walls() -> void:
 			if wh <= 0.0:
 				continue
 			var cell := Vector2i(x, y)
-			# pick the authored prism whose height matches the requested storeys
-			var top := str(def.get("wall_tile", ""))
-			if top == "":
-				top = "wall_h32" if wh >= 1.0 else "wall_h16"
-			_add_wall_block(cell, wh, top, "")
+			_add_roof(cell, wh)
+			# south facade: nothing solid below this cell
+			if not _solid(cell + Vector2i(0, 1)):
+				_add_face(cell, wh, "s")
+			# east facade: nothing solid to the right
+			if not _solid(cell + Vector2i(1, 0)):
+				_add_face(cell, wh, "e")
 
 
-## One wall block drawn from a single complete prism sprite.
-##
-## The atlas tile for a wall is 64 x (32 + height): its top diamond, both
-## extruded faces and its own outline. So placing it is a plain sprite at the
-## cell centre, lifted by the block height — no face assembly, no seams. The
-## lift is what makes it rise out of the floor.
-func _add_wall_block(cell: Vector2i, height_units: float, top_tile: String, _face_tile: String) -> void:
-	if not _atlas.has(top_tile):
+func _solid(cell: Vector2i) -> bool:
+	if cell.y < 0 or cell.y >= floor_chars.size():
+		return false
+	var row := str(floor_chars[cell.y])
+	if cell.x < 0 or cell.x >= row.length():
+		return false
+	var def: Dictionary = legend.get(row[cell.x], {})
+	return float(def.get("wall", 0.0)) > 0.0
+
+
+func _add_roof(cell: Vector2i, height_units: float) -> void:
+	var tile := "roof"
+	if not _atlas.has(tile):
 		return
-	var r: Array = _atlas[top_tile]
-	var tw := float(r[2])
-	var th := float(r[3])
+	var r: Array = _atlas[tile]
 	var spr := Sprite2D.new()
-	spr.texture = _sheet
+	spr.texture = _sheet_by_tile.get(tile, _sheet)
 	spr.region_enabled = true
-	spr.region_rect = Rect2(float(r[0]), float(r[1]), tw, th)
+	spr.region_rect = Rect2(float(r[0]), float(r[1]), float(IsoGrid.TILE_W), float(IsoGrid.TILE_H))
 	spr.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	spr.centered = false
-	# The prism's diamond centre sits at (HW, HH) inside its own image. Place the
-	# sprite so that point lands on the cell centre; the block then rises from
-	# the floor by (th - H) pixels.
-	spr.position = cell_center(cell) + Vector2(-IsoGrid.HW, -IsoGrid.HH)
+	# lift the roof by the storey height so it caps the facades
+	spr.position = cell_center(cell) + Vector2(-IsoGrid.HW, -IsoGrid.HH - height_units * IsoGrid.TILE_H)
 	wall_root.add_child(spr)
-	_nodes.append({"node": spr, "key": IsoGrid.depth_key(cell, height_units)})
+	_nodes.append({"node": spr, "key": IsoGrid.depth_key(cell, height_units) + 0.002})
+
+
+func _add_face(cell: Vector2i, height_units: float, which: String) -> void:
+	var tall := "face_s_tall" if height_units >= 1.4 else "face_s"
+	var low := "face_e_low" if height_units < 1.0 else "face_e"
+	var tile := tall if which == "s" else low
+	if not _atlas.has(tile):
+		tile = "face_s" if _atlas.has("face_s") else ""
+	if tile == "":
+		return
+	var r: Array = _atlas[tile]
+	var spr := Sprite2D.new()
+	spr.texture = _sheet_by_tile.get(tile, _sheet)
+	spr.region_enabled = true
+	spr.region_rect = Rect2(float(r[0]), float(r[1]), float(r[2]), float(r[3]))
+	spr.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	spr.centered = false
+	# The face art already includes the top half of the diamond, so it aligns to
+	# the cell centre - half the face height, exactly like a prism.
+	spr.position = cell_center(cell) + Vector2(-IsoGrid.HW, -IsoGrid.HH - height_units * IsoGrid.TILE_H)
+	wall_root.add_child(spr)
+	_nodes.append({"node": spr, "key": IsoGrid.depth_key(cell, height_units) + 0.004})
 
 
 # ---- props and actors -----------------------------------------------------------
@@ -191,7 +237,7 @@ func _build_props(list: Array) -> void:
 		var tw := float(r[2]) if r.size() > 2 else float(IsoGrid.TILE_W)
 		var th := float(r[3]) if r.size() > 3 else float(IsoGrid.TILE_H)
 		var spr := Sprite2D.new()
-		spr.texture = _sheet
+		spr.texture = _sheet_by_tile.get(id, _sheet)
 		spr.region_enabled = true
 		spr.region_rect = Rect2(float(r[0]), float(r[1]), tw, th)
 		spr.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST

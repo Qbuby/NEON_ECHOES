@@ -150,6 +150,25 @@ def floor_diamond(pal, rng, kind="plain"):
     return img
 
 
+def noise(rng, cells):
+    """Smooth value noise sampled over the 64x32 diamond, keyed by (x, y)."""
+    lat = [[rng.random() for _ in range(cells)] for _ in range(cells)]
+    out = {}
+    for y in range(H):
+        for x in range(W):
+            fx, fy = x * cells / W, y * cells / H
+            ix, iy = int(fx), int(fy)
+            vx, vy = fx - ix, fy - iy
+            vx = vx * vx * (3 - 2 * vx)
+            vy = vy * vy * (3 - 2 * vy)
+            a = lat[iy % cells][ix % cells]
+            b = lat[iy % cells][(ix + 1) % cells]
+            c = lat[(iy + 1) % cells][ix % cells]
+            d = lat[(iy + 1) % cells][(ix + 1) % cells]
+            out[(x, y)] = (a * (1 - vx) + b * vx) * (1 - vy) + (c * (1 - vx) + d * vx) * vy
+    return out
+
+
 def vnoise_disc(rng, cells, size):
     lat = [[rng.random() for _ in range(cells)] for _ in range(cells)]
     out = [[0.0] * W for _ in range(H)]
@@ -169,72 +188,118 @@ def vnoise_disc(rng, cells, size):
     return out
 
 
-# ---- wall prism --------------------------------------------------------------------
+# ---- wall pieces ---------------------------------------------------------------------
 
-def wall_block(pal, rng, height=32, windows=True):
-    """A complete wall: top diamond + both extruded faces, 64 x (32+height).
-
-    The faces are parallelograms: the left face spans W(0,16) -> S(32,32) ->
-    S+H(32,32+H) -> W+H(0,16+H), the right face spans S -> E -> E+H -> S+H.
-    Drawing them as 64-wide rectangles produced triangular artefacts.
-    """
+def roof_tile(pal, rng, windows=False):
+    """The top diamond of a building: a flat roof with parapet detail."""
     lit, drk = pal["wall_lit"], pal["wall_drk"]
-    c_top_a, c_top_b, c_top_c = (rgb(c) for c in lit)
-    c_side_l, c_side_r = rgb(drk[0]), rgb(drk[1])
-    out_h = H + height
-    img = Image.new("RGBA", (W, out_h), (0, 0, 0, 0))
+    c_a, c_b, c_c = (rgb(c) for c in lit)
+    img = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     px = img.load()
-
-    # top face, lit from the upper left
+    n = noise(rng, 4)
     for (x, y) in DMASK:
-        t = max(0.0, min(1.0, (x * 0.3 + y * 0.7) / 34.0))
-        c = mix(c_top_c, c_top_b, t) if t < 0.55 else mix(c_top_b, c_top_a, (t - 0.55) / 0.45)
+        t = max(0.0, min(1.0, (x * 0.35 + y * 0.65) / 40.0))
+        c = mix(c_c, c_b, t * 1.6) if t < 0.6 else mix(c_b, c_a, (t - 0.6) / 0.4)
+        if n[(x, y)] > 0.80:
+            c = shade(c, 0.88)
         px[x, y] = (*c, 255)
+    # parapet: a 1px darker rim all the way round the roof
+    for (x, y) in DMASK:
+        if (x + 1, y) not in DMASK or (x - 1, y) not in DMASK or            (x, y + 1) not in DMASK or (x, y - 1) not in DMASK:
+            px[x, y] = (*shade(rgb(lit[1]), 0.72), 255)
+    return img
 
-    # left face
-    for yy in range(HH, HH + 16 + height):
-        if yy < 32:
-            edge = yy - HH
-            x0, x1 = 0, edge
+
+def south_face(pal, rng, height=32, windows=True):
+    """The face that hangs from the diamond's two lower edges (the near side)."""
+    lit, drk = pal["wall_lit"], pal["wall_drk"]
+    body = rgb(drk[1])
+    body_l = rgb(drk[0])
+    img = Image.new("RGBA", (W, H + height), (0, 0, 0, 0))
+    px = img.load()
+    # The face is bounded above by the diamond's lower half and below by the
+    # same shape shifted down by `height`. Row y in [16, 16+height] spans the
+    # full 64 px; the top 16 rows only fill the widening lower V of the diamond.
+    for y in range(H + height):
+        if y < H:
+            half = int(round(HW * (y / float(HH - 1))))
+            x0, x1 = HW - half - 1, HW + half
         else:
-            x0, x1 = 0, 31
-        k = min(1.0, (yy - HH) / 16.0) * 0.32
-        for x in range(int(x0), int(x1) + 1):
-            px[x, yy] = (*shade(c_side_l, 1.0 - k), 255)
-
-    # right face
-    for yy in range(HH, HH + 16 + height):
-        if yy < 32:
-            edge = yy - HH
-            x0, x1 = 63 - edge, 63
-        else:
-            x0, x1 = 32, 63
-        k = min(1.0, (yy - HH) / 16.0) * 0.32
-        for x in range(int(x0), int(x1) + 1):
-            px[x, yy] = (*shade(c_side_r, 1.0 - k), 255)
-
-    if windows and height >= 24:
+            x0, x1 = 0, W - 1
+        k = min(1.0, max(0.0, (y - HH) / float(max(1, height)))) * 0.34
+        for x in range(max(0, x0), min(W, x1 + 1)):
+            c = body_l if x < HW else body
+            px[x, y] = (*shade(c, 1.0 - k), 255)
+    if windows and height >= 20:
         win = rgb(pal["neon"][1])
         rngw = random.Random(rng.randint(0, 1 << 20))
-        for row_y in range(36, 28 + height, 9):
-            for face in (0, 1):
-                for col in range(3):
-                    if rngw.random() < 0.40:
-                        continue
-                    x0 = 3 + col * 9 if face == 0 else 35 + col * 9
-                    for dy in range(4):
-                        for dx in range(6):
-                            xx, yy = x0 + dx, row_y + dy
-                            if 0 <= xx < W and 0 <= yy < out_h and px[xx, yy][3]:
-                                px[xx, yy] = (*shade(win, 0.62 + 0.38 * (dy / 4.0)), 255)
-        strip = rgb(pal["neon"][0])
-        for x in range(2, 62):
-            yy = 30 + height
-            if 0 <= yy < out_h and px[x, yy][3]:
-                px[x, yy] = (*strip, 255)
-
-    _outline(px, W, out_h, drk[0])
+        for row_y in range(H - 6, H + height - 8, 10):
+            for col in range(5):
+                if rngw.random() < 0.35:
+                    continue
+                x0 = 4 + col * 12
+                for dy in range(5):
+                    for dx in range(7):
+                        xx, yy = x0 + dx, row_y + dy
+                        if 0 <= xx < W and 0 <= yy < H + height and px[xx, yy][3]:
+                            px[xx, yy] = (*shade(win, 0.58 + 0.42 * (dy / 5.0)), 255)
+        # a lit shopfront band along the base
+        band = rgb(pal["neon"][0])
+        for x in range(2, W - 2):
+            for yy in (H + height - 4, H + height - 3):
+                if px[x, yy][3]:
+                    px[x, yy] = (*band, 255)
+    _outline_partial(px, W, H + height, drk[0], top_open=True)
     return img
+
+
+def east_face(pal, rng, height=32, windows=True):
+    """The face on the right-hand edge: narrower, in shadow."""
+    drk = pal["wall_drk"]
+    body = rgb(drk[0])
+    img = Image.new("RGBA", (W, H + height), (0, 0, 0, 0))
+    px = img.load()
+    for y in range(H + height):
+        if y < H:
+            # right side of the diamond: from the centre column out to E
+            half = int(round(HW * (1.0 - abs(y - (HH - 0.5)) / (HH - 0.5))))
+            x0, x1 = HW, HW + half
+        else:
+            x0, x1 = HW, W - 1
+        k = min(1.0, max(0.0, (y - HH) / float(max(1, height)))) * 0.30
+        for x in range(max(0, x0), min(W, x1 + 1)):
+            px[x, y] = (*shade(body, 1.0 - k), 255)
+    if windows and height >= 20:
+        win = rgb(pal["neon"][1])
+        rngw = random.Random(rng.randint(0, 1 << 20))
+        for row_y in range(H - 4, H + height - 8, 10):
+            for col in range(2):
+                if rngw.random() < 0.45:
+                    continue
+                x0 = 36 + col * 12
+                for dy in range(4):
+                    for dx in range(6):
+                        xx, yy = x0 + dx, row_y + dy
+                        if 0 <= xx < W and 0 <= yy < H + height and px[xx, yy][3]:
+                            px[xx, yy] = (*shade(win, 0.42 + 0.30 * (dy / 4.0)), 255)
+    _outline_partial(px, W, H + height, drk[0], top_open=True)
+    return img
+
+
+def _outline_partial(px, w, h, dark, top_open=False):
+    """Outline a face on its silhouette, skipping the top edge that meets the roof."""
+    edge = rgb(dark)
+    for y in range(h):
+        for x in range(w):
+            if px[x, y][3] == 0:
+                continue
+            for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                if top_open and dy < 0:
+                    continue
+                nx, ny = x + dx, y + dy
+                if not (0 <= nx < w and 0 <= ny < h) or px[nx, ny][3] == 0:
+                    px[x, y] = (*shade(edge, 0.85), 255)
+                    break
 
 
 def _outline(px, w, h, dark):
@@ -288,45 +353,44 @@ def prop_block(pal, rng, w_units, h_units, kind="crate"):
 
 # ---- atlas assembly ------------------------------------------------------------------
 
-def build(district, pal, out_dir):
+def build(district, pal):
     rng = random.Random(1000 + len(district))
     tiles = []
-    # floors: four material variants per palette
     for name, kind in (("a", "plain"), ("b", "joints"), ("c", "grate"), ("d", "speckle")):
         tiles.append((f"floor_{name}", floor_diamond(pal["asphalt"], rng, kind)))
     for key in ("plaza", "marble", "concrete"):
         tiles.append((f"floor_{key}", floor_diamond(pal[key], rng, "joints")))
-    # walls at three heights, with lit windows
-    tiles.append(("wall_h16", wall_block(pal, rng, 16, windows=False)))
-    tiles.append(("wall_h32", wall_block(pal, rng, 32, windows=True)))
-    tiles.append(("wall_h48", wall_block(pal, rng, 48, windows=True)))
-    tiles.append(("prop_crate", prop_block(pal, rng, 1, 1, "crate")))
-    tiles.append(("prop_vend", prop_block(pal, rng, 1, 2, "neon")))
-    tiles.append(("prop_sign", prop_block(pal, rng, 1, 3, "neon")))
+    # building pieces, composed by the renderer from the map's neighbour test
+    tiles.append(("roof", roof_tile(pal, rng)))
+    tiles.append(("face_s", south_face(pal, rng, 32, True)))
+    tiles.append(("face_e", east_face(pal, rng, 32, True)))
+    tiles.append(("face_s_low", south_face(pal, rng, 16, False)))
+    tiles.append(("face_e_low", east_face(pal, rng, 16, False)))
+    tiles.append(("face_s_tall", south_face(pal, rng, 48, True)))
 
-    # lay out in a grid with 2px padding so bilinear-free sampling is safe
     pad = 2
     cols = 6
-    cell_w = W + pad
-    cell_h = (H + 48) + pad
-    rows = math.ceil(len(tiles) / cols)
-    sheet = Image.new("RGBA", (cols * cell_w, rows * cell_h), (0, 0, 0, 0))
+    max_h = max(im.height for _, im in tiles) + pad
+    cell_w = max(im.width for _, im in tiles) + pad
+    rows = (len(tiles) + cols - 1) // cols
+    sheet = Image.new("RGBA", (cols * cell_w, rows * max_h), (0, 0, 0, 0))
     rects = {}
     for i, (name, im) in enumerate(tiles):
-        cx = (i % cols) * cell_w
-        cy = (i // cols) * cell_h
-        # bottom-align every tile inside its cell so wall bases share a baseline
-        sheet.paste(im, (cx, cy + cell_h - pad - im.height), im)
-        rects[name] = [cx, cy + cell_h - pad - im.height, im.width, im.height]
+        cx = (i % cols) * cell_w + (cell_w - pad - im.width) // 2
+        cy = (i // cols) * max_h + max_h - pad - im.height
+        sheet.paste(im, (cx, cy), im)
+        rects[name] = [cx, cy, im.width, im.height]
 
-    out_dir.mkdir(parents=True, exist_ok=True)
-    sheet.save(out_dir / f"{district}_iso.png")
-    (out_dir / f"{district}_iso.json").write_text(json.dumps(
-        {"sheet": f"res://assets/tiles/{district}_iso/{district}_iso.png",
-         "tile_w": W, "tile_h": H, "tiles": rects}, indent=1), encoding="utf-8")
+    d = OUT / f"{district}_iso"
+    d.mkdir(parents=True, exist_ok=True)
+    sheet.save(d / f"{district}_iso.png")
+    (d / f"{district}_iso.json").write_text(json.dumps({
+        "sheet": f"res://assets/tiles/{district}_iso/{district}_iso.png",
+        "tile_w": W, "tile_h": H, "tiles": rects,
+    }, indent=1), encoding="utf-8")
     print(f"{district}: {len(tiles)} tiles -> {sheet.size}")
 
 
 if __name__ == "__main__":
     for district, pal in PALETTES.items():
-        build(district, pal, OUT / f"{district}_iso")
+        build(district, pal)
