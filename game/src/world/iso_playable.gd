@@ -207,13 +207,26 @@ func _add_lighting() -> void:
 			continue
 		var c: Array = p.get("cell", [0, 0])
 		defs.append({"pos": world.cell_center(Vector2i(int(c[0]), int(c[1]))) + Vector2(0, 6),
-			"radius": 76.0 if id == "prop_lamp" else 58.0,
-			"color": palette[id], "strength": 0.38 if id == "prop_lamp" else 0.30})
+			"radius": 130.0 if id == "prop_lamp" else 96.0,
+			"color": palette[id], "strength": 0.34 if id == "prop_lamp" else 0.26})
+	# a wide low-strength wash so no part of the floor is the same value as any
+	# other: the concept floors always have a light gradient across them
+	for gy in range(6, int(level.get("h", 80)) - 6, 18):
+		for gx in range(6, int(level.get("w", 80)) - 6, 22):
+			var tint := Color("#1b3a66") if district_id.begins_with("corp_core") else (
+				Color("#4a2c10") if district_id.begins_with("ind_belt") else Color("#401a52"))
+			defs.append({"pos": world.cell_center(Vector2i(gx, gy)),
+				"radius": 190.0, "color": tint, "strength": 0.10})
 	var lighting: Node2D = IsoLightingScript.new()
 	lighting.name = "Lighting"
-	add_child(lighting)
+	# the world sorts by child order; a light must sit above floors and props but
+	# under actors, so add it to the world and let it draw after the prop pass
+	world.add_child(lighting)
 	lighting.setup(defs)
-	lighting.z_index = -1900
+	# IsoWorld's sort re-appends its sprites after any node added later, so child
+	# order alone cannot keep the light on top. Every managed sprite sits at
+	# z_index 0, so a positive z here paints the pools last.
+	lighting.z_index = 1
 
 
 # ---- actors ---------------------------------------------------------------------
@@ -228,7 +241,7 @@ func _spawn_actors() -> void:
 	player.name = "Rin"
 	camera = Camera2D.new()
 	camera.name = "Camera"
-	camera.zoom = Vector2(1.35, 1.35)
+	camera.zoom = Vector2(1.7, 1.7)
 	player.add_child(camera)
 	camera.make_current()
 

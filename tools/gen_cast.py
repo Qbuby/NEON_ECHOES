@@ -87,20 +87,28 @@ def draw(px, pal, arch, pose, phase, facing="s"):
             put(px, cx - 2 + swing, y, pal, "cloth2")
             put(px, cx + 2 - swing, y, pal, "dark")
             put(px, cx + 3 - swing, y, pal, "cloth2")
-    # torso: a trapezoid, widening toward the shoulders
+    # torso: a trapezoid with a lit right side, a shadowed left side and a rim
     for i in range(torso_h):
         y = chest_y + i
         t = i / max(1, torso_h - 1)
         half = int(sh * (0.78 + 0.22 * t))
         for x in range(cx - half, cx + half + 1):
+            rel = (x - (cx - half)) / float(max(1, 2 * half))
             if abs(x - cx) >= half - 1:
-                put(px, x, y, pal, "dark")
-            elif x > cx + half * 0.35:
-                put(px, x, y, pal, "armor")
-            elif t < 0.45:
-                put(px, x, y, pal, "armor")
+                # silhouette edge: dark, but the light side gets a rim instead
+                put(px, x, y, pal, "rim" if x > cx and rel > 0.85 else "dark")
+            elif rel > 0.72:
+                put(px, x, y, pal, "armor_hi")
+            elif rel > 0.34:
+                put(px, x, y, pal, "armor" if t < 0.55 else "cloth")
             else:
-                put(px, x, y, pal, "cloth")
+                put(px, x, y, pal, "cloth_dk")
+        # a chest seam and a strap, so the mass is not empty
+        if 3 <= i < torso_h - 2:
+            put(px, cx, y, pal, "dark")
+        if i == torso_h // 2:
+            for x in range(cx - half + 2, cx + half - 1):
+                put(px, x, y, pal, "accent_dim")
     # coat hem
     hem = max(1, int(torso_h * 0.45))
     for i in range(hem):
@@ -108,19 +116,30 @@ def draw(px, pal, arch, pose, phase, facing="s"):
         half = int(sh * 0.8 + a["flare"] * (i / float(hem)))
         for x in range(cx - half, cx + half + 1):
             put(px, x, y, pal, "cloth2" if abs(x - cx) < half - 1 else "dark")
-    # head
+    # head: lit on the right, shadowed on the left, with a jaw and a brow
     for dy in range(-head_r, head_r + 1):
         for dx in range(-head_r, head_r + 1):
             if dx * dx + dy * dy <= head_r * head_r:
-                put(px, cx + dx, head_cy + dy, pal, "skin")
-    # hair / helmet cap
+                if dx > head_r * 0.25:
+                    put(px, cx + dx, head_cy + dy, pal, "skin_hi")
+                elif dx < -head_r * 0.3:
+                    put(px, cx + dx, head_cy + dy, pal, "skin_dk")
+                else:
+                    put(px, cx + dx, head_cy + dy, pal, "skin")
+    # hair / helmet cap, with a lit crown
     for dy in range(-head_r, 0):
         for dx in range(-head_r, head_r + 1):
             if dx * dx + dy * dy <= head_r * head_r:
-                put(px, cx + dx, head_cy + dy, pal, "hair")
-    # eye line in the faction accent
+                put(px, cx + dx, head_cy + dy, pal, "hair" if dx < 0 else "hair_hi")
+    # brow shadow, eye, jaw line
+    for dx in range(-head_r + 1, head_r):
+        put(px, cx + dx, head_cy, pal, "hair")
     put(px, cx + max(1, head_r // 2), head_cy + 1, pal, "accent")
     put(px, cx - max(1, head_r // 2), head_cy + 1, pal, "accent")
+    put(px, cx, head_cy + head_r - 1, pal, "skin_dk")
+    # rim light down the lit side of the head
+    put(px, cx + head_r, head_cy + 1, pal, "rim")
+    put(px, cx + head_r - 1, head_cy + 2, pal, "rim")
     # weapon
     if a["rifle"]:
         wy = chest_y + int(torso_h * 0.55)
@@ -145,13 +164,31 @@ def draw(px, pal, arch, pose, phase, facing="s"):
                     break
 
 
+def extend_palette(pal):
+    """Derive the shading roles the sprite pass references from the base tones."""
+    def mix(a, b, t):
+        return "#%02x%02x%02x" % tuple(
+            int(int(a[i:i + 2], 16) + (int(b[i:i + 2], 16) - int(a[i:i + 2], 16)) * t)
+            for i in (1, 3, 5))
+    out = dict(pal)
+    out["cloth_dk"] = mix(pal["cloth"], "#000000", 0.35)
+    out["cloth_hi"] = mix(pal["cloth"], "#ffffff", 0.18)
+    out["armor_hi"] = mix(pal["armor"], "#ffffff", 0.22)
+    out["skin_hi"] = mix(pal["skin"], "#ffffff", 0.20)
+    out["skin_dk"] = mix(pal["skin"], "#000000", 0.26)
+    out["hair_hi"] = mix(pal["hair"], "#ffffff", 0.14)
+    out["rim"] = mix(pal["accent"], "#ffffff", 0.55)
+    out["accent_dim"] = mix(pal["accent"], pal["cloth"], 0.55)
+    return out
+
+
 POSES = {"idle": [0, 1], "walk": [0, 1, 2, 3], "attack": [0, 1]}
 DUR = {"idle": 520, "walk": 130, "attack": 100}
 FACINGS = ["s", "e", "n", "w"]
 
 
 def build(actor_id, arch, faction):
-    pal = FACTIONS[faction]
+    pal = extend_palette(FACTIONS[faction])
     frames = []
     for facing in FACINGS:
         for anim, phases in POSES.items():

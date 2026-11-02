@@ -31,10 +31,11 @@ OUT = pathlib.Path(__file__).resolve().parent.parent / "game" / "assets" / "tile
 PALETTES = {
     "corp": {
         # a visible blue cast: the concept's shadows are coloured, not neutral
-        "asphalt":  ("#060a16", "#0e1828", "#1a2a44"),
-        "plaza":    ("#050912", "#0b1526", "#16273c"),
-        "marble":   ("#060a14", "#0e1626", "#1c2a42"),
-        "concrete": ("#090e1c", "#132036", "#22344e"),
+        # lit stone, not black: the concept's night floors sit near L 40-70
+        "asphalt":  ("#0c1526", "#16263f", "#25395c"),
+        "plaza":    ("#0a1220", "#142238", "#203452"),
+        "marble":   ("#0c1526", "#18263e", "#263a58"),
+        "concrete": ("#101a2c", "#1b2a44", "#2a3e62"),
         # roof (brightest) / south face (mid) / east face (darkest)
         "wall_lit": ("#5a7699", "#7492b4", "#93b2d0"),
         "wall_drk": ("#2e4160", "#3d5578", "#4e6a92"),
@@ -43,10 +44,10 @@ PALETTES = {
     },
     "ind": {
         # warm rust cast in the shadows
-        "asphalt":  ("#0c0804", "#170f06", "#26190c"),
-        "plaza":    ("#0a0704", "#140d07", "#20150c"),
-        "marble":   ("#0a0705", "#150f08", "#21170d"),
-        "concrete": ("#0f0a05", "#1b1209", "#2c1e10"),
+        "asphalt":  ("#180f07", "#261a0b", "#38280f"),
+        "plaza":    ("#150e07", "#22180a", "#32230d"),
+        "marble":   ("#150e07", "#23190b", "#342510"),
+        "concrete": ("#1b1208", "#2b1d0c", "#402e12"),
         "wall_lit": ("#8a7050", "#a98a62", "#c4a67c"),
         "wall_drk": ("#4a3a26", "#5e4a30", "#755c3c"),
         "neon":     ("#f08a10", "#ffc040", "#fff8e0"),
@@ -54,10 +55,10 @@ PALETTES = {
     },
     "night": {
         # violet cast
-        "asphalt":  ("#0a0618", "#150c26", "#221438"),
-        "plaza":    ("#08050f", "#100a1c", "#1c112c"),
-        "marble":   ("#08050f", "#110a1e", "#1e122e"),
-        "concrete": ("#0c0716", "#180f24", "#28183a"),
+        "asphalt":  ("#120920", "#1f1136", "#2f1a50"),
+        "plaza":    ("#0f0719", "#1a0f2c", "#281840"),
+        "marble":   ("#0f0719", "#1c1130", "#2a1a44"),
+        "concrete": ("#150b25", "#241339", "#352050"),
         "wall_lit": ("#7a5598", "#986db8", "#b58cd2"),
         "wall_drk": ("#3a2450", "#4c3068", "#603f80"),
         "neon":     ("#ff1090", "#ff70c8", "#ffffff"),

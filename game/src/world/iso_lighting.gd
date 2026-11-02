@@ -23,6 +23,16 @@ func setup(defs: Array) -> void:
 	queue_redraw()
 
 
+func _ready() -> void:
+	# additive: light adds to whatever is under it instead of tinting it
+	var mat := CanvasItemMaterial.new()
+	mat.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
+	material = mat
+	# setup() is often called before the node is in the tree, where its
+	# queue_redraw() is dropped; paint once now that the list is real
+	queue_redraw()
+
+
 func _draw() -> void:
 	for l in lights:
 		var pos: Vector2 = l.get("pos", Vector2.ZERO)
