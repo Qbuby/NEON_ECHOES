@@ -10,6 +10,7 @@ extends Node2D
 const IsoGridScript := preload("res://src/world/iso_grid.gd")
 const IsoWorldScript := preload("res://src/world/iso_world.gd")
 const IsoLightingScript := preload("res://src/world/iso_lighting.gd")
+const IsoHudScript := preload("res://src/ui/iso_hud.gd")
 const ATLAS := "res://assets/tiles/corp_iso/corp_iso.json"
 const PROPS_ATLAS := "res://assets/tiles/corp_props/corp_props.json"
 const DISTRICT := "res://data/districts/corp_core.iso.json"
@@ -22,8 +23,7 @@ var player_cell := Vector2i(8, 12)
 var move_target := Vector2i(8, 12)
 var facing := "s"
 
-var _hud: CanvasLayer
-var _label: Label
+var hud: IsoHud
 
 
 func _ready() -> void:
@@ -177,20 +177,15 @@ func _make_camera() -> void:
 
 
 func _make_hud() -> void:
-	_hud = CanvasLayer.new()
-	_hud.layer = 10
-	add_child(_hud)
-	_label = Label.new()
-	_label.position = Vector2(12, 8)
-	_label.add_theme_font_size_override("font_size", 12)
-	_label.add_theme_color_override("font_color", Color("#cfe6ff"))
-	_hud.add_child(_label)
-	_refresh_hud()
+	hud = IsoHudScript.new()
+	add_child(hud)
+	hud.set_values({
+		"hp": 78.0, "hp_max": 100.0, "ram": 6.0, "ram_max": 8.0,
+		"cred": 1050, "name": "RIN", "status": 3,
+		"objective": "FIND THE CURATOR — SPIRE LOBBY",
+	})
+	hud.show_toast("SECTOR 07 · NEON ROW", 2.4)
 
-
-func _refresh_hud() -> void:
-	_label.text = "NEON ECHOES  iso demo\ncell %s  facing %s\nWASD/click to move" % [
-		str(player_cell), facing]
 
 
 func _process(delta: float) -> void:
@@ -226,7 +221,6 @@ func _process(delta: float) -> void:
 		if player_cell != move_target:
 			player_cell = move_target
 			world.update_actor_cell(player, player_cell)
-			_refresh_hud()
 		if spr:
 			spr.play("idle_" + facing)
 
