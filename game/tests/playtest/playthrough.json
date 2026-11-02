@@ -1,0 +1,25 @@
+{
+  "name": "playthrough",
+  "start_scene": "res://scenes/levels/corporate.tscn",
+  "timeout_frames": 9000,
+  "steps": [
+    { "action": "wait", "frames": 20 },
+    { "action": "log_state", "label": "spawn" },
+    { "action": "assert", "path": "player.hp", "op": "gt", "value": 0, "label": "player alive at spawn" },
+    { "action": "assert", "path": "enemies.total", "op": "gte", "value": 3, "label": "enemies present" },
+    { "action": "press", "input": "move_right" },
+    { "action": "wait", "frames": 90 },
+    { "action": "release", "input": "move_right" },
+    { "action": "log_state", "label": "after_walk" },
+    { "action": "assert", "path": "player.x", "op": "gt", "value": 150, "label": "player moved" },
+    { "action": "tap", "input": "attack", "frames": 6 },
+    { "action": "wait", "frames": 30 },
+    { "action": "tap", "input": "attack", "frames": 6 },
+    { "action": "wait", "frames": 30 },
+    { "action": "log_state", "label": "after_attack" },
+    { "action": "tap", "input": "dash", "frames": 6 },
+    { "action": "wait", "frames": 20 },
+    { "action": "log_state", "label": "after_dash" },
+    { "action": "quit", "code": 0 }
+  ]
+}

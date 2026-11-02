@@ -1,0 +1,249 @@
+{
+  "items": [
+    {
+      "id": "medkit",
+      "name": "Medkit",
+      "kind": "consumable",
+      "value": 60,
+      "desc": "heal 25"
+    },
+    {
+      "id": "stimpack",
+      "name": "Stimpack",
+      "kind": "consumable",
+      "value": 40,
+      "desc": "heal 12"
+    },
+    {
+      "id": "trauma_kit",
+      "name": "Trauma Kit",
+      "kind": "consumable",
+      "value": 180,
+      "desc": "heal 60"
+    },
+    {
+      "id": "ram_pack",
+      "name": "RAM Pack",
+      "kind": "consumable",
+      "value": 90,
+      "desc": "restore 4 RAM"
+    },
+    {
+      "id": "stim_speed",
+      "name": "Speed Stim",
+      "kind": "consumable",
+      "value": 120,
+      "desc": "speed +20% 15s"
+    },
+    {
+      "id": "stim_armor",
+      "name": "Armor Stim",
+      "kind": "consumable",
+      "value": 140,
+      "desc": "armor +15% 20s"
+    },
+    {
+      "id": "ammo_small",
+      "name": "Small Ammo",
+      "kind": "material",
+      "value": 15,
+      "desc": "+24 rounds"
+    },
+    {
+      "id": "ammo_medium",
+      "name": "Medium Ammo",
+      "kind": "material",
+      "value": 25,
+      "desc": "+18 rounds"
+    },
+    {
+      "id": "ammo_heavy",
+      "name": "Heavy Ammo",
+      "kind": "material",
+      "value": 45,
+      "desc": "+12 rounds"
+    },
+    {
+      "id": "ammo_energy",
+      "name": "Energy Cell",
+      "kind": "material",
+      "value": 70,
+      "desc": "+10 cells"
+    },
+    {
+      "id": "scrap",
+      "name": "Scrap",
+      "kind": "material",
+      "value": 8,
+      "desc": "crafting"
+    },
+    {
+      "id": "wire",
+      "name": "Optical Wire",
+      "kind": "material",
+      "value": 18,
+      "desc": "crafting"
+    },
+    {
+      "id": "circuit",
+      "name": "Circuit Board",
+      "kind": "material",
+      "value": 35,
+      "desc": "crafting"
+    },
+    {
+      "id": "armor_shard",
+      "name": "Armor Shard",
+      "kind": "material",
+      "value": 55,
+      "desc": "crafting"
+    },
+    {
+      "id": "drone_core",
+      "name": "Drone Core",
+      "kind": "material",
+      "value": 120,
+      "desc": "crafting"
+    },
+    {
+      "id": "data_shard",
+      "name": "Data Shard",
+      "kind": "material",
+      "value": 90,
+      "desc": "sell/hack"
+    },
+    {
+      "id": "cred_small",
+      "name": "Cred Chip (S)",
+      "kind": "currency",
+      "value": 25,
+      "desc": "+25 creds"
+    },
+    {
+      "id": "cred_medium",
+      "name": "Cred Chip (M)",
+      "kind": "currency",
+      "value": 80,
+      "desc": "+80 creds"
+    },
+    {
+      "id": "synth_food",
+      "name": "Synth Ration",
+      "kind": "consumable",
+      "value": 12,
+      "desc": "heal 6"
+    },
+    {
+      "id": "coffee",
+      "name": "Black Coffee",
+      "kind": "consumable",
+      "value": 10,
+      "desc": "speed +8% 30s"
+    },
+    {
+      "id": "key_spire",
+      "name": "Spire Access Key",
+      "kind": "quest",
+      "value": 0,
+      "desc": "quest item"
+    },
+    {
+      "id": "key_kilns",
+      "name": "Kilns Master Key",
+      "kind": "quest",
+      "value": 0,
+      "desc": "quest item"
+    },
+    {
+      "id": "key_curator",
+      "name": "Curator Cipher",
+      "kind": "quest",
+      "value": 0,
+      "desc": "quest item"
+    },
+    {
+      "id": "badge_corp",
+      "name": "Corporate Badge",
+      "kind": "quest",
+      "value": 0,
+      "desc": "quest item"
+    },
+    {
+      "id": "sample_alloy",
+      "name": "Alloy Sample",
+      "kind": "quest",
+      "value": 0,
+      "desc": "quest item"
+    },
+    {
+      "id": "manifest_kilns",
+      "name": "Kiln Manifest",
+      "kind": "quest",
+      "value": 0,
+      "desc": "quest item"
+    },
+    {
+      "id": "recording_whistle",
+      "name": "Whistleblower Recording",
+      "kind": "quest",
+      "value": 0,
+      "desc": "quest item"
+    },
+    {
+      "id": "ledger_black",
+      "name": "Black Ledger",
+      "kind": "quest",
+      "value": 0,
+      "desc": "quest item"
+    },
+    {
+      "id": "vip_pass",
+      "name": "Neon Row VIP Pass",
+      "kind": "quest",
+      "value": 0,
+      "desc": "quest item"
+    },
+    {
+      "id": "shard_clone",
+      "name": "Clone Data Shard",
+      "kind": "quest",
+      "value": 0,
+      "desc": "quest item"
+    },
+    {
+      "id": "proof_matriarch",
+      "name": "Matriarch Proof",
+      "kind": "quest",
+      "value": 0,
+      "desc": "quest item"
+    },
+    {
+      "id": "cipher_old",
+      "name": "Old Cipher",
+      "kind": "quest",
+      "value": 0,
+      "desc": "quest item"
+    },
+    {
+      "id": "letter_rook",
+      "name": "Unsigned Letter",
+      "kind": "quest",
+      "value": 0,
+      "desc": "quest item"
+    },
+    {
+      "id": "photo_crew",
+      "name": "Crew Photograph",
+      "kind": "quest",
+      "value": 0,
+      "desc": "quest item"
+    },
+    {
+      "id": "core_fragment",
+      "name": "Core Fragment",
+      "kind": "quest",
+      "value": 0,
+      "desc": "quest item"
+    }
+  ]
+}

@@ -1,0 +1,485 @@
+{
+  "nodes": [
+    {
+      "id": "d1",
+      "speaker": "npc_medic",
+      "text": "[medic] line 1: the contract changes, and someone wants a cut.",
+      "choices": [
+        {
+          "id": "d1_a",
+          "text": "Take the job.",
+          "set": {
+            "trust_medic": 1
+          },
+          "next": "d1"
+        },
+        {
+          "id": "d1_b",
+          "text": "Ask for more.",
+          "set": {
+            "trust_medic": -1,
+            "cred_demand": 1
+          },
+          "next": "d2"
+        }
+      ]
+    },
+    {
+      "id": "d2",
+      "speaker": "npc_fixer",
+      "text": "[fixer] line 2: the contract changes, and someone wants a cut.",
+      "next": "d4"
+    },
+    {
+      "id": "d3",
+      "speaker": "npc_whistle",
+      "text": "[whistle] line 3: the contract changes, and someone wants a cut.",
+      "choices": [
+        {
+          "id": "d3_a",
+          "text": "Take the job.",
+          "set": {
+            "trust_whistle": 1
+          },
+          "next": "d3"
+        },
+        {
+          "id": "d3_b",
+          "text": "Ask for more.",
+          "set": {
+            "trust_whistle": -1,
+            "cred_demand": 1
+          },
+          "next": "d4"
+        }
+      ]
+    },
+    {
+      "id": "d4",
+      "speaker": "npc_foreman",
+      "text": "[foreman] line 4: the contract changes, and someone wants a cut.",
+      "next": "d6"
+    },
+    {
+      "id": "d5",
+      "speaker": "npc_journalist",
+      "text": "[journalist] line 5: the contract changes, and someone wants a cut.",
+      "choices": [
+        {
+          "id": "d5_a",
+          "text": "Take the job.",
+          "set": {
+            "trust_journalist": 1
+          },
+          "next": "d5"
+        },
+        {
+          "id": "d5_b",
+          "text": "Ask for more.",
+          "set": {
+            "trust_journalist": -1,
+            "cred_demand": 1
+          },
+          "next": "d6"
+        }
+      ]
+    },
+    {
+      "id": "d6",
+      "speaker": "npc_singer",
+      "text": "[singer] line 6: the contract changes, and someone wants a cut.",
+      "next": "d8"
+    },
+    {
+      "id": "d7",
+      "speaker": "npc_curator",
+      "text": "[curator] line 7: the contract changes, and someone wants a cut.",
+      "choices": [
+        {
+          "id": "d7_a",
+          "text": "Take the job.",
+          "set": {
+            "trust_curator": 1
+          },
+          "next": "d7"
+        },
+        {
+          "id": "d7_b",
+          "text": "Ask for more.",
+          "set": {
+            "trust_curator": -1,
+            "cred_demand": 1
+          },
+          "next": "d8"
+        }
+      ]
+    },
+    {
+      "id": "d8",
+      "speaker": "npc_techie",
+      "text": "[techie] line 8: the contract changes, and someone wants a cut.",
+      "next": "d10"
+    },
+    {
+      "id": "d9",
+      "speaker": "npc_landlord",
+      "text": "[landlord] line 9: the contract changes, and someone wants a cut.",
+      "choices": [
+        {
+          "id": "d9_a",
+          "text": "Take the job.",
+          "set": {
+            "trust_landlord": 1
+          },
+          "next": "d9"
+        },
+        {
+          "id": "d9_b",
+          "text": "Ask for more.",
+          "set": {
+            "trust_landlord": -1,
+            "cred_demand": 1
+          },
+          "next": "d10"
+        }
+      ]
+    },
+    {
+      "id": "d10",
+      "speaker": "npc_dealer",
+      "text": "[dealer] line 10: the contract changes, and someone wants a cut.",
+      "next": "d12"
+    },
+    {
+      "id": "d11",
+      "speaker": "npc_guard",
+      "text": "[guard] line 11: the contract changes, and someone wants a cut.",
+      "choices": [
+        {
+          "id": "d11_a",
+          "text": "Take the job.",
+          "set": {
+            "trust_guard": 1
+          },
+          "next": "d11"
+        },
+        {
+          "id": "d11_b",
+          "text": "Ask for more.",
+          "set": {
+            "trust_guard": -1,
+            "cred_demand": 1
+          },
+          "next": "d12"
+        }
+      ]
+    },
+    {
+      "id": "d12",
+      "speaker": "npc_netrunner",
+      "text": "[netrunner] line 12: the contract changes, and someone wants a cut.",
+      "next": "d14"
+    },
+    {
+      "id": "d13",
+      "speaker": "npc_bartender",
+      "text": "[bartender] line 13: the contract changes, and someone wants a cut.",
+      "choices": [
+        {
+          "id": "d13_a",
+          "text": "Take the job.",
+          "set": {
+            "trust_bartender": 1
+          },
+          "next": "d13"
+        },
+        {
+          "id": "d13_b",
+          "text": "Ask for more.",
+          "set": {
+            "trust_bartender": -1,
+            "cred_demand": 1
+          },
+          "next": "d14"
+        }
+      ]
+    },
+    {
+      "id": "d14",
+      "speaker": "npc_medic",
+      "text": "[medic] line 14: the contract changes, and someone wants a cut.",
+      "next": "d16"
+    },
+    {
+      "id": "d15",
+      "speaker": "npc_fixer",
+      "text": "[fixer] line 15: the contract changes, and someone wants a cut.",
+      "choices": [
+        {
+          "id": "d15_a",
+          "text": "Take the job.",
+          "set": {
+            "trust_fixer": 1
+          },
+          "next": "d15"
+        },
+        {
+          "id": "d15_b",
+          "text": "Ask for more.",
+          "set": {
+            "trust_fixer": -1,
+            "cred_demand": 1
+          },
+          "next": "d16"
+        }
+      ]
+    },
+    {
+      "id": "d16",
+      "speaker": "npc_whistle",
+      "text": "[whistle] line 16: the contract changes, and someone wants a cut.",
+      "next": "d18"
+    },
+    {
+      "id": "d17",
+      "speaker": "npc_foreman",
+      "text": "[foreman] line 17: the contract changes, and someone wants a cut.",
+      "choices": [
+        {
+          "id": "d17_a",
+          "text": "Take the job.",
+          "set": {
+            "trust_foreman": 1
+          },
+          "next": "d17"
+        },
+        {
+          "id": "d17_b",
+          "text": "Ask for more.",
+          "set": {
+            "trust_foreman": -1,
+            "cred_demand": 1
+          },
+          "next": "d18"
+        }
+      ]
+    },
+    {
+      "id": "d18",
+      "speaker": "npc_journalist",
+      "text": "[journalist] line 18: the contract changes, and someone wants a cut.",
+      "next": "d20"
+    },
+    {
+      "id": "d19",
+      "speaker": "npc_singer",
+      "text": "[singer] line 19: the contract changes, and someone wants a cut.",
+      "choices": [
+        {
+          "id": "d19_a",
+          "text": "Take the job.",
+          "set": {
+            "trust_singer": 1
+          },
+          "next": "d19"
+        },
+        {
+          "id": "d19_b",
+          "text": "Ask for more.",
+          "set": {
+            "trust_singer": -1,
+            "cred_demand": 1
+          },
+          "next": "d20"
+        }
+      ]
+    },
+    {
+      "id": "d20",
+      "speaker": "npc_curator",
+      "text": "[curator] line 20: the contract changes, and someone wants a cut.",
+      "next": "d22"
+    },
+    {
+      "id": "d21",
+      "speaker": "npc_techie",
+      "text": "[techie] line 21: the contract changes, and someone wants a cut.",
+      "choices": [
+        {
+          "id": "d21_a",
+          "text": "Take the job.",
+          "set": {
+            "trust_techie": 1
+          },
+          "next": "d21"
+        },
+        {
+          "id": "d21_b",
+          "text": "Ask for more.",
+          "set": {
+            "trust_techie": -1,
+            "cred_demand": 1
+          },
+          "next": "d22"
+        }
+      ]
+    },
+    {
+      "id": "d22",
+      "speaker": "npc_landlord",
+      "text": "[landlord] line 22: the contract changes, and someone wants a cut.",
+      "next": "d24"
+    },
+    {
+      "id": "d23",
+      "speaker": "npc_dealer",
+      "text": "[dealer] line 23: the contract changes, and someone wants a cut.",
+      "choices": [
+        {
+          "id": "d23_a",
+          "text": "Take the job.",
+          "set": {
+            "trust_dealer": 1
+          },
+          "next": "d23"
+        },
+        {
+          "id": "d23_b",
+          "text": "Ask for more.",
+          "set": {
+            "trust_dealer": -1,
+            "cred_demand": 1
+          },
+          "next": "d24"
+        }
+      ]
+    },
+    {
+      "id": "d24",
+      "speaker": "npc_guard",
+      "text": "[guard] line 24: the contract changes, and someone wants a cut.",
+      "next": "d26"
+    },
+    {
+      "id": "d25",
+      "speaker": "npc_netrunner",
+      "text": "[netrunner] line 25: the contract changes, and someone wants a cut.",
+      "choices": [
+        {
+          "id": "d25_a",
+          "text": "Take the job.",
+          "set": {
+            "trust_netrunner": 1
+          },
+          "next": "d25"
+        },
+        {
+          "id": "d25_b",
+          "text": "Ask for more.",
+          "set": {
+            "trust_netrunner": -1,
+            "cred_demand": 1
+          },
+          "next": "d26"
+        }
+      ]
+    },
+    {
+      "id": "d26",
+      "speaker": "npc_bartender",
+      "text": "[bartender] line 26: the contract changes, and someone wants a cut.",
+      "next": "d28"
+    },
+    {
+      "id": "d27",
+      "speaker": "npc_medic",
+      "text": "[medic] line 27: the contract changes, and someone wants a cut.",
+      "choices": [
+        {
+          "id": "d27_a",
+          "text": "Take the job.",
+          "set": {
+            "trust_medic": 1
+          },
+          "next": "d27"
+        },
+        {
+          "id": "d27_b",
+          "text": "Ask for more.",
+          "set": {
+            "trust_medic": -1,
+            "cred_demand": 1
+          },
+          "next": "d28"
+        }
+      ]
+    },
+    {
+      "id": "d28",
+      "speaker": "npc_fixer",
+      "text": "[fixer] line 28: the contract changes, and someone wants a cut.",
+      "next": "d30"
+    },
+    {
+      "id": "d29",
+      "speaker": "npc_whistle",
+      "text": "[whistle] line 29: the contract changes, and someone wants a cut.",
+      "choices": [
+        {
+          "id": "d29_a",
+          "text": "Take the job.",
+          "set": {
+            "trust_whistle": 1
+          },
+          "next": "d29"
+        },
+        {
+          "id": "d29_b",
+          "text": "Ask for more.",
+          "set": {
+            "trust_whistle": -1,
+            "cred_demand": 1
+          },
+          "next": "d30"
+        }
+      ]
+    },
+    {
+      "id": "d30",
+      "speaker": "npc_foreman",
+      "text": "[foreman] line 30: the contract changes, and someone wants a cut.",
+      "next": "d32"
+    },
+    {
+      "id": "d31",
+      "speaker": "npc_journalist",
+      "text": "[journalist] line 31: the contract changes, and someone wants a cut.",
+      "choices": [
+        {
+          "id": "d31_a",
+          "text": "Take the job.",
+          "set": {
+            "trust_journalist": 1
+          },
+          "next": "d31"
+        },
+        {
+          "id": "d31_b",
+          "text": "Ask for more.",
+          "set": {
+            "trust_journalist": -1,
+            "cred_demand": 1
+          },
+          "next": "d32"
+        }
+      ]
+    },
+    {
+      "id": "d32",
+      "speaker": "npc_singer",
+      "text": "[singer] line 32: the contract changes, and someone wants a cut.",
+      "next": "d2"
+    }
+  ],
+  "start": "d1"
+}

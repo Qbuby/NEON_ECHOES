@@ -1,0 +1,189 @@
+{
+  "districts": [
+    {
+      "id": "corporate",
+      "name": "Vantage Spire District",
+      "tileset": "corporate",
+      "palette_accent": "#38d8ff",
+      "ambient": "corp_hum",
+      "visuals": [
+        "glass curtain walls",
+        "holo advertising towers",
+        "security scanner gates"
+      ],
+      "enemy_mix": [
+        "gunner",
+        "sniper",
+        "heavy"
+      ],
+      "npcs": [
+        "npc_whistle",
+        "npc_guard",
+        "npc_fixer",
+        "npc_curator",
+        "npc_netrunner",
+        "npc_journalist",
+        "npc_techie",
+        "npc_landlord",
+        "npc_dealer",
+        "npc_bartender"
+      ],
+      "interiors": [
+        "spire_lobby",
+        "boardroom",
+        "server_vault",
+        "exec_office"
+      ],
+      "interactables": [
+        "scanner_gate",
+        "camera_cluster",
+        "server_rack",
+        "elevator",
+        "holo_terminal",
+        "secure_door",
+        "badge_reader",
+        "vault_lock",
+        "alarm_panel",
+        "data_siphon"
+      ],
+      "secrets": [
+        "vent_cache",
+        "maintenance_hatch",
+        "rooftop_stash",
+        "data_drop",
+        "vault_niche"
+      ]
+    },
+    {
+      "id": "industrial",
+      "name": "Kilns Industrial Belt",
+      "tileset": "industrial",
+      "palette_accent": "#e8a23c",
+      "ambient": "factory_rumble",
+      "visuals": [
+        "smokestacks",
+        "pipe networks",
+        "molten channels"
+      ],
+      "enemy_mix": [
+        "rusher",
+        "heavy",
+        "drone"
+      ],
+      "npcs": [
+        "npc_foreman",
+        "npc_techie",
+        "npc_dealer",
+        "npc_landlord",
+        "npc_guard",
+        "npc_medic",
+        "npc_fixer",
+        "npc_netrunner",
+        "npc_journalist",
+        "npc_bartender"
+      ],
+      "interiors": [
+        "foundry_floor",
+        "warehouse",
+        "black_market",
+        "repair_bay"
+      ],
+      "interactables": [
+        "blast_furnace",
+        "crane_console",
+        "cargo_crate",
+        "turret_mount",
+        "coolant_valve",
+        "work_bench",
+        "conveyor_switch",
+        "press_control",
+        "scrap_hopper",
+        "kiln_gauge"
+      ],
+      "secrets": [
+        "pipe_crawl",
+        "crate_stack",
+        "underfloor_gap",
+        "scrap_pile",
+        "smuggler_nook"
+      ]
+    },
+    {
+      "id": "nightlife",
+      "name": "Neon Row",
+      "tileset": "nightlife",
+      "palette_accent": "#ff2fb4",
+      "ambient": "club_bass",
+      "visuals": [
+        "holographic signage",
+        "wet neon reflections",
+        "crowd silhouettes"
+      ],
+      "enemy_mix": [
+        "gunner",
+        "rusher",
+        "netrunner"
+      ],
+      "npcs": [
+        "npc_singer",
+        "npc_bartender",
+        "npc_dealer",
+        "npc_journalist",
+        "npc_fixer",
+        "npc_medic",
+        "npc_techie",
+        "npc_guard",
+        "npc_netrunner",
+        "npc_curator"
+      ],
+      "interiors": [
+        "main_club",
+        "backstage",
+        "vip_lounge",
+        "alley_market"
+      ],
+      "interactables": [
+        "bar_counter",
+        "jukebox",
+        "vip_rope",
+        "hack_terminal",
+        "stage_lift",
+        "vending_machine",
+        "light_console",
+        "atm",
+        "ticket_booth",
+        "crowd_gate"
+      ],
+      "secrets": [
+        "alley_cache",
+        "speaker_stash",
+        "backstage_crate",
+        "roof_hatch",
+        "cellar_door"
+      ]
+    }
+  ],
+  "summary": {
+    "corporate": {
+      "interiors": 4,
+      "npcs": 10,
+      "interactables": 10,
+      "secrets": 9,
+      "visuals": 3
+    },
+    "industrial": {
+      "interiors": 4,
+      "npcs": 10,
+      "interactables": 10,
+      "secrets": 9,
+      "visuals": 3
+    },
+    "nightlife": {
+      "interiors": 4,
+      "npcs": 10,
+      "interactables": 10,
+      "secrets": 9,
+      "visuals": 3
+    }
+  }
+}

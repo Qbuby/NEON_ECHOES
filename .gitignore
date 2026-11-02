@@ -1,0 +1,22 @@
+# Godot
+.godot/
+*.import
+export_presets.cfg
+build/
+*.exe
+*.pck
+*.zip
+
+# Tool output / caches
+__pycache__/
+*.pyc
+node_modules/
+tools/*/node_modules/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Large local artifacts are kept out of git and listed in evidence/ARTIFACTS.md
+evidence/video/*.avi
+archive/

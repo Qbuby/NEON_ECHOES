@@ -1,0 +1,15 @@
+{
+  "name": "visual",
+  "start_scene": "res://scenes/levels/street_level.tscn",
+  "timeout_frames": 2400,
+  "steps": [
+    { "action": "wait", "frames": 24 },
+    { "action": "screenshot", "label": "01_street" },
+    { "action": "press", "input": "move_right" },
+    { "action": "wait", "frames": 60 },
+    { "action": "release", "input": "move_right" },
+    { "action": "wait", "frames": 8 },
+    { "action": "screenshot", "label": "02_moved" },
+    { "action": "quit", "code": 0 }
+  ]
+}

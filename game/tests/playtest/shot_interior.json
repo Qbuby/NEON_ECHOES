@@ -1,0 +1,19 @@
+{
+  "name": "shot_interior",
+  "start_scene": "res://scenes/levels/nightlife_main_club.tscn",
+  "timeout_frames": 1800,
+  "steps": [
+    {
+      "action": "wait",
+      "frames": 30
+    },
+    {
+      "action": "screenshot",
+      "label": "interior_club"
+    },
+    {
+      "action": "quit",
+      "code": 0
+    }
+  ]
+}

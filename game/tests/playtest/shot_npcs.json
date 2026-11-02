@@ -1,0 +1,35 @@
+{
+  "name": "shot_npcs",
+  "start_scene": "res://scenes/levels/nightlife.tscn",
+  "timeout_frames": 1800,
+  "steps": [
+    {
+      "action": "wait",
+      "frames": 24
+    },
+    {
+      "action": "press",
+      "input": "move_up"
+    },
+    {
+      "action": "wait",
+      "frames": 20
+    },
+    {
+      "action": "release",
+      "input": "move_up"
+    },
+    {
+      "action": "wait",
+      "frames": 6
+    },
+    {
+      "action": "screenshot",
+      "label": "many_npcs"
+    },
+    {
+      "action": "quit",
+      "code": 0
+    }
+  ]
+}

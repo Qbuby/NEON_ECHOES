@@ -1,0 +1,24 @@
+{
+  "enemies": [
+    {"id":"gunner","name":"Street Gunner","hp":30,"speed":58,"damage":7,"attack_range":240,"preferred_range":210,"cooldown":1.10,"armor":0,"behavior":"ranged_cover","xp":12,"loot":["cred_small"]},
+    {"id":"rusher","name":"Blade Rusher","hp":38,"speed":95,"damage":12,"attack_range":38,"preferred_range":30,"cooldown":0.80,"armor":0,"behavior":"melee_charge","xp":14,"loot":["cred_small"]},
+    {"id":"sniper","name":"Rooftop Sniper","hp":24,"speed":40,"damage":26,"attack_range":700,"preferred_range":620,"cooldown":2.40,"armor":0,"behavior":"sniper_hold","xp":22,"loot":["cred_medium"]},
+    {"id":"heavy","name":"Riot Frame","hp":110,"speed":34,"damage":18,"attack_range":46,"preferred_range":38,"cooldown":1.60,"armor":0.45,"behavior":"heavy_advance","xp":34,"loot":["cred_medium","armor_shard"]},
+    {"id":"netrunner","name":"Netrunner","hp":26,"speed":52,"damage":5,"attack_range":320,"preferred_range":280,"cooldown":2.80,"armor":0,"behavior":"hacker_disrupt","xp":26,"loot":["cred_medium","data_shard"]},
+    {"id":"drone","name":"Patrol Drone","hp":22,"speed":72,"damage":9,"attack_range":260,"preferred_range":180,"cooldown":1.30,"armor":0.15,"behavior":"drone_strafe","xp":16,"loot":["cred_small","drone_core"]}
+  ],
+  "bosses": [
+    {"id":"boss_warden","name":"The Warden","hp":420,"speed":52,"damage":22,"armor":0.30,"xp":300,
+     "phases":[{"at":1.0,"speed_mul":1.0,"attacks":["slam","sweep","charge"],"telegraph":0.65},
+               {"at":0.5,"speed_mul":1.35,"attacks":["slam","charge","shockwave"],"telegraph":0.5}],
+     "reward":{"cred":600,"xp":300,"item":"key_spire"}},
+    {"id":"boss_matriarch","name":"Kiln Matriarch","hp":520,"speed":44,"damage":26,"armor":0.25,"xp":380,
+     "phases":[{"at":1.0,"speed_mul":1.0,"attacks":["flame_arc","drone_call","stomp"],"telegraph":0.7},
+               {"at":0.45,"speed_mul":1.25,"attacks":["flame_arc","stomp","overheat"],"telegraph":0.55}],
+     "reward":{"cred":800,"xp":380,"item":"key_kilns"}},
+    {"id":"boss_curator","name":"The Curator","hp":600,"speed":60,"damage":24,"armor":0.20,"xp":450,
+     "phases":[{"at":1.0,"speed_mul":1.0,"attacks":["holo_blades","mirror_clone","data_storm"],"telegraph":0.6},
+               {"at":0.4,"speed_mul":1.5,"attacks":["holo_blades","data_storm","system_crash"],"telegraph":0.45}],
+     "reward":{"cred":1200,"xp":450,"item":"key_curator"}}
+  ]
+}

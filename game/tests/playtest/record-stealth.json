@@ -1,0 +1,78 @@
+{
+  "name": "record-stealth",
+  "start_scene": "res://scenes/levels/nightlife.tscn",
+  "timeout_frames": 2000,
+  "steps": [
+    {
+      "action": "wait",
+      "frames": 20
+    },
+    {
+      "action": "press",
+      "input": "move_down"
+    },
+    {
+      "action": "wait",
+      "frames": 80
+    },
+    {
+      "action": "release",
+      "input": "move_down"
+    },
+    {
+      "action": "tap",
+      "input": "interact",
+      "frames": 4
+    },
+    {
+      "action": "wait",
+      "frames": 40
+    },
+    {
+      "action": "press",
+      "input": "move_left"
+    },
+    {
+      "action": "wait",
+      "frames": 110
+    },
+    {
+      "action": "release",
+      "input": "move_left"
+    },
+    {
+      "action": "tap",
+      "input": "hack",
+      "frames": 4
+    },
+    {
+      "action": "wait",
+      "frames": 60
+    },
+    {
+      "action": "press",
+      "input": "move_up"
+    },
+    {
+      "action": "wait",
+      "frames": 80
+    },
+    {
+      "action": "release",
+      "input": "move_up"
+    },
+    {
+      "action": "tap",
+      "input": "attack",
+      "frames": 4
+    },
+    {
+      "action": "wait",
+      "frames": 60
+    },
+    {
+      "action": "quit",
+      "code": 0
+    }
+  ]
+}

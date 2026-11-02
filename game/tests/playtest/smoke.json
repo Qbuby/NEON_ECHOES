@@ -1,0 +1,20 @@
+{
+  "name": "smoke",
+  "start_scene": "res://scenes/levels/level_01.tscn",
+  "timeout_frames": 1200,
+  "steps": [
+    { "action": "wait", "frames": 12 },
+    { "action": "log_state", "label": "after_load" },
+    { "action": "assert", "path": "player.alive", "op": "truthy", "label": "player spawned" },
+    { "action": "assert", "path": "enemies.alive", "op": "gte", "value": 3, "label": "enemies spawned" },
+    { "action": "press", "input": "move_right" },
+    { "action": "wait", "frames": 40 },
+    { "action": "release", "input": "move_right" },
+    { "action": "wait", "frames": 4 },
+    { "action": "assert", "path": "player.x", "op": "gt", "value": 40, "label": "player moved right" },
+    { "action": "tap", "input": "attack", "frames": 4 },
+    { "action": "wait", "frames": 20 },
+    { "action": "log_state", "label": "after_attack" },
+    { "action": "quit", "code": 0 }
+  ]
+}

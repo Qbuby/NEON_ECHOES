@@ -1,0 +1,12 @@
+{
+  "name": "autoplay_visual",
+  "start_scene": "res://scenes/levels/glade.tscn",
+  "timeout_frames": 20000,
+  "steps": [
+    { "action": "wait", "frames": 10 },
+    { "action": "screenshot", "label": "auto_000" },
+    { "action": "autoplay", "goal": "victory", "max_frames": 12000, "screenshot_every": 320 },
+    { "action": "assert", "path": "game.flags.warden_defeated", "op": "truthy", "label": "warden defeated" },
+    { "action": "quit", "code": 0 }
+  ]
+}

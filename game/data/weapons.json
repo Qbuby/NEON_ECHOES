@@ -1,0 +1,14 @@
+{
+  "weapons": [
+    {"id":"pistol_sidearm","name":"Kite Sidearm","class":"pistol","damage":8,"rate":0.28,"range":320,"spread":2.0,"mag":12,"reload":1.10,"recoil":0.35,"rarity":"common","fx":"muzzle_small","sfx":"gun_pistol"},
+    {"id":"pistol_heavy","name":"Brick Heavy Pistol","class":"pistol","damage":16,"rate":0.55,"range":300,"spread":2.8,"mag":8,"reload":1.40,"recoil":0.75,"rarity":"uncommon","fx":"muzzle_small","sfx":"gun_heavy_pistol"},
+    {"id":"smg","name":"Wasp SMG","class":"smg","damage":6,"rate":0.09,"range":260,"spread":4.5,"mag":32,"reload":1.60,"recoil":0.30,"rarity":"common","fx":"muzzle_small","sfx":"gun_smg"},
+    {"id":"rifle_assault","name":"Lattice AR","class":"rifle","damage":11,"rate":0.12,"range":420,"spread":2.6,"mag":30,"reload":1.90,"recoil":0.45,"rarity":"uncommon","fx":"muzzle_medium","sfx":"gun_rifle"},
+    {"id":"rifle_precision","name":"Verdict DMR","class":"rifle","damage":22,"rate":0.42,"range":520,"spread":1.2,"mag":12,"reload":2.10,"recoil":0.85,"rarity":"rare","fx":"muzzle_medium","sfx":"gun_dmr"},
+    {"id":"sniper","name":"Longline Rifle","class":"sniper","damage":55,"rate":1.30,"range":900,"spread":0.3,"mag":5,"reload":2.60,"recoil":1.60,"rarity":"rare","fx":"muzzle_large","sfx":"gun_sniper"},
+    {"id":"shotgun","name":"Cinder Shotgun","class":"shotgun","damage":6,"rate":0.80,"range":180,"spread":9.0,"mag":6,"reload":2.20,"recoil":1.20,"rarity":"uncommon","fx":"muzzle_large","sfx":"gun_shotgun","pellets":6},
+    {"id":"energy","name":"Arc Emitter","class":"energy","damage":14,"rate":0.35,"range":380,"spread":1.5,"mag":20,"reload":1.70,"recoil":0.20,"rarity":"epic","fx":"muzzle_energy","sfx":"gun_energy","pierce":true},
+    {"id":"melee_knife","name":"Mono-Edge Knife","class":"melee","damage":18,"rate":0.34,"range":42,"spread":0.0,"mag":0,"reload":0.0,"recoil":0.15,"rarity":"common","fx":"slash_small","sfx":"melee_slash"},
+    {"id":"melee_heavy","name":"Pile Cleaver","class":"melee","damage":38,"rate":0.95,"range":52,"spread":0.0,"mag":0,"reload":0.0,"recoil":0.55,"rarity":"uncommon","fx":"slash_heavy","sfx":"melee_heavy"}
+  ]
+}

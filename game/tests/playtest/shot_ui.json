@@ -1,0 +1,41 @@
+{
+  "name": "shot_ui",
+  "start_scene": "res://scenes/levels/corporate.tscn",
+  "timeout_frames": 1800,
+  "steps": [
+    {
+      "action": "wait",
+      "frames": 24
+    },
+    {
+      "action": "tap",
+      "input": "pause",
+      "frames": 3
+    },
+    {
+      "action": "wait",
+      "frames": 8
+    },
+    {
+      "action": "screenshot",
+      "label": "pause_menu"
+    },
+    {
+      "action": "tap",
+      "input": "pause",
+      "frames": 3
+    },
+    {
+      "action": "wait",
+      "frames": 6
+    },
+    {
+      "action": "screenshot",
+      "label": "hud"
+    },
+    {
+      "action": "quit",
+      "code": 0
+    }
+  ]
+}

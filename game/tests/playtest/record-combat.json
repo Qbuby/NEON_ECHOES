@@ -1,0 +1,87 @@
+{
+  "name": "record-combat",
+  "start_scene": "res://scenes/levels/corporate.tscn",
+  "timeout_frames": 2000,
+  "steps": [
+    {
+      "action": "wait",
+      "frames": 20
+    },
+    {
+      "action": "press",
+      "input": "move_right"
+    },
+    {
+      "action": "wait",
+      "frames": 90
+    },
+    {
+      "action": "release",
+      "input": "move_right"
+    },
+    {
+      "action": "tap",
+      "input": "attack",
+      "frames": 4
+    },
+    {
+      "action": "wait",
+      "frames": 40
+    },
+    {
+      "action": "press",
+      "input": "move_up"
+    },
+    {
+      "action": "wait",
+      "frames": 70
+    },
+    {
+      "action": "release",
+      "input": "move_up"
+    },
+    {
+      "action": "tap",
+      "input": "attack",
+      "frames": 4
+    },
+    {
+      "action": "wait",
+      "frames": 40
+    },
+    {
+      "action": "tap",
+      "input": "dash",
+      "frames": 6
+    },
+    {
+      "action": "wait",
+      "frames": 50
+    },
+    {
+      "action": "press",
+      "input": "move_left"
+    },
+    {
+      "action": "wait",
+      "frames": 90
+    },
+    {
+      "action": "release",
+      "input": "move_left"
+    },
+    {
+      "action": "tap",
+      "input": "attack",
+      "frames": 4
+    },
+    {
+      "action": "wait",
+      "frames": 60
+    },
+    {
+      "action": "quit",
+      "code": 0
+    }
+  ]
+}

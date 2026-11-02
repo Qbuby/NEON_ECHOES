@@ -1,0 +1,133 @@
+{
+  "cyberware": [
+    {
+      "id": "optics_kiroshi",
+      "name": "Kiroshi Optics",
+      "slot": "eyes",
+      "cost": 300,
+      "effect": {
+        "crit_chance": 0.08,
+        "hack_range": 0.15
+      },
+      "active": false
+    },
+    {
+      "id": "optics_threat",
+      "name": "Threat Detector",
+      "slot": "eyes",
+      "cost": 650,
+      "effect": {
+        "detect_range_mul": -0.25
+      },
+      "active": true,
+      "active_effect": "highlight_enemies"
+    },
+    {
+      "id": "armor_subdermal",
+      "name": "Subdermal Weave",
+      "slot": "skin",
+      "cost": 400,
+      "effect": {
+        "armor": 0.12
+      },
+      "active": false
+    },
+    {
+      "id": "armor_plating",
+      "name": "Dermal Plating",
+      "slot": "skin",
+      "cost": 900,
+      "effect": {
+        "armor": 0.2,
+        "hp_bonus": 20
+      },
+      "active": false
+    },
+    {
+      "id": "legs_boost",
+      "name": "Tendon Boosters",
+      "slot": "legs",
+      "cost": 350,
+      "effect": {
+        "speed_mul": 0.12
+      },
+      "active": false
+    },
+    {
+      "id": "legs_dash",
+      "name": "Reflex Dash",
+      "slot": "legs",
+      "cost": 800,
+      "effect": {
+        "speed_mul": 0.05
+      },
+      "active": true,
+      "active_effect": "dash"
+    },
+    {
+      "id": "arms_blade",
+      "name": "Mono-Edge Arm",
+      "slot": "arms",
+      "cost": 500,
+      "effect": {
+        "melee_damage_mul": 0.3
+      },
+      "active": false
+    },
+    {
+      "id": "arms_grip",
+      "name": "Smart Grip",
+      "slot": "arms",
+      "cost": 700,
+      "effect": {
+        "recoil_mul": -0.35,
+        "accuracy": 0.1
+      },
+      "active": false
+    },
+    {
+      "id": "deck_basic",
+      "name": "Data Deck Mk1",
+      "slot": "deck",
+      "cost": 250,
+      "effect": {
+        "ram_bonus": 3
+      },
+      "active": false
+    },
+    {
+      "id": "deck_daemon",
+      "name": "Daemon Deck",
+      "slot": "deck",
+      "cost": 1100,
+      "effect": {
+        "ram_bonus": 5,
+        "hack_cost_mul": -0.15
+      },
+      "active": true,
+      "active_effect": "overload"
+    },
+    {
+      "id": "heart_nano",
+      "name": "Nanite Heart",
+      "slot": "chest",
+      "cost": 950,
+      "effect": {
+        "hp_bonus": 30,
+        "regen": 1.0
+      },
+      "active": false
+    },
+    {
+      "id": "chest_shield",
+      "name": "Kinetic Shield",
+      "slot": "chest",
+      "cost": 1200,
+      "effect": {
+        "armor": 0.1
+      },
+      "active": true,
+      "active_effect": "shield_burst"
+    }
+  ]
+}

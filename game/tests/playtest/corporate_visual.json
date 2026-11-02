@@ -1,0 +1,15 @@
+{
+  "name": "corporate_visual",
+  "start_scene": "res://scenes/levels/corporate.tscn",
+  "timeout_frames": 2400,
+  "steps": [
+    { "action": "wait", "frames": 30 },
+    { "action": "screenshot", "label": "01_corporate" },
+    { "action": "press", "input": "move_right" },
+    { "action": "wait", "frames": 70 },
+    { "action": "release", "input": "move_right" },
+    { "action": "wait", "frames": 8 },
+    { "action": "screenshot", "label": "02_corporate_walk" },
+    { "action": "quit", "code": 0 }
+  ]
+}

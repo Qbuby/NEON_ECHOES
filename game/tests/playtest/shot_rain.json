@@ -1,0 +1,19 @@
+{
+  "name": "shot_rain",
+  "start_scene": "res://scenes/levels/nightlife.tscn",
+  "timeout_frames": 1800,
+  "steps": [
+    {
+      "action": "wait",
+      "frames": 24
+    },
+    {
+      "action": "screenshot",
+      "label": "nightlife_rain"
+    },
+    {
+      "action": "quit",
+      "code": 0
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "name": "shot_boss",
+  "start_scene": "res://scenes/levels/corporate_server_vault.tscn",
+  "timeout_frames": 1800,
+  "steps": [
+    {
+      "action": "wait",
+      "frames": 20
+    },
+    {
+      "action": "teleport",
+      "cell": [
+        14,
+        16
+      ]
+    },
+    {
+      "action": "wait",
+      "frames": 20
+    },
+    {
+      "action": "screenshot",
+      "label": "boss_arena"
+    },
+    {
+      "action": "tap",
+      "input": "attack",
+      "frames": 3
+    },
+    {
+      "action": "wait",
+      "frames": 20
+    },
+    {
+      "action": "screenshot",
+      "label": "boss_combat"
+    },
+    {
+      "action": "quit",
+      "code": 0
+    }
+  ]
+}

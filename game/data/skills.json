@@ -1,0 +1,301 @@
+{
+  "trees": [
+    {
+      "id": "combat",
+      "name": "Combat",
+      "nodes": [
+        {
+          "id": "c1",
+          "name": "Steady Hands",
+          "tier": 1,
+          "cost": 1,
+          "requires": [],
+          "effect": {
+            "accuracy": 0.15
+          }
+        },
+        {
+          "id": "c2",
+          "name": "Deep Mag",
+          "tier": 1,
+          "cost": 1,
+          "requires": [],
+          "effect": {
+            "mag_bonus": 0.2
+          }
+        },
+        {
+          "id": "c3",
+          "name": "Quick Reload",
+          "tier": 2,
+          "cost": 1,
+          "requires": [
+            "c2"
+          ],
+          "effect": {
+            "reload_speed": 0.25
+          }
+        },
+        {
+          "id": "c4",
+          "name": "Hollow Points",
+          "tier": 2,
+          "cost": 2,
+          "requires": [
+            "c1"
+          ],
+          "effect": {
+            "damage_mul": 0.15
+          }
+        },
+        {
+          "id": "c5",
+          "name": "Counterweight",
+          "tier": 3,
+          "cost": 2,
+          "requires": [
+            "c4"
+          ],
+          "effect": {
+            "recoil_mul": -0.3
+          }
+        },
+        {
+          "id": "c6",
+          "name": "Executioner",
+          "tier": 3,
+          "cost": 2,
+          "requires": [
+            "c4"
+          ],
+          "effect": {
+            "crit_chance": 0.12
+          }
+        },
+        {
+          "id": "c7",
+          "name": "Adrenaline",
+          "tier": 4,
+          "cost": 3,
+          "requires": [
+            "c5",
+            "c6"
+          ],
+          "effect": {
+            "damage_below_half": 0.3
+          }
+        },
+        {
+          "id": "c8",
+          "name": "Killing Blow",
+          "tier": 4,
+          "cost": 3,
+          "requires": [
+            "c7"
+          ],
+          "effect": {
+            "kill_heal": 4
+          }
+        }
+      ]
+    },
+    {
+      "id": "stealth",
+      "name": "Stealth",
+      "nodes": [
+        {
+          "id": "s1",
+          "name": "Soft Step",
+          "tier": 1,
+          "cost": 1,
+          "requires": [],
+          "effect": {
+            "noise_mul": -0.3
+          }
+        },
+        {
+          "id": "s2",
+          "name": "Low Profile",
+          "tier": 1,
+          "cost": 1,
+          "requires": [],
+          "effect": {
+            "detect_range_mul": -0.15
+          }
+        },
+        {
+          "id": "s3",
+          "name": "Shadow Merge",
+          "tier": 2,
+          "cost": 1,
+          "requires": [
+            "s2"
+          ],
+          "effect": {
+            "detect_range_mul": -0.2
+          }
+        },
+        {
+          "id": "s4",
+          "name": "Silent Takedown",
+          "tier": 2,
+          "cost": 2,
+          "requires": [
+            "s1"
+          ],
+          "effect": {
+            "takedown_damage": 40
+          }
+        },
+        {
+          "id": "s5",
+          "name": "Vanish",
+          "tier": 3,
+          "cost": 2,
+          "requires": [
+            "s3"
+          ],
+          "effect": {
+            "vanish_cooldown": -0.3
+          }
+        },
+        {
+          "id": "s6",
+          "name": "Ghost Walk",
+          "tier": 3,
+          "cost": 2,
+          "requires": [
+            "s3"
+          ],
+          "effect": {
+            "sprint_noise": -0.5
+          }
+        },
+        {
+          "id": "s7",
+          "name": "Cold Read",
+          "tier": 4,
+          "cost": 3,
+          "requires": [
+            "s4",
+            "s5"
+          ],
+          "effect": {
+            "alert_decay": 0.4
+          }
+        },
+        {
+          "id": "s8",
+          "name": "No Witnesses",
+          "tier": 4,
+          "cost": 3,
+          "requires": [
+            "s7"
+          ],
+          "effect": {
+            "takedown_chain": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "net",
+      "name": "Netrunning",
+      "nodes": [
+        {
+          "id": "n1",
+          "name": "Buffer",
+          "tier": 1,
+          "cost": 1,
+          "requires": [],
+          "effect": {
+            "ram_bonus": 2
+          }
+        },
+        {
+          "id": "n2",
+          "name": "Fast Upload",
+          "tier": 1,
+          "cost": 1,
+          "requires": [],
+          "effect": {
+            "hack_speed": 0.25
+          }
+        },
+        {
+          "id": "n3",
+          "name": "Deep Scan",
+          "tier": 2,
+          "cost": 1,
+          "requires": [
+            "n1"
+          ],
+          "effect": {
+            "hack_range": 0.3
+          }
+        },
+        {
+          "id": "n4",
+          "name": "Breach",
+          "tier": 2,
+          "cost": 2,
+          "requires": [
+            "n2"
+          ],
+          "effect": {
+            "hack_cost_mul": -0.2
+          }
+        },
+        {
+          "id": "n5",
+          "name": "Daemon",
+          "tier": 3,
+          "cost": 2,
+          "requires": [
+            "n4"
+          ],
+          "effect": {
+            "hack_damage": 8
+          }
+        },
+        {
+          "id": "n6",
+          "name": "Puppet",
+          "tier": 3,
+          "cost": 2,
+          "requires": [
+            "n4"
+          ],
+          "effect": {
+            "turret_control": true
+          }
+        },
+        {
+          "id": "n7",
+          "name": "Overclock",
+          "tier": 4,
+          "cost": 3,
+          "requires": [
+            "n5",
+            "n6"
+          ],
+          "effect": {
+            "ram_regen": 0.5
+          }
+        },
+        {
+          "id": "n8",
+          "name": "System Crash",
+          "tier": 4,
+          "cost": 3,
+          "requires": [
+            "n7"
+          ],
+          "effect": {
+            "hack_stun": 3.0
+          }
+        }
+      ]
+    }
+  ]
+}

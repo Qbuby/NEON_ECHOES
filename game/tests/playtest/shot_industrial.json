@@ -1,0 +1,44 @@
+{
+  "name": "shot_industrial",
+  "start_scene": "res://scenes/levels/industrial.tscn",
+  "timeout_frames": 1800,
+  "steps": [
+    {
+      "action": "wait",
+      "frames": 30
+    },
+    {
+      "action": "screenshot",
+      "label": "industrial_street"
+    },
+    {
+      "action": "press",
+      "input": "move_right"
+    },
+    {
+      "action": "wait",
+      "frames": 60
+    },
+    {
+      "action": "release",
+      "input": "move_right"
+    },
+    {
+      "action": "tap",
+      "input": "attack",
+      "frames": 6
+    },
+    {
+      "action": "wait",
+      "frames": 24
+    },
+    {
+      "action": "screenshot",
+      "label": "industrial_combat"
+    },
+    {
+      "action": "quit",
+      "code": 0
+    }
+  ]
+}

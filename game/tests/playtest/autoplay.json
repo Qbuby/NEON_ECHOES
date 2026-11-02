@@ -1,0 +1,11 @@
+{
+  "name": "autoplay_clear",
+  "start_scene": "res://scenes/levels/level_01.tscn",
+  "timeout_frames": 8000,
+  "steps": [
+    { "action": "wait", "frames": 10 },
+    { "action": "autoplay", "goal": "clear", "max_frames": 5000 },
+    { "action": "assert", "path": "enemies.alive", "op": "eq", "value": 0, "label": "room cleared" },
+    { "action": "quit", "code": 0 }
+  ]
+}

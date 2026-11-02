@@ -1,0 +1,53 @@
+{
+  "name": "ui_showcase",
+  "timeout_frames": 2400,
+  "steps": [
+    {
+      "action": "wait",
+      "frames": 48
+    },
+    {
+      "action": "screenshot",
+      "label": "ui_01_title"
+    },
+    {
+      "action": "tap",
+      "input": "confirm",
+      "frames": 2
+    },
+    {
+      "action": "wait",
+      "frames": 40
+    },
+    {
+      "action": "screenshot",
+      "label": "ui_02_game"
+    },
+    {
+      "action": "tap",
+      "input": "pause",
+      "frames": 2
+    },
+    {
+      "action": "wait",
+      "frames": 10
+    },
+    {
+      "action": "screenshot",
+      "label": "ui_03_pause"
+    },
+    {
+      "action": "tap",
+      "input": "pause",
+      "frames": 2
+    },
+    {
+      "action": "wait",
+      "frames": 6
+    },
+    {
+      "action": "quit",
+      "code": 0
+    }
+  ]
+}

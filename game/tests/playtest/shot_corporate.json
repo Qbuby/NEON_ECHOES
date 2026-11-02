@@ -1,0 +1,44 @@
+{
+  "name": "shot_corporate",
+  "start_scene": "res://scenes/levels/corporate.tscn",
+  "timeout_frames": 1800,
+  "steps": [
+    {
+      "action": "wait",
+      "frames": 30
+    },
+    {
+      "action": "screenshot",
+      "label": "corporate_street"
+    },
+    {
+      "action": "press",
+      "input": "move_right"
+    },
+    {
+      "action": "wait",
+      "frames": 60
+    },
+    {
+      "action": "release",
+      "input": "move_right"
+    },
+    {
+      "action": "tap",
+      "input": "attack",
+      "frames": 6
+    },
+    {
+      "action": "wait",
+      "frames": 24
+    },
+    {
+      "action": "screenshot",
+      "label": "corporate_combat"
+    },
+    {
+      "action": "quit",
+      "code": 0
+    }
+  ]
+}

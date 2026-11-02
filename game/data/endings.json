@@ -1,0 +1,42 @@
+{
+  "endings": [
+    {
+      "id": "e_burn",
+      "name": "Burn It Down",
+      "condition": {
+        "flags": {
+          "kilns_down": true,
+          "curator_met": true
+        },
+        "min_trust": {
+          "npc_journalist": 1
+        }
+      },
+      "text": "Rook pulls the core and the district goes dark."
+    },
+    {
+      "id": "e_chair",
+      "name": "Take the Chair",
+      "condition": {
+        "flags": {
+          "has_files": true
+        },
+        "min_cred": 3000
+      },
+      "text": "Rook trades the ledger for a seat at the table."
+    },
+    {
+      "id": "e_walk",
+      "name": "Walk Away",
+      "condition": {
+        "flags": {
+          "singer_saved": true
+        },
+        "min_trust": {
+          "npc_singer": 1
+        }
+      },
+      "text": "Rook leaves the city with the singer and never looks back."
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "name": "shot_closeup",
+  "start_scene": "res://scenes/levels/corporate.tscn",
+  "timeout_frames": 1800,
+  "steps": [
+    {
+      "action": "wait",
+      "frames": 24
+    },
+    {
+      "action": "zoom",
+      "value": 3.0
+    },
+    {
+      "action": "wait",
+      "frames": 6
+    },
+    {
+      "action": "screenshot",
+      "label": "player_closeup"
+    },
+    {
+      "action": "tap",
+      "input": "attack",
+      "frames": 3
+    },
+    {
+      "action": "wait",
+      "frames": 1
+    },
+    {
+      "action": "screenshot",
+      "label": "player_attack"
+    },
+    {
+      "action": "wait",
+      "frames": 30
+    },
+    {
+      "action": "tap",
+      "input": "attack",
+      "frames": 3
+    },
+    {
+      "action": "wait",
+      "frames": 5
+    },
+    {
+      "action": "screenshot",
+      "label": "combat_feedback"
+    },
+    {
+      "action": "zoom",
+      "value": 1.0
+    },
+    {
+      "action": "quit",
+      "code": 0
+    }
+  ]
+}
