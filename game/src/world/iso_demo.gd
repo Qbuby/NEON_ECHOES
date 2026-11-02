@@ -86,28 +86,24 @@ func _map_center() -> Vector2:
 func _make_player() -> void:
 	player = Node2D.new()
 	player.name = "Rin"
-	# A placeholder capsule in the character palette until the sprite is authored.
-	var body := Polygon2D.new()
-	body.polygon = PackedVector2Array([
-		Vector2(-7, -30), Vector2(7, -30), Vector2(9, -12),
-		Vector2(6, 0), Vector2(-6, 0), Vector2(-9, -12),
-	])
-	body.color = Color("#d8dce8")
-	player.add_child(body)
-	var coat := Polygon2D.new()
-	coat.polygon = PackedVector2Array([
-		Vector2(-9, -20), Vector2(9, -20), Vector2(11, -2),
-		Vector2(7, 2), Vector2(-7, 2), Vector2(-11, -2),
-	])
-	coat.color = Color("#12141c")
-	coat.position = Vector2(0, 1)
-	player.add_child(coat)
-	var eye := Polygon2D.new()
-	eye.polygon = PackedVector2Array([
-		Vector2(2, -26), Vector2(7, -25), Vector2(6, -22), Vector2(2, -23),
-	])
-	eye.color = Color("#38d8ff")
-	player.add_child(eye)
+	var spr := ActorSprite.new()
+	if spr.setup("res://assets/actors/rin/rin.json"):
+		spr.play("idle_s")
+	player.add_child(spr)
+	player.set_meta("sprite", spr)
+	# a soft contact shadow so she does not float
+	var shadow := Sprite2D.new()
+	var img := Image.create(24, 8, false, Image.FORMAT_RGBA8)
+	img.fill(Color(0, 0, 0, 0))
+	for y in 8:
+		for x in 24:
+			var dx := (x - 11.5) / 12.0
+			var dy := (y - 3.5) / 4.0
+			if dx * dx + dy * dy <= 1.0:
+				img.set_pixel(x, y, Color(0, 0, 0, 0.42))
+	shadow.texture = ImageTexture.create_from_image(img)
+	shadow.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	player.add_child(shadow)
 	player.position = world.cell_center(player_cell)
 	world.actor_root.add_child(player)
 	world.register_actor(player)
@@ -116,7 +112,7 @@ func _make_player() -> void:
 func _make_camera() -> void:
 	camera = Camera2D.new()
 	camera.name = "Camera"
-	camera.zoom = Vector2(1.0, 1.0)
+	camera.zoom = Vector2(1.35, 1.35)
 	camera.position_smoothing_enabled = true
 	camera.position_smoothing_speed = 9.0
 	player.add_child(camera)
@@ -157,22 +153,25 @@ func _process(delta: float) -> void:
 	# its own cell so it passes behind and in front of walls correctly
 	var target: Vector2 = world.cell_center(move_target)
 	var to_target: Vector2 = target - player.position
+	var spr: ActorSprite = player.get_meta("sprite", null)
 	if to_target.length() > 1.0:
-		player.position += to_target.normalized() * minf(to_target.length(), 180.0 * delta)
-		if dir.x > 0:
-			facing = "e"
-		elif dir.x < 0:
-			facing = "w"
-		elif dir.y > 0:
-			facing = "s"
-		elif dir.y < 0:
-			facing = "n"
+		player.position += to_target.normalized() * minf(to_target.length(), 190.0 * delta)
+		# On a 2:1 screen, screen-space direction maps to a grid direction: moving
+		# down-right in pixels is +x in the grid. Face along the dominant screen axis.
+		if absf(to_target.x) > absf(to_target.y) * 0.5:
+			facing = "e" if to_target.x > 0 else "w"
+		else:
+			facing = "s" if to_target.y > 0 else "n"
+		if spr:
+			spr.play("walk_" + facing)
 	else:
 		player.position = target
 		if player_cell != move_target:
 			player_cell = move_target
 			world.update_actor_cell(player, player_cell)
 			_refresh_hud()
+		if spr:
+			spr.play("idle_" + facing)
 
 
 func _unhandled_input(event: InputEvent) -> void:

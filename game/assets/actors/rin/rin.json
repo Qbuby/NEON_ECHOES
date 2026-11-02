@@ -1,0 +1,627 @@
+{
+ "sheet": "res://assets/actors/rin/rin.png",
+ "anchor": [
+  24,
+  62
+ ],
+ "frames": {
+  "idle_s_0": {
+   "x": 0,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 500
+  },
+  "idle_s_1": {
+   "x": 48,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 500
+  },
+  "walk_s_0": {
+   "x": 96,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 110
+  },
+  "walk_s_1": {
+   "x": 144,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 110
+  },
+  "walk_s_2": {
+   "x": 192,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 110
+  },
+  "walk_s_3": {
+   "x": 240,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 110
+  },
+  "walk_s_4": {
+   "x": 288,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 110
+  },
+  "walk_s_5": {
+   "x": 336,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 110
+  },
+  "run_s_0": {
+   "x": 384,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 80
+  },
+  "run_s_1": {
+   "x": 432,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 80
+  },
+  "run_s_2": {
+   "x": 480,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 80
+  },
+  "run_s_3": {
+   "x": 528,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 80
+  },
+  "run_s_4": {
+   "x": 576,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 80
+  },
+  "run_s_5": {
+   "x": 624,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 80
+  },
+  "attack_s_0": {
+   "x": 672,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 90
+  },
+  "attack_s_1": {
+   "x": 720,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 90
+  },
+  "shoot_s_0": {
+   "x": 768,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 70
+  },
+  "shoot_s_1": {
+   "x": 816,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 70
+  },
+  "idle_e_0": {
+   "x": 864,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 500
+  },
+  "idle_e_1": {
+   "x": 912,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 500
+  },
+  "walk_e_0": {
+   "x": 960,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 110
+  },
+  "walk_e_1": {
+   "x": 1008,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 110
+  },
+  "walk_e_2": {
+   "x": 1056,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 110
+  },
+  "walk_e_3": {
+   "x": 1104,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 110
+  },
+  "walk_e_4": {
+   "x": 1152,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 110
+  },
+  "walk_e_5": {
+   "x": 1200,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 110
+  },
+  "run_e_0": {
+   "x": 1248,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 80
+  },
+  "run_e_1": {
+   "x": 1296,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 80
+  },
+  "run_e_2": {
+   "x": 1344,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 80
+  },
+  "run_e_3": {
+   "x": 1392,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 80
+  },
+  "run_e_4": {
+   "x": 1440,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 80
+  },
+  "run_e_5": {
+   "x": 1488,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 80
+  },
+  "attack_e_0": {
+   "x": 1536,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 90
+  },
+  "attack_e_1": {
+   "x": 1584,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 90
+  },
+  "shoot_e_0": {
+   "x": 1632,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 70
+  },
+  "shoot_e_1": {
+   "x": 1680,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 70
+  },
+  "idle_n_0": {
+   "x": 1728,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 500
+  },
+  "idle_n_1": {
+   "x": 1776,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 500
+  },
+  "walk_n_0": {
+   "x": 1824,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 110
+  },
+  "walk_n_1": {
+   "x": 1872,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 110
+  },
+  "walk_n_2": {
+   "x": 1920,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 110
+  },
+  "walk_n_3": {
+   "x": 1968,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 110
+  },
+  "walk_n_4": {
+   "x": 2016,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 110
+  },
+  "walk_n_5": {
+   "x": 2064,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 110
+  },
+  "run_n_0": {
+   "x": 2112,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 80
+  },
+  "run_n_1": {
+   "x": 2160,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 80
+  },
+  "run_n_2": {
+   "x": 2208,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 80
+  },
+  "run_n_3": {
+   "x": 2256,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 80
+  },
+  "run_n_4": {
+   "x": 2304,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 80
+  },
+  "run_n_5": {
+   "x": 2352,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 80
+  },
+  "attack_n_0": {
+   "x": 2400,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 90
+  },
+  "attack_n_1": {
+   "x": 2448,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 90
+  },
+  "shoot_n_0": {
+   "x": 2496,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 70
+  },
+  "shoot_n_1": {
+   "x": 2544,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 70
+  },
+  "idle_w_0": {
+   "x": 2592,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 500
+  },
+  "idle_w_1": {
+   "x": 2640,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 500
+  },
+  "walk_w_0": {
+   "x": 2688,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 110
+  },
+  "walk_w_1": {
+   "x": 2736,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 110
+  },
+  "walk_w_2": {
+   "x": 2784,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 110
+  },
+  "walk_w_3": {
+   "x": 2832,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 110
+  },
+  "walk_w_4": {
+   "x": 2880,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 110
+  },
+  "walk_w_5": {
+   "x": 2928,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 110
+  },
+  "run_w_0": {
+   "x": 2976,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 80
+  },
+  "run_w_1": {
+   "x": 3024,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 80
+  },
+  "run_w_2": {
+   "x": 3072,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 80
+  },
+  "run_w_3": {
+   "x": 3120,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 80
+  },
+  "run_w_4": {
+   "x": 3168,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 80
+  },
+  "run_w_5": {
+   "x": 3216,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 80
+  },
+  "attack_w_0": {
+   "x": 3264,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 90
+  },
+  "attack_w_1": {
+   "x": 3312,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 90
+  },
+  "shoot_w_0": {
+   "x": 3360,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 70
+  },
+  "shoot_w_1": {
+   "x": 3408,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 70
+  }
+ },
+ "animations": {
+  "idle_s": [
+   "idle_s_0",
+   "idle_s_1"
+  ],
+  "walk_s": [
+   "walk_s_0",
+   "walk_s_1",
+   "walk_s_2",
+   "walk_s_3",
+   "walk_s_4",
+   "walk_s_5"
+  ],
+  "run_s": [
+   "run_s_0",
+   "run_s_1",
+   "run_s_2",
+   "run_s_3",
+   "run_s_4",
+   "run_s_5"
+  ],
+  "attack_s": [
+   "attack_s_0",
+   "attack_s_1"
+  ],
+  "shoot_s": [
+   "shoot_s_0",
+   "shoot_s_1"
+  ],
+  "idle_e": [
+   "idle_e_0",
+   "idle_e_1"
+  ],
+  "walk_e": [
+   "walk_e_0",
+   "walk_e_1",
+   "walk_e_2",
+   "walk_e_3",
+   "walk_e_4",
+   "walk_e_5"
+  ],
+  "run_e": [
+   "run_e_0",
+   "run_e_1",
+   "run_e_2",
+   "run_e_3",
+   "run_e_4",
+   "run_e_5"
+  ],
+  "attack_e": [
+   "attack_e_0",
+   "attack_e_1"
+  ],
+  "shoot_e": [
+   "shoot_e_0",
+   "shoot_e_1"
+  ],
+  "idle_n": [
+   "idle_n_0",
+   "idle_n_1"
+  ],
+  "walk_n": [
+   "walk_n_0",
+   "walk_n_1",
+   "walk_n_2",
+   "walk_n_3",
+   "walk_n_4",
+   "walk_n_5"
+  ],
+  "run_n": [
+   "run_n_0",
+   "run_n_1",
+   "run_n_2",
+   "run_n_3",
+   "run_n_4",
+   "run_n_5"
+  ],
+  "attack_n": [
+   "attack_n_0",
+   "attack_n_1"
+  ],
+  "shoot_n": [
+   "shoot_n_0",
+   "shoot_n_1"
+  ],
+  "idle_w": [
+   "idle_w_0",
+   "idle_w_1"
+  ],
+  "walk_w": [
+   "walk_w_0",
+   "walk_w_1",
+   "walk_w_2",
+   "walk_w_3",
+   "walk_w_4",
+   "walk_w_5"
+  ],
+  "run_w": [
+   "run_w_0",
+   "run_w_1",
+   "run_w_2",
+   "run_w_3",
+   "run_w_4",
+   "run_w_5"
+  ],
+  "attack_w": [
+   "attack_w_0",
+   "attack_w_1"
+  ],
+  "shoot_w": [
+   "shoot_w_0",
+   "shoot_w_1"
+  ]
+ }
+}
