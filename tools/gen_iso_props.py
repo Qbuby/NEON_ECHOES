@@ -19,21 +19,21 @@ PAL = {
     "corp": {
         "body":  ("#1c2432", "#2a3548", "#3c4a63"),
         "dark":  ("#0c1119", "#141b26", "#1e2836"),
-        "neon":  ("#38d8ff", "#6ee4ff", "#c0f6ff"),
+        "neon":  ("#2ab8e0", "#8ef0ff", "#eaffff"),
         "accent": ("#ff2fb4", "#ff8ad8", "#ffd4ef"),
         "metal": ("#5c6a80", "#8b9ab0", "#c8d6e6"),
     },
     "ind": {
         "body":  ("#241c12", "#33291b", "#463824"),
         "dark":  ("#100c08", "#191309", "#231a0f"),
-        "neon":  ("#e8a23c", "#ffc86a", "#ffe6a8"),
+        "neon":  ("#c07a20", "#ffbc52", "#fff2c8"),
         "accent": ("#d8622a", "#ff8a44", "#ffc09a"),
         "metal": ("#5a5248", "#847a6c", "#b6ac9c"),
     },
     "night": {
         "body":  ("#241432", "#33204a", "#452c60"),
         "dark":  ("#0c0712", "#160e1e", "#20132c"),
-        "neon":  ("#ff2fb4", "#ff8ad8", "#ffd4ef"),
+        "neon":  ("#e0189c", "#ff72cc", "#ffe8f8"),
         "accent": ("#2fb4c8", "#6ee0f0", "#c8faff"),
         "metal": ("#5e4a70", "#8a72a0", "#c0aad4"),
     },
@@ -182,12 +182,78 @@ def lamp(pal, seed):
     return img
 
 
+def billboard(pal, seed, height=40, width=26, glyph=True):
+    """A wall-mounted neon sign: a bright panel on a bracket, on the 2:1 grid.
+
+    Large emissive surfaces are what give the concept art its glow: window dots
+    alone leave the frame without highlights. A sign is drawn as a bright panel
+    with an inner glyph, a darker frame, and a 1px bloom halo.
+    """
+    rng = random.Random(seed)
+    out_w, out_h = width + 6, height + 16
+    img = Image.new("RGBA", (out_w, out_h), (0, 0, 0, 0))
+    px = img.load()
+    neon = rgb(pal["neon"][1])
+    neon_hi = rgb(pal["neon"][2])
+    accent = rgb(pal["accent"][1])
+    frame = rgb(pal["dark"][1])
+    # bracket/stand down to the ground
+    for y in range(height // 2, out_h):
+        for x in range(2, 5):
+            px[x, y] = (*frame, 255)
+    # the panel
+    for y in range(4, 4 + height):
+        for x in range(4, 4 + width):
+            base = mix(neon, neon_hi, (y - 4) / float(height))
+            px[x, y] = (*base, 255)
+    # inner glyph: dark bars cut out of the glowing panel, like the concept
+    # signage. Cutting holes (rather than drawing bright bars) is what keeps the
+    # sign reading as a lit surface instead of a pale rectangle.
+    for i in range(3):
+        gy = 10 + i * (height // 4)
+        gw = rng.randrange(width // 3, width - 10)
+        for y in range(gy, gy + 5):
+            for x in range(7, 7 + gw):
+                px[x, y] = (*frame, 255)
+    # accent pips between the bars
+    for i in range(2):
+        gy = 10 + i * (height // 4) + 5
+        for x in range(9, 9 + width // 2):
+            px[x, gy] = (*accent, 255)
+    # frame
+    for x in range(3, 5 + width):
+        px[x, 3] = (*frame, 255)
+        px[x, 4 + height] = (*frame, 255)
+    for y in range(3, 5 + height):
+        px[3, y] = (*frame, 255)
+        px[4 + width, y] = (*frame, 255)
+    # bloom halo: lighten the pixels immediately round the panel
+    edge_light = mix(neon_hi, (255, 255, 255), 0.15)
+    for y in range(out_h):
+        for x in range(out_w):
+            if px[x, y][3]:
+                continue
+            near = False
+            for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1), (2, 0), (-2, 0), (0, 2), (0, -2)):
+                nx, ny = x + dx, y + dy
+                if 0 <= nx < out_w and 0 <= ny < out_h and px[nx, ny][3] and px[nx, ny][:3] != frame:
+                    near = True
+                    break
+            if near:
+                px[x, y] = (*edge_light, 90)
+    return img
+
+
 def build(district, pal):
     tiles = []
     for i, (name, (wu, hu, det)) in enumerate(PROPS.items()):
         tiles.append((name, prism(pal, wu, hu, 900 + i, det)))
     tiles.append(("prop_lamp", lamp(pal, 1)))
     tiles.append(("prop_lamp2", lamp(pal, 2)))
+    # large emissive signage: the main source of bright pixels in the frame
+    tiles.append(("sign_a", billboard(pal, 11, 40, 26)))
+    tiles.append(("sign_b", billboard(pal, 23, 28, 34)))
+    tiles.append(("sign_c", billboard(pal, 37, 52, 20)))
 
     pad = 2
     cols = 6

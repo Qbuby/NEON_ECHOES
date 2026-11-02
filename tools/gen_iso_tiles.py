@@ -36,7 +36,7 @@ PALETTES = {
         "concrete": ("#1a2231", "#25304a", "#36445f"),
         "wall_lit": ("#25324a", "#33445f", "#465e80"),
         "wall_drk": ("#0e1420", "#161f2e", "#1f2a3c"),
-        "neon":     ("#38d8ff", "#5ee0ff", "#b8f4ff"),
+        "neon":     ("#2ab8e0", "#7ceaff", "#e8fdff"),
         "accent":   ("#ff2fb4", "#ff8ad8", "#ffd0f0"),
     },
     "ind": {
@@ -46,7 +46,7 @@ PALETTES = {
         "concrete": ("#1c1812", "#29231a", "#372e21"),
         "wall_lit": ("#3a2f20", "#4d3f2a", "#63523a"),
         "wall_drk": ("#100c08", "#1a140e", "#241b12"),
-        "neon":     ("#e8a23c", "#ffc86a", "#ffe6a8"),
+        "neon":     ("#c07a20", "#ffb648", "#fff0c0"),
         "accent":   ("#d8622a", "#ff8a44", "#ffc09a"),
     },
     "night": {
@@ -56,7 +56,7 @@ PALETTES = {
         "concrete": ("#191022", "#251631", "#322040"),
         "wall_lit": ("#3a2350", "#4d2f68", "#66417f"),
         "wall_drk": ("#0b0710", "#150d1d", "#1f1429"),
-        "neon":     ("#ff2fb4", "#ff8ad8", "#ffd4ef"),
+        "neon":     ("#e0189c", "#ff6ccc", "#ffe4f6"),
         "accent":   ("#2fb4c8", "#6ee0f0", "#c8faff"),
     },
 }
@@ -243,6 +243,13 @@ def south_face(pal, rng, height=32, windows=True):
                         xx, yy = x0 + dx, row_y + dy
                         if 0 <= xx < W and 0 <= yy < H + height and px[xx, yy][3]:
                             px[xx, yy] = (*shade(win, 0.58 + 0.42 * (dy / 5.0)), 255)
+        # a thin bloom line just below each window row
+        bloom = rgb(pal["neon"][2])
+        for row_y in range(H - 6, H + height - 8, 10):
+            for xx in range(3, W - 3):
+                yy = row_y + 5
+                if 0 <= yy < H + height and px[xx, yy][3]:
+                    px[xx, yy] = (*mix(px[xx, yy][:3], bloom, 0.45), 255)
         # a lit shopfront band along the base
         band = rgb(pal["neon"][0])
         for x in range(2, W - 2):

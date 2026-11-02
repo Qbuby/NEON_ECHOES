@@ -89,6 +89,32 @@ def build(spec):
                       "cell": [x, y]})
     props.append({"id": "prop_bench", "cell": [sx0, cy + 1]})
     props.append({"id": "prop_kiosk", "cell": [sx1, cy - 1]})
+    # signage on the facades: the frame's bright pixels come from these, and
+    # the concept art always has a lit sign in view
+    signs = ["sign_a", "sign_b", "sign_c"]
+    for i, y in enumerate(range(4, h - 6, 6)):
+        props.append({"id": signs[i % 3], "cell": [sx0 - 2, y],
+                      "anchor": "mount", "lift": 28.0})
+        props.append({"id": signs[(i + 1) % 3], "cell": [sx1 + 2, y + 3],
+                      "anchor": "mount", "lift": 28.0})
+    # set-pieces: clusters that read as a place rather than as scattered props
+    for cy2 in range(6, h - 6, 9):
+        # a vending nook
+        props.append({"id": "prop_vending", "cell": [sx0 - 1, cy2]})
+        props.append({"id": "prop_bin", "cell": [sx0 - 1, cy2 + 1]})
+        props.append({"id": "prop_crate2", "cell": [sx0, cy2 + 1]})
+        # a kiosk with a lamp and a bench
+        props.append({"id": "prop_kiosk", "cell": [sx1 + 1, cy2 + 2]})
+        props.append({"id": "prop_lamp", "cell": [sx1, cy2 + 3]})
+        props.append({"id": "prop_bench", "cell": [sx1 - 1, cy2 + 3]})
+        # a crate stack against the far kerb
+        props.append({"id": "prop_stack", "cell": [sx1 + 1, cy2 + 5]})
+        props.append({"id": "prop_crate", "cell": [sx1, cy2 + 5]})
+        props.append({"id": "prop_barrel", "cell": [sx1 + 1, cy2 + 6]})
+    # ground clutter: small items that break the empty paving
+    for y in range(4, h - 4, 3):
+        props.append({"id": "prop_crate2", "cell": [sx0 + 1, y]})
+        props.append({"id": "prop_bin", "cell": [sx1 - 1, y + 1]})
     # AC units and roof clutter against the building fronts
     for y in range(4, h - 4, 5):
         props.append({"id": "prop_ac", "cell": [sx0 - 2, y]})

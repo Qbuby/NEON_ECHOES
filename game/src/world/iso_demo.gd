@@ -9,6 +9,7 @@ extends Node2D
 
 const IsoGridScript := preload("res://src/world/iso_grid.gd")
 const IsoWorldScript := preload("res://src/world/iso_world.gd")
+const IsoLightingScript := preload("res://src/world/iso_lighting.gd")
 const ATLAS := "res://assets/tiles/corp_iso/corp_iso.json"
 const PROPS_ATLAS := "res://assets/tiles/corp_props/corp_props.json"
 const DISTRICT := "res://data/districts/corp_core.iso.json"
@@ -52,6 +53,7 @@ func _ready() -> void:
 	world.load_level(level_data, atlas)
 	world.position = _map_center()
 	_make_player()
+	_make_lighting()
 	_make_camera()
 	_make_hud()
 	print("ISO_DEMO ready cells=%d" % (level_data["w"] * level_data["h"]))
@@ -127,6 +129,39 @@ func _make_player() -> void:
 	player.position = world.cell_center(player_cell)
 	world.actor_root.add_child(player)
 	world.register_actor(player)
+
+
+## Neon light pools under every lamp, vending machine, sign and the plaza.
+## Positions come from the level's own props so the light follows the furniture.
+func _make_lighting() -> void:
+	var defs: Array = []
+	var palette := {
+		"prop_lamp": Color("#9fe4ff"),
+		"prop_vending": Color("#38d8ff"),
+		"prop_terminal": Color("#38d8ff"),
+		"prop_kiosk": Color("#ff2fb4"),
+		"prop_barrier": Color("#ffd24a"),
+	}
+	for p in level_data.get("props", []):
+		var id := str(p.get("id", ""))
+		if not palette.has(id):
+			continue
+		var cell: Array = p.get("cell", [0, 0])
+		var c := Vector2i(int(cell[0]), int(cell[1]))
+		var at: Vector2 = world.cell_center(c) + Vector2(0, 6)
+		var radius := 74.0 if id == "prop_lamp" else 58.0
+		defs.append({"pos": at, "radius": radius, "color": palette[id],
+			"strength": 0.40 if id == "prop_lamp" else 0.30})
+	# a wide magenta wash over the junction, like the concept street
+	var mid := Vector2i(level_data["w"] / 2, level_data["h"] / 2)
+	defs.append({"pos": world.cell_center(mid), "radius": 150.0,
+		"color": Color("#ff2fb4"), "strength": 0.16})
+	var lighting: Node2D = IsoLightingScript.new()
+	lighting.name = "Lighting"
+	add_child(lighting)
+	lighting.setup(defs)
+	# behind actors and props, above the floor
+	lighting.z_index = -900
 
 
 func _make_camera() -> void:

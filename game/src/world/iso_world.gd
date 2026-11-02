@@ -243,16 +243,21 @@ func _build_props(list: Array) -> void:
 		spr.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 		spr.centered = false
 		var c := Vector2i(int(cell[0]), int(cell[1]))
-		# anchor at the sprite's bottom centre on the cell's south corner
-		var anchor := str(p.get("anchor", "south"))
 		var at := cell_center(c)
+		# Anchor decides where the sprite's own bottom edge sits relative to the
+		# tile. "ground" rests on the diamond's south corner (crates, bins);
+		# "mount" lifts the sprite so it hangs on a facade above the tile
+		# (signs, AC units); "center" centres it on the tile.
+		var anchor := str(p.get("anchor", "ground"))
+		var lift := float(p.get("lift", 0.0))
 		match anchor:
 			"center":
 				spr.position = at + Vector2(-tw * 0.5, -th * 0.5)
-			"top":
-				spr.position = at + Vector2(-tw * 0.5, IsoGrid.HH - th)
+			"mount":
+				# bottom edge sits one tile up, so the sign hangs over the street
+				spr.position = at + Vector2(-tw * 0.5, -th - IsoGrid.HH - lift)
 			_:
-				spr.position = at + Vector2(-tw * 0.5, IsoGrid.HH - th)
+				spr.position = at + Vector2(-tw * 0.5, -th + IsoGrid.HH)
 		prop_root.add_child(spr)
 		_nodes.append({"node": spr, "key": IsoGrid.depth_key(c, 0.0) + 0.001})
 		if bool(p.get("solid", false)):

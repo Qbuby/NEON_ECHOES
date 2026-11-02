@@ -292,6 +292,393 @@
    ]
   },
   {
+   "id": "sign_a",
+   "cell": [
+    13,
+    4
+   ],
+   "anchor": "mount",
+   "lift": 28.0
+  },
+  {
+   "id": "sign_b",
+   "cell": [
+    21,
+    7
+   ],
+   "anchor": "mount",
+   "lift": 28.0
+  },
+  {
+   "id": "sign_b",
+   "cell": [
+    13,
+    10
+   ],
+   "anchor": "mount",
+   "lift": 28.0
+  },
+  {
+   "id": "sign_c",
+   "cell": [
+    21,
+    13
+   ],
+   "anchor": "mount",
+   "lift": 28.0
+  },
+  {
+   "id": "sign_c",
+   "cell": [
+    13,
+    16
+   ],
+   "anchor": "mount",
+   "lift": 28.0
+  },
+  {
+   "id": "sign_a",
+   "cell": [
+    21,
+    19
+   ],
+   "anchor": "mount",
+   "lift": 28.0
+  },
+  {
+   "id": "sign_a",
+   "cell": [
+    13,
+    22
+   ],
+   "anchor": "mount",
+   "lift": 28.0
+  },
+  {
+   "id": "sign_b",
+   "cell": [
+    21,
+    25
+   ],
+   "anchor": "mount",
+   "lift": 28.0
+  },
+  {
+   "id": "prop_vending",
+   "cell": [
+    14,
+    6
+   ]
+  },
+  {
+   "id": "prop_bin",
+   "cell": [
+    14,
+    7
+   ]
+  },
+  {
+   "id": "prop_crate2",
+   "cell": [
+    15,
+    7
+   ]
+  },
+  {
+   "id": "prop_kiosk",
+   "cell": [
+    20,
+    8
+   ]
+  },
+  {
+   "id": "prop_lamp",
+   "cell": [
+    19,
+    9
+   ]
+  },
+  {
+   "id": "prop_bench",
+   "cell": [
+    18,
+    9
+   ]
+  },
+  {
+   "id": "prop_stack",
+   "cell": [
+    20,
+    11
+   ]
+  },
+  {
+   "id": "prop_crate",
+   "cell": [
+    19,
+    11
+   ]
+  },
+  {
+   "id": "prop_barrel",
+   "cell": [
+    20,
+    12
+   ]
+  },
+  {
+   "id": "prop_vending",
+   "cell": [
+    14,
+    15
+   ]
+  },
+  {
+   "id": "prop_bin",
+   "cell": [
+    14,
+    16
+   ]
+  },
+  {
+   "id": "prop_crate2",
+   "cell": [
+    15,
+    16
+   ]
+  },
+  {
+   "id": "prop_kiosk",
+   "cell": [
+    20,
+    17
+   ]
+  },
+  {
+   "id": "prop_lamp",
+   "cell": [
+    19,
+    18
+   ]
+  },
+  {
+   "id": "prop_bench",
+   "cell": [
+    18,
+    18
+   ]
+  },
+  {
+   "id": "prop_stack",
+   "cell": [
+    20,
+    20
+   ]
+  },
+  {
+   "id": "prop_crate",
+   "cell": [
+    19,
+    20
+   ]
+  },
+  {
+   "id": "prop_barrel",
+   "cell": [
+    20,
+    21
+   ]
+  },
+  {
+   "id": "prop_vending",
+   "cell": [
+    14,
+    24
+   ]
+  },
+  {
+   "id": "prop_bin",
+   "cell": [
+    14,
+    25
+   ]
+  },
+  {
+   "id": "prop_crate2",
+   "cell": [
+    15,
+    25
+   ]
+  },
+  {
+   "id": "prop_kiosk",
+   "cell": [
+    20,
+    26
+   ]
+  },
+  {
+   "id": "prop_lamp",
+   "cell": [
+    19,
+    27
+   ]
+  },
+  {
+   "id": "prop_bench",
+   "cell": [
+    18,
+    27
+   ]
+  },
+  {
+   "id": "prop_stack",
+   "cell": [
+    20,
+    29
+   ]
+  },
+  {
+   "id": "prop_crate",
+   "cell": [
+    19,
+    29
+   ]
+  },
+  {
+   "id": "prop_barrel",
+   "cell": [
+    20,
+    30
+   ]
+  },
+  {
+   "id": "prop_crate2",
+   "cell": [
+    16,
+    4
+   ]
+  },
+  {
+   "id": "prop_bin",
+   "cell": [
+    18,
+    5
+   ]
+  },
+  {
+   "id": "prop_crate2",
+   "cell": [
+    16,
+    7
+   ]
+  },
+  {
+   "id": "prop_bin",
+   "cell": [
+    18,
+    8
+   ]
+  },
+  {
+   "id": "prop_crate2",
+   "cell": [
+    16,
+    10
+   ]
+  },
+  {
+   "id": "prop_bin",
+   "cell": [
+    18,
+    11
+   ]
+  },
+  {
+   "id": "prop_crate2",
+   "cell": [
+    16,
+    13
+   ]
+  },
+  {
+   "id": "prop_bin",
+   "cell": [
+    18,
+    14
+   ]
+  },
+  {
+   "id": "prop_crate2",
+   "cell": [
+    16,
+    16
+   ]
+  },
+  {
+   "id": "prop_bin",
+   "cell": [
+    18,
+    17
+   ]
+  },
+  {
+   "id": "prop_crate2",
+   "cell": [
+    16,
+    19
+   ]
+  },
+  {
+   "id": "prop_bin",
+   "cell": [
+    18,
+    20
+   ]
+  },
+  {
+   "id": "prop_crate2",
+   "cell": [
+    16,
+    22
+   ]
+  },
+  {
+   "id": "prop_bin",
+   "cell": [
+    18,
+    23
+   ]
+  },
+  {
+   "id": "prop_crate2",
+   "cell": [
+    16,
+    25
+   ]
+  },
+  {
+   "id": "prop_bin",
+   "cell": [
+    18,
+    26
+   ]
+  },
+  {
+   "id": "prop_crate2",
+   "cell": [
+    16,
+    28
+   ]
+  },
+  {
+   "id": "prop_bin",
+   "cell": [
+    18,
+    29
+   ]
+  },
+  {
    "id": "prop_ac",
    "cell": [
     13,
