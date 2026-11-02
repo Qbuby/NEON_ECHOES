@@ -1,542 +1,602 @@
 {
-  "main": [
+ "main": [
+  {
+   "id": "m1",
+   "name": "Wake Up Dead",
+   "giver": "npc_medic",
+   "act": 1,
+   "flag": "m1_done",
+   "stages": [
     {
-      "id": "m1",
-      "name": "Wake Up Dead",
-      "giver": "npc_medic",
-      "act": 1,
-      "flag": "m1_done",
-      "stages": [
-        {
-          "id": "s1",
-          "desc": "Leave the clinic",
-          "objective": "reach_exit"
-        },
-        {
-          "id": "s2",
-          "desc": "Shake the tail",
-          "objective": "lose_pursuit"
-        },
-        {
-          "id": "s3",
-          "desc": "Reach the safehouse",
-          "objective": "reach_safehouse"
-        }
-      ],
-      "solutions": [
-        "fight_pursuers",
-        "stealth_past_pursuers"
-      ],
-      "reward": {
-        "cred": 120,
-        "xp": 120
-      },
-      "world": {
-        "met_medic": true
-      }
+     "id": "s1",
+     "desc": "Leave the clinic",
+     "objective": "reach_exit"
     },
     {
-      "id": "m2",
-      "name": "Bad Cred",
-      "giver": "npc_fixer",
-      "act": 1,
-      "flag": "m2_done",
-      "stages": [
-        {
-          "id": "s1",
-          "desc": "Find the debtor",
-          "objective": "find_debtor"
-        },
-        {
-          "id": "s2",
-          "desc": "Recover the debt",
-          "objective": "recover_cred"
-        },
-        {
-          "id": "s3",
-          "desc": "Report back",
-          "objective": "return_fixer"
-        }
-      ],
-      "solutions": [
-        "intimidate_debtor",
-        "hack_debtor_account",
-        "pay_debt_off"
-      ],
-      "reward": {
-        "cred": 200,
-        "xp": 150
-      },
-      "world": {
-        "fixer_trust": 1
-      }
+     "id": "s2",
+     "desc": "Shake the tail",
+     "objective": "lose_pursuit"
     },
     {
-      "id": "m3",
-      "name": "The Spire Door",
-      "giver": "npc_whistle",
-      "act": 2,
-      "flag": "m3_done",
-      "stages": [
-        {
-          "id": "s1",
-          "desc": "Reach Vantage Spire",
-          "objective": "reach_spire"
-        },
-        {
-          "id": "s2",
-          "desc": "Get past security",
-          "objective": "bypass_security"
-        },
-        {
-          "id": "s3",
-          "desc": "Copy the files",
-          "objective": "copy_files"
-        }
-      ],
-      "solutions": [
-        "badge_corp_route",
-        "hack_cameras_route",
-        "combat_route"
-      ],
-      "reward": {
-        "cred": 350,
-        "xp": 260
-      },
-      "world": {
-        "has_files": true
-      }
-    },
-    {
-      "id": "m4",
-      "name": "Kiln Fire",
-      "giver": "npc_foreman",
-      "act": 2,
-      "flag": "m4_done",
-      "stages": [
-        {
-          "id": "s1",
-          "desc": "Enter the Kilns",
-          "objective": "reach_kilns"
-        },
-        {
-          "id": "s2",
-          "desc": "Sabotage the line",
-          "objective": "sabotage"
-        },
-        {
-          "id": "s3",
-          "desc": "Escape the blast",
-          "objective": "escape_kilns"
-        }
-      ],
-      "solutions": [
-        "plant_charges",
-        "hack_control_room",
-        "talk_foreman"
-      ],
-      "reward": {
-        "cred": 420,
-        "xp": 300
-      },
-      "world": {
-        "kilns_down": true
-      }
-    },
-    {
-      "id": "m5",
-      "name": "Black Ledger",
-      "giver": "npc_journalist",
-      "act": 2,
-      "flag": "m5_done",
-      "stages": [
-        {
-          "id": "s1",
-          "desc": "Trace the ledger",
-          "objective": "trace_ledger"
-        },
-        {
-          "id": "s2",
-          "desc": "Steal it",
-          "objective": "steal_ledger"
-        },
-        {
-          "id": "s3",
-          "desc": "Deliver or destroy",
-          "objective": "choose_ledger"
-        }
-      ],
-      "solutions": [
-        "deliver_to_journalist",
-        "sell_to_corp",
-        "destroy_it"
-      ],
-      "reward": {
-        "cred": 500,
-        "xp": 340
-      },
-      "world": {
-        "ledger_choice": "unset"
-      }
-    },
-    {
-      "id": "m6",
-      "name": "Neon Requiem",
-      "giver": "npc_singer",
-      "act": 3,
-      "flag": "m6_done",
-      "stages": [
-        {
-          "id": "s1",
-          "desc": "Find the singer",
-          "objective": "reach_club"
-        },
-        {
-          "id": "s2",
-          "desc": "Clear the club",
-          "objective": "clear_club"
-        },
-        {
-          "id": "s3",
-          "desc": "Escort her out",
-          "objective": "escort_singer"
-        }
-      ],
-      "solutions": [
-        "fight_club",
-        "stealth_club"
-      ],
-      "reward": {
-        "cred": 600,
-        "xp": 400
-      },
-      "world": {
-        "singer_saved": true
-      }
-    },
-    {
-      "id": "m7",
-      "name": "The Curator",
-      "giver": "npc_curator",
-      "act": 3,
-      "flag": "m7_done",
-      "stages": [
-        {
-          "id": "s1",
-          "desc": "Accept the meeting",
-          "objective": "meet_curator"
-        },
-        {
-          "id": "s2",
-          "desc": "Survive the ambush",
-          "objective": "survive_ambush"
-        },
-        {
-          "id": "s3",
-          "desc": "Hunt the Curator",
-          "objective": "reach_curator"
-        }
-      ],
-      "solutions": [
-        "trust_curator",
-        "refuse_curator"
-      ],
-      "reward": {
-        "cred": 800,
-        "xp": 500
-      },
-      "world": {
-        "curator_met": true
-      }
-    },
-    {
-      "id": "m8",
-      "name": "Hollow Point",
-      "giver": "npc_fixer",
-      "act": 3,
-      "flag": "m8_done",
-      "stages": [
-        {
-          "id": "s1",
-          "desc": "Breach the core",
-          "objective": "reach_core"
-        },
-        {
-          "id": "s2",
-          "desc": "Defeat the guardian",
-          "objective": "kill_boss"
-        },
-        {
-          "id": "s3",
-          "desc": "Choose the ending",
-          "objective": "reach_ending"
-        }
-      ],
-      "solutions": [
-        "fight_to_core",
-        "hack_to_core"
-      ],
-      "reward": {
-        "cred": 1500,
-        "xp": 800
-      },
-      "world": {
-        "core_reached": true
-      }
+     "id": "s3",
+     "desc": "Reach the safehouse",
+     "objective": "reach_safehouse"
     }
-  ],
-  "side": [
+   ],
+   "solutions": [
+    "fight_pursuers",
+    "stealth_past_pursuers"
+   ],
+   "reward": {
+    "cred": 120,
+    "xp": 120
+   },
+   "world": {
+    "met_medic": true
+   },
+   "objective": "kill",
+   "need": 2,
+   "progress": 0
+  },
+  {
+   "id": "m2",
+   "name": "Bad Cred",
+   "giver": "npc_fixer",
+   "act": 1,
+   "flag": "m2_done",
+   "stages": [
     {
-      "id": "x1",
-      "name": "Loose Wire",
-      "giver": "npc_techie",
-      "stages": [
-        {
-          "id": "s1",
-          "desc": "Find the part",
-          "objective": "find_wire"
-        },
-        {
-          "id": "s2",
-          "desc": "Deliver",
-          "objective": "deliver_wire"
-        }
-      ],
-      "reward": {
-        "cred": 80,
-        "xp": 60
-      }
+     "id": "s1",
+     "desc": "Find the debtor",
+     "objective": "find_debtor"
     },
     {
-      "id": "x2",
-      "name": "Rent Due",
-      "giver": "npc_landlord",
-      "stages": [
-        {
-          "id": "s1",
-          "desc": "Collect rent",
-          "objective": "collect_rent"
-        },
-        {
-          "id": "s2",
-          "desc": "Pay landlord",
-          "objective": "pay_landlord"
-        }
-      ],
-      "reward": {
-        "cred": 100,
-        "xp": 50
-      }
+     "id": "s2",
+     "desc": "Recover the debt",
+     "objective": "recover_cred"
     },
     {
-      "id": "x3",
-      "name": "Dead Drop",
-      "giver": "npc_fixer",
-      "stages": [
-        {
-          "id": "s1",
-          "desc": "Plant the drop",
-          "objective": "plant_drop"
-        },
-        {
-          "id": "s2",
-          "desc": "Confirm",
-          "objective": "confirm_drop"
-        }
-      ],
-      "reward": {
-        "cred": 140,
-        "xp": 70
-      }
-    },
-    {
-      "id": "x4",
-      "name": "Clinic Supply",
-      "giver": "npc_medic",
-      "stages": [
-        {
-          "id": "s1",
-          "desc": "Buy medkits",
-          "objective": "buy_medkits"
-        },
-        {
-          "id": "s2",
-          "desc": "Deliver",
-          "objective": "deliver_medkits"
-        }
-      ],
-      "reward": {
-        "cred": 90,
-        "xp": 60
-      }
-    },
-    {
-      "id": "x5",
-      "name": "Drone Down",
-      "giver": "npc_techie",
-      "stages": [
-        {
-          "id": "s1",
-          "desc": "Recover core",
-          "objective": "recover_core"
-        },
-        {
-          "id": "s2",
-          "desc": "Return",
-          "objective": "return_core"
-        }
-      ],
-      "reward": {
-        "cred": 160,
-        "xp": 90
-      }
-    },
-    {
-      "id": "x6",
-      "name": "Bad Batch",
-      "giver": "npc_dealer",
-      "stages": [
-        {
-          "id": "s1",
-          "desc": "Test the batch",
-          "objective": "test_batch"
-        },
-        {
-          "id": "s2",
-          "desc": "Report",
-          "objective": "report_batch"
-        }
-      ],
-      "reward": {
-        "cred": 120,
-        "xp": 70
-      }
-    },
-    {
-      "id": "x7",
-      "name": "Silent Partner",
-      "giver": "npc_singer",
-      "stages": [
-        {
-          "id": "s1",
-          "desc": "Find the partner",
-          "objective": "find_partner"
-        },
-        {
-          "id": "s2",
-          "desc": "Resolve",
-          "objective": "resolve_partner"
-        }
-      ],
-      "reward": {
-        "cred": 180,
-        "xp": 110
-      }
-    },
-    {
-      "id": "x8",
-      "name": "Old Cipher",
-      "giver": "npc_journalist",
-      "stages": [
-        {
-          "id": "s1",
-          "desc": "Decode cipher",
-          "objective": "decode_cipher"
-        },
-        {
-          "id": "s2",
-          "desc": "Deliver",
-          "objective": "deliver_cipher"
-        }
-      ],
-      "reward": {
-        "cred": 200,
-        "xp": 120
-      }
-    },
-    {
-      "id": "x9",
-      "name": "Turret Trouble",
-      "giver": "npc_foreman",
-      "stages": [
-        {
-          "id": "s1",
-          "desc": "Disable turret",
-          "objective": "disable_turret"
-        },
-        {
-          "id": "s2",
-          "desc": "Report",
-          "objective": "report_turret"
-        }
-      ],
-      "reward": {
-        "cred": 150,
-        "xp": 100
-      }
-    },
-    {
-      "id": "x10",
-      "name": "Ghost Shift",
-      "giver": "npc_guard",
-      "stages": [
-        {
-          "id": "s1",
-          "desc": "Cover the shift",
-          "objective": "cover_shift"
-        },
-        {
-          "id": "s2",
-          "desc": "Collect pay",
-          "objective": "collect_pay"
-        }
-      ],
-      "reward": {
-        "cred": 130,
-        "xp": 80
-      }
-    },
-    {
-      "id": "x11",
-      "name": "Stray Signal",
-      "giver": "npc_netrunner",
-      "stages": [
-        {
-          "id": "s1",
-          "desc": "Trace signal",
-          "objective": "trace_signal"
-        },
-        {
-          "id": "s2",
-          "desc": "Jam it",
-          "objective": "jam_signal"
-        }
-      ],
-      "reward": {
-        "cred": 170,
-        "xp": 110
-      }
-    },
-    {
-      "id": "x12",
-      "name": "Last Light",
-      "giver": "npc_bartender",
-      "stages": [
-        {
-          "id": "s1",
-          "desc": "Find the regular",
-          "objective": "find_regular"
-        },
-        {
-          "id": "s2",
-          "desc": "Bring him home",
-          "objective": "bring_home"
-        }
-      ],
-      "reward": {
-        "cred": 210,
-        "xp": 140
-      }
+     "id": "s3",
+     "desc": "Report back",
+     "objective": "return_fixer"
     }
-  ]
+   ],
+   "solutions": [
+    "intimidate_debtor",
+    "hack_debtor_account",
+    "pay_debt_off"
+   ],
+   "reward": {
+    "cred": 200,
+    "xp": 150
+   },
+   "world": {
+    "fixer_trust": 1
+   },
+   "objective": "hack",
+   "need": 2,
+   "progress": 0
+  },
+  {
+   "id": "m3",
+   "name": "The Spire Door",
+   "giver": "npc_whistle",
+   "act": 2,
+   "flag": "m3_done",
+   "stages": [
+    {
+     "id": "s1",
+     "desc": "Reach Vantage Spire",
+     "objective": "reach_spire"
+    },
+    {
+     "id": "s2",
+     "desc": "Get past security",
+     "objective": "bypass_security"
+    },
+    {
+     "id": "s3",
+     "desc": "Copy the files",
+     "objective": "copy_files"
+    }
+   ],
+   "solutions": [
+    "badge_corp_route",
+    "hack_cameras_route",
+    "combat_route"
+   ],
+   "reward": {
+    "cred": 350,
+    "xp": 260
+   },
+   "world": {
+    "has_files": true
+   },
+   "objective": "explore",
+   "need": 2,
+   "progress": 0
+  },
+  {
+   "id": "m4",
+   "name": "Kiln Fire",
+   "giver": "npc_foreman",
+   "act": 2,
+   "flag": "m4_done",
+   "stages": [
+    {
+     "id": "s1",
+     "desc": "Enter the Kilns",
+     "objective": "reach_kilns"
+    },
+    {
+     "id": "s2",
+     "desc": "Sabotage the line",
+     "objective": "sabotage"
+    },
+    {
+     "id": "s3",
+     "desc": "Escape the blast",
+     "objective": "escape_kilns"
+    }
+   ],
+   "solutions": [
+    "plant_charges",
+    "hack_control_room",
+    "talk_foreman"
+   ],
+   "reward": {
+    "cred": 420,
+    "xp": 300
+   },
+   "world": {
+    "kilns_down": true
+   },
+   "objective": "reach",
+   "need": 2,
+   "progress": 0
+  },
+  {
+   "id": "m5",
+   "name": "Black Ledger",
+   "giver": "npc_journalist",
+   "act": 2,
+   "flag": "m5_done",
+   "stages": [
+    {
+     "id": "s1",
+     "desc": "Trace the ledger",
+     "objective": "trace_ledger"
+    },
+    {
+     "id": "s2",
+     "desc": "Steal it",
+     "objective": "steal_ledger"
+    },
+    {
+     "id": "s3",
+     "desc": "Deliver or destroy",
+     "objective": "choose_ledger"
+    }
+   ],
+   "solutions": [
+    "deliver_to_journalist",
+    "sell_to_corp",
+    "destroy_it"
+   ],
+   "reward": {
+    "cred": 500,
+    "xp": 340
+   },
+   "world": {
+    "ledger_choice": "unset"
+   },
+   "objective": "kill",
+   "need": 2,
+   "progress": 0
+  },
+  {
+   "id": "m6",
+   "name": "Neon Requiem",
+   "giver": "npc_singer",
+   "act": 3,
+   "flag": "m6_done",
+   "stages": [
+    {
+     "id": "s1",
+     "desc": "Find the singer",
+     "objective": "reach_club"
+    },
+    {
+     "id": "s2",
+     "desc": "Clear the club",
+     "objective": "clear_club"
+    },
+    {
+     "id": "s3",
+     "desc": "Escort her out",
+     "objective": "escort_singer"
+    }
+   ],
+   "solutions": [
+    "fight_club",
+    "stealth_club"
+   ],
+   "reward": {
+    "cred": 600,
+    "xp": 400
+   },
+   "world": {
+    "singer_saved": true
+   },
+   "objective": "hack",
+   "need": 2,
+   "progress": 0
+  },
+  {
+   "id": "m7",
+   "name": "The Curator",
+   "giver": "npc_curator",
+   "act": 3,
+   "flag": "m7_done",
+   "stages": [
+    {
+     "id": "s1",
+     "desc": "Accept the meeting",
+     "objective": "meet_curator"
+    },
+    {
+     "id": "s2",
+     "desc": "Survive the ambush",
+     "objective": "survive_ambush"
+    },
+    {
+     "id": "s3",
+     "desc": "Hunt the Curator",
+     "objective": "reach_curator"
+    }
+   ],
+   "solutions": [
+    "trust_curator",
+    "refuse_curator"
+   ],
+   "reward": {
+    "cred": 800,
+    "xp": 500
+   },
+   "world": {
+    "curator_met": true
+   },
+   "objective": "explore",
+   "need": 2,
+   "progress": 0
+  },
+  {
+   "id": "m8",
+   "name": "Hollow Point",
+   "giver": "npc_fixer",
+   "act": 3,
+   "flag": "m8_done",
+   "stages": [
+    {
+     "id": "s1",
+     "desc": "Breach the core",
+     "objective": "reach_core"
+    },
+    {
+     "id": "s2",
+     "desc": "Defeat the guardian",
+     "objective": "kill_boss"
+    },
+    {
+     "id": "s3",
+     "desc": "Choose the ending",
+     "objective": "reach_ending"
+    }
+   ],
+   "solutions": [
+    "fight_to_core",
+    "hack_to_core"
+   ],
+   "reward": {
+    "cred": 1500,
+    "xp": 800
+   },
+   "world": {
+    "core_reached": true
+   },
+   "objective": "reach",
+   "need": 2,
+   "progress": 0
+  }
+ ],
+ "side": [
+  {
+   "id": "x1",
+   "name": "Loose Wire",
+   "giver": "npc_techie",
+   "stages": [
+    {
+     "id": "s1",
+     "desc": "Find the part",
+     "objective": "find_wire"
+    },
+    {
+     "id": "s2",
+     "desc": "Deliver",
+     "objective": "deliver_wire"
+    }
+   ],
+   "reward": {
+    "cred": 80,
+    "xp": 60
+   },
+   "objective": "explore",
+   "need": 1,
+   "progress": 0
+  },
+  {
+   "id": "x2",
+   "name": "Rent Due",
+   "giver": "npc_landlord",
+   "stages": [
+    {
+     "id": "s1",
+     "desc": "Collect rent",
+     "objective": "collect_rent"
+    },
+    {
+     "id": "s2",
+     "desc": "Pay landlord",
+     "objective": "pay_landlord"
+    }
+   ],
+   "reward": {
+    "cred": 100,
+    "xp": 50
+   },
+   "objective": "reach",
+   "need": 1,
+   "progress": 0
+  },
+  {
+   "id": "x3",
+   "name": "Dead Drop",
+   "giver": "npc_fixer",
+   "stages": [
+    {
+     "id": "s1",
+     "desc": "Plant the drop",
+     "objective": "plant_drop"
+    },
+    {
+     "id": "s2",
+     "desc": "Confirm",
+     "objective": "confirm_drop"
+    }
+   ],
+   "reward": {
+    "cred": 140,
+    "xp": 70
+   },
+   "objective": "kill",
+   "need": 1,
+   "progress": 0
+  },
+  {
+   "id": "x4",
+   "name": "Clinic Supply",
+   "giver": "npc_medic",
+   "stages": [
+    {
+     "id": "s1",
+     "desc": "Buy medkits",
+     "objective": "buy_medkits"
+    },
+    {
+     "id": "s2",
+     "desc": "Deliver",
+     "objective": "deliver_medkits"
+    }
+   ],
+   "reward": {
+    "cred": 90,
+    "xp": 60
+   },
+   "objective": "hack",
+   "need": 1,
+   "progress": 0
+  },
+  {
+   "id": "x5",
+   "name": "Drone Down",
+   "giver": "npc_techie",
+   "stages": [
+    {
+     "id": "s1",
+     "desc": "Recover core",
+     "objective": "recover_core"
+    },
+    {
+     "id": "s2",
+     "desc": "Return",
+     "objective": "return_core"
+    }
+   ],
+   "reward": {
+    "cred": 160,
+    "xp": 90
+   },
+   "objective": "explore",
+   "need": 1,
+   "progress": 0
+  },
+  {
+   "id": "x6",
+   "name": "Bad Batch",
+   "giver": "npc_dealer",
+   "stages": [
+    {
+     "id": "s1",
+     "desc": "Test the batch",
+     "objective": "test_batch"
+    },
+    {
+     "id": "s2",
+     "desc": "Report",
+     "objective": "report_batch"
+    }
+   ],
+   "reward": {
+    "cred": 120,
+    "xp": 70
+   },
+   "objective": "reach",
+   "need": 1,
+   "progress": 0
+  },
+  {
+   "id": "x7",
+   "name": "Silent Partner",
+   "giver": "npc_singer",
+   "stages": [
+    {
+     "id": "s1",
+     "desc": "Find the partner",
+     "objective": "find_partner"
+    },
+    {
+     "id": "s2",
+     "desc": "Resolve",
+     "objective": "resolve_partner"
+    }
+   ],
+   "reward": {
+    "cred": 180,
+    "xp": 110
+   },
+   "objective": "kill",
+   "need": 1,
+   "progress": 0
+  },
+  {
+   "id": "x8",
+   "name": "Old Cipher",
+   "giver": "npc_journalist",
+   "stages": [
+    {
+     "id": "s1",
+     "desc": "Decode cipher",
+     "objective": "decode_cipher"
+    },
+    {
+     "id": "s2",
+     "desc": "Deliver",
+     "objective": "deliver_cipher"
+    }
+   ],
+   "reward": {
+    "cred": 200,
+    "xp": 120
+   },
+   "objective": "hack",
+   "need": 1,
+   "progress": 0
+  },
+  {
+   "id": "x9",
+   "name": "Turret Trouble",
+   "giver": "npc_foreman",
+   "stages": [
+    {
+     "id": "s1",
+     "desc": "Disable turret",
+     "objective": "disable_turret"
+    },
+    {
+     "id": "s2",
+     "desc": "Report",
+     "objective": "report_turret"
+    }
+   ],
+   "reward": {
+    "cred": 150,
+    "xp": 100
+   },
+   "objective": "explore",
+   "need": 1,
+   "progress": 0
+  },
+  {
+   "id": "x10",
+   "name": "Ghost Shift",
+   "giver": "npc_guard",
+   "stages": [
+    {
+     "id": "s1",
+     "desc": "Cover the shift",
+     "objective": "cover_shift"
+    },
+    {
+     "id": "s2",
+     "desc": "Collect pay",
+     "objective": "collect_pay"
+    }
+   ],
+   "reward": {
+    "cred": 130,
+    "xp": 80
+   },
+   "objective": "reach",
+   "need": 1,
+   "progress": 0
+  },
+  {
+   "id": "x11",
+   "name": "Stray Signal",
+   "giver": "npc_netrunner",
+   "stages": [
+    {
+     "id": "s1",
+     "desc": "Trace signal",
+     "objective": "trace_signal"
+    },
+    {
+     "id": "s2",
+     "desc": "Jam it",
+     "objective": "jam_signal"
+    }
+   ],
+   "reward": {
+    "cred": 170,
+    "xp": 110
+   },
+   "objective": "kill",
+   "need": 1,
+   "progress": 0
+  },
+  {
+   "id": "x12",
+   "name": "Last Light",
+   "giver": "npc_bartender",
+   "stages": [
+    {
+     "id": "s1",
+     "desc": "Find the regular",
+     "objective": "find_regular"
+    },
+    {
+     "id": "s2",
+     "desc": "Bring him home",
+     "objective": "bring_home"
+    }
+   ],
+   "reward": {
+    "cred": 210,
+    "xp": 140
+   },
+   "objective": "hack",
+   "need": 1,
+   "progress": 0
+  }
+ ]
 }

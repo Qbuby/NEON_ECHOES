@@ -76,6 +76,27 @@ func _initialize() -> void:
 	node._try_interact()
 	_check(int(used["count"]) >= 1, "interact fires on a device in reach")
 
+	# a quest advances only when its matching action happens
+	var advanced := false
+	for q in node.quests:
+		if str(q.get("status", "")) == "active" and str(q.get("objective", "")) == "kill":
+			var before_stage := int(q.get("stage", 1))
+			for k in 3:
+				node.advance_quest("kill")
+			advanced = int(q.get("stage", 1)) > before_stage or q.get("status") == "complete"
+			break
+	_check(advanced, "a kill objective advances the active quest")
+
+	# an unrelated objective must not advance that quest
+	var untouched := true
+	for q in node.quests:
+		if str(q.get("objective", "")) == "hack":
+			var stage_before := int(q.get("stage", 1))
+			node.advance_quest("kill")
+			if int(q.get("stage", 1)) != stage_before and str(q.get("status", "")) == "active":
+				untouched = false
+	_check(untouched, "an unrelated action does not advance a quest")
+
 	# every district in the list loads
 	for id in ["ind_belt", "night_row"]:
 		var n2: Node2D = PlayScript.new()

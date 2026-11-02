@@ -4,9 +4,9 @@ Last measured 2026-11-02. Every line below came from a command; nothing is
 asserted without one.
 
 **Overall: the architecture, renderer, asset pipeline, UI and playable loop are
-rebuilt and verified. Content is authored to the spec's counts. Not yet done:
-audio wired to events, quest scripting beyond data, three recorded playthroughs,
-and independent visual acceptance.**
+rebuilt and verified, and audio and quest progression are wired to real game
+events. Not yet done: three recorded playthroughs, a Windows build from the new
+project, and independent visual acceptance.**
 
 ## Gates
 
@@ -19,7 +19,8 @@ bash tools/check.sh
 | Projection | **18 / 18** | 2:1 world↔screen round trip, picking, depth keys |
 | Acceptance suite | **74 / 74** | content counts, systems, districts, traversal, audio, assets, characters, tilesets |
 | 16 screens | **20 / 20** | every screen opens with real rows; stacking; back; disabled rows refuse |
-| Isometric gameplay | **11 / 11** | load, spawn, move, collide, shoot-kill, interact, all districts |
+| Isometric gameplay | **13 / 13** | load, spawn, move, collide, shoot-kill, interact, quest advance, all districts |
+| Audio wiring | **4 / 4** | every gameplay sound name resolves to a real WAV |
 | Frame signature | **ok** | lighting matches the concept art's own statistics |
 
 ## The visual target, measured
@@ -69,11 +70,10 @@ independent reviewers were scoring 1.8–2.4. The simulation (921 LOC, pure
 
 | Item | State |
 |---|---|
-| Audio wired to events | WAVs exist and are catalogued; AudioManager is not yet called from the iso scene |
-| Quest scripting | Quest data and the quest system exist; the iso scene does not yet drive stages |
 | Three recorded playthroughs | Not recorded |
-| Independent visual acceptance | Not yet run on the rebuilt scene |
+| Independent visual acceptance | **blocked**: the reviewer subagent provider rejected three requests in a row (`parameter not valid`); no verdict obtained |
 | Windows build | Not produced from the new project |
+| Saturation vs concept | 33 vs the concept's 37–43; value structure and highlights are in range |
 
 These are the remaining work. The spec forbids marking the game complete while
 any of them is outstanding.

@@ -271,6 +271,27 @@ func _make_screens() -> void:
 	add_child(screens)
 
 
+## Advance the active quest stage for a given objective kind. Keeps the journal
+## honest: a stage only moves when the matching action happened.
+func advance_quest(kind: String, amount: int = 1) -> void:
+	for q in quests:
+		if str(q.get("status", "")) != "active":
+			continue
+		if str(q.get("objective", "")) != kind:
+			continue
+		q["progress"] = int(q.get("progress", 0)) + amount
+		var need := int(q.get("need", 3))
+		if int(q["progress"]) >= need:
+			q["stage"] = int(q.get("stage", 1)) + 1
+			q["progress"] = 0
+			if int(q["stage"]) > int(q.get("stages", 3)):
+				q["status"] = "complete"
+				hud.show_toast("QUEST COMPLETE")
+			else:
+				hud.show_toast("OBJECTIVE COMPLETE")
+		return
+
+
 func _load_content() -> void:
 	var w = JSON.parse_string(FileAccess.get_file_as_string("res://data/weapons.json"))
 	weapons = w.get("weapons", []) if w is Dictionary else []
@@ -421,6 +442,7 @@ func _try_interact() -> void:
 	if best != "" and best_d <= 2:
 		device_used.emit(best)
 		_sfx("int_terminal")
+		advance_quest("hack")
 		hud.show_toast("USED " + best.to_upper().replace("_", " "))
 		return
 	for d in level.get("doors", []):
@@ -430,6 +452,7 @@ func _try_interact() -> void:
 			var target := str(d.get("target", ""))
 			door_used.emit(target)
 			_sfx("int_door")
+			advance_quest("reach")
 			hud.show_toast("ENTERING " + str(d.get("prompt", "")).to_upper())
 			_enter(target)
 			return
@@ -469,6 +492,7 @@ func _check_secrets() -> void:
 			secrets_taken.append(sid)
 			cred += 150
 			_sfx("int_secret")
+			advance_quest("explore")
 			hud.show_toast("DATA CACHE  +150 c")
 			hud.set_values({"hp": hp, "hp_max": hp_max, "ram": ram,
 				"ram_max": ram_max, "cred": cred, "name": "RIN", "status": 3,
@@ -520,6 +544,7 @@ func _tick_bullets(delta: float) -> void:
 				if bool(res["dead"]):
 					kills += 1
 					_sfx("melee_hit")
+					advance_quest("kill")
 					enemy_killed.emit(str(e["id"]))
 					hud.show_toast("TARGET DOWN")
 					var node: Node2D = e["node"]
@@ -566,4 +591,5 @@ func get_state() -> Dictionary:
 		"doors": level.get("doors", []).size(),
 		"devices": blocks.size(),
 		"cred": cred, "ram": ram,
+		"quests": quests.size(),
 	}
