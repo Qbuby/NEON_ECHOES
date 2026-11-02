@@ -1,0 +1,291 @@
+{
+ "sheet": "res://assets/actors/npc_netrunner/npc_netrunner.png",
+ "anchor": [
+  24,
+  62
+ ],
+ "frames": {
+  "idle_s_0": {
+   "x": 0,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 520
+  },
+  "idle_s_1": {
+   "x": 48,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 520
+  },
+  "walk_s_0": {
+   "x": 96,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 130
+  },
+  "walk_s_1": {
+   "x": 144,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 130
+  },
+  "walk_s_2": {
+   "x": 192,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 130
+  },
+  "walk_s_3": {
+   "x": 240,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 130
+  },
+  "attack_s_0": {
+   "x": 288,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 100
+  },
+  "attack_s_1": {
+   "x": 336,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 100
+  },
+  "idle_e_0": {
+   "x": 384,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 520
+  },
+  "idle_e_1": {
+   "x": 432,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 520
+  },
+  "walk_e_0": {
+   "x": 480,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 130
+  },
+  "walk_e_1": {
+   "x": 528,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 130
+  },
+  "walk_e_2": {
+   "x": 576,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 130
+  },
+  "walk_e_3": {
+   "x": 624,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 130
+  },
+  "attack_e_0": {
+   "x": 672,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 100
+  },
+  "attack_e_1": {
+   "x": 720,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 100
+  },
+  "idle_n_0": {
+   "x": 768,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 520
+  },
+  "idle_n_1": {
+   "x": 816,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 520
+  },
+  "walk_n_0": {
+   "x": 864,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 130
+  },
+  "walk_n_1": {
+   "x": 912,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 130
+  },
+  "walk_n_2": {
+   "x": 960,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 130
+  },
+  "walk_n_3": {
+   "x": 1008,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 130
+  },
+  "attack_n_0": {
+   "x": 1056,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 100
+  },
+  "attack_n_1": {
+   "x": 1104,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 100
+  },
+  "idle_w_0": {
+   "x": 1152,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 520
+  },
+  "idle_w_1": {
+   "x": 1200,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 520
+  },
+  "walk_w_0": {
+   "x": 1248,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 130
+  },
+  "walk_w_1": {
+   "x": 1296,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 130
+  },
+  "walk_w_2": {
+   "x": 1344,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 130
+  },
+  "walk_w_3": {
+   "x": 1392,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 130
+  },
+  "attack_w_0": {
+   "x": 1440,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 100
+  },
+  "attack_w_1": {
+   "x": 1488,
+   "y": 0,
+   "w": 48,
+   "h": 64,
+   "duration": 100
+  }
+ },
+ "animations": {
+  "idle_s": [
+   "idle_s_0",
+   "idle_s_1"
+  ],
+  "walk_s": [
+   "walk_s_0",
+   "walk_s_1",
+   "walk_s_2",
+   "walk_s_3"
+  ],
+  "attack_s": [
+   "attack_s_0",
+   "attack_s_1"
+  ],
+  "idle_e": [
+   "idle_e_0",
+   "idle_e_1"
+  ],
+  "walk_e": [
+   "walk_e_0",
+   "walk_e_1",
+   "walk_e_2",
+   "walk_e_3"
+  ],
+  "attack_e": [
+   "attack_e_0",
+   "attack_e_1"
+  ],
+  "idle_n": [
+   "idle_n_0",
+   "idle_n_1"
+  ],
+  "walk_n": [
+   "walk_n_0",
+   "walk_n_1",
+   "walk_n_2",
+   "walk_n_3"
+  ],
+  "attack_n": [
+   "attack_n_0",
+   "attack_n_1"
+  ],
+  "idle_w": [
+   "idle_w_0",
+   "idle_w_1"
+  ],
+  "walk_w": [
+   "walk_w_0",
+   "walk_w_1",
+   "walk_w_2",
+   "walk_w_3"
+  ],
+  "attack_w": [
+   "attack_w_0",
+   "attack_w_1"
+  ]
+ }
+}

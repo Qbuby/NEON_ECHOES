@@ -21,28 +21,28 @@ DISTRICTS = {
     "corp_core": {
         "name": "企业核心区",
         "tiles": "corp",
-        "w": 34, "h": 34,
+        "w": 80, "h": 80,
         "street": "vertical",       # a north-south street through the middle
         "wall_h": 5.0,
     },
     "ind_belt": {
         "name": "工业贫民区",
         "tiles": "ind",
-        "w": 34, "h": 34,
+        "w": 80, "h": 80,
         "street": "vertical",
         "wall_h": 5.0,
     },
     "night_row": {
         "name": "娱乐地下区",
         "tiles": "night",
-        "w": 34, "h": 34,
+        "w": 80, "h": 80,
         "street": "vertical",
         "wall_h": 5.0,
     },
 }
 
 
-def build(spec):
+def build(spec, did):
     """A plaza with a detailed building wall on one side, matching the reference.
 
     In a 2:1 isometric view only the south and east faces of a block are
@@ -119,12 +119,109 @@ def build(spec):
         },
         "props": props,
         "actors": [{"id": "player", "cell": [9, 9]}],
+        "id": did,
+        "doors": _doors(spec, did, w, h),
+        "secrets": _secrets(spec, did, w, h),
+        "npcs": _npcs(spec, did, w, h),
+        "interactables": _interactables(spec, did, w, h),
+    }
+
+
+## ---- entity layer ------------------------------------------------------------
+# Every district carries four enterable interiors, five secrets, ten NPCs and
+# ten interactable devices. Positions are rule-based: secrets sit against the
+# walls and in the alley mouths, NPCs along the plaza, devices against facades.
+
+INTERIORS = ["lobby", "office", "vault", "service"]
+
+
+def _doors(spec, did, w, h):
+    """Four interior doors on the west wall, spread down the plaza."""
+    out = []
+    for i, kind in enumerate(INTERIORS):
+        out.append({
+            "id": f"{did}_{kind}",
+            "cell": [7, 12 + i * 15],
+            "target": f"{did}_{kind}",
+            "spawn": "entry",
+            "prompt": kind.upper(),
+        })
+    return out
+
+
+def _secrets(spec, did, w, h):
+    """Five caches: alley mouths, wall corners, and the far end of the plaza."""
+    cells = [(2, h - 6), (w - 3, 10), (2, 30), (w - 8, h - 4), (12, h - 5)]
+    return [{"id": f"{did}_cache_{i+1}", "cell": c,
+             "item": "cred_medium" if i % 2 == 0 else "cred_small"}
+            for i, c in enumerate(cells)]
+
+
+def _npcs(spec, did, w, h):
+    """Ten townsfolk standing along the plaza and beside the kiosks."""
+    cells = [(9, 12), (10, 20), (12, 26), (14, 18), (16, 30),
+             (18, 22), (20, 34), (22, 16), (w - 8, 20), (w - 8, 32)]
+    names = ["npc_fixer", "npc_techie", "npc_bartender", "npc_guard",
+             "npc_medic", "npc_dealer", "npc_journalist", "npc_netrunner",
+             "npc_landlord", "npc_curator"]
+    return [{"id": names[i], "cell": c} for i, c in enumerate(cells)]
+
+
+def _interactables(spec, did, w, h):
+    """Ten devices: terminals, vending, scanners and cameras along the facade."""
+    kinds = ["terminal", "vending", "scanner_gate", "camera", "atm",
+             "hack_terminal", "jukebox", "bar_counter", "server_rack", "alarm_panel"]
+    cells = [(8, 10), (8, 16), (8, 22), (8, 28), (8, 34),
+             (8, 40), (w - 6, 14), (w - 6, 22), (w - 6, 30), (w - 6, 38)]
+    return [{"kind": kinds[i], "cell": c} for i, c in enumerate(cells)]
+
+
+def build_interior(did, kind, index):
+    """A 30x20 room: a border wall, an entry door, a secret and two devices."""
+    w, h = 30, 20
+    g = [["#" if (x in (0, w - 1) or y in (0, h - 1)) else "." for x in range(w)]
+         for y in range(h)]
+    # a dividing wall so the room is not one empty rectangle
+    for y in range(5, h - 5):
+        g[y][11] = "#"
+    g[9][11] = "."   # doorway through the divider
+    return {
+        "name": f"{did}_{kind}", "tiles": "corp", "w": w, "h": h,
+        "floor": ["".join(r) for r in g],
+        "legend": {
+            ".": {"floor": "floor_marble"},
+            "#": {"floor": "floor_concrete", "wall": 4.0},
+        },
+        "props": [
+            {"id": "prop_terminal", "cell": [5, 4]},
+            {"id": "prop_kiosk", "cell": [18, 4]},
+            {"id": "prop_bench", "cell": [22, 12]},
+            {"id": "prop_crate", "cell": [25, 16]},
+            {"id": "sign_a", "cell": [15, 2], "anchor": "mount", "lift": 24.0},
+        ],
+        "actors": [{"id": "player", "cell": [3, 10]}],
+        "doors": [{"id": f"{did}_{kind}_exit", "cell": [2, 10],
+                   "target": did, "spawn": "entry", "prompt": "EXIT"}],
+        "secrets": [{"id": f"{did}_{kind}_cache", "cell": [26, 3],
+                     "item": "cred_medium"}],
+        "npcs": [{"id": "npc_techie", "cell": [22, 9]}],
+        "interactables": [{"kind": "server_rack", "cell": [14, 6]},
+                          {"kind": "terminal", "cell": [7, 14]}],
     }
 
 
 if __name__ == "__main__":
     OUT.mkdir(parents=True, exist_ok=True)
+    total_interiors = 0
     for did, spec in DISTRICTS.items():
-        d = build(spec)
+        d = build(spec, did)
         (OUT / f"{did}.iso.json").write_text(json.dumps(d, indent=1), encoding="utf-8")
-        print(f"{did}: {d['w']}x{d['h']} props={len(d['props'])}")
+        print(f"{did}: {d['w']}x{d['h']} props={len(d['props'])} "
+              f"doors={len(d['doors'])} secrets={len(d['secrets'])} "
+              f"npcs={len(d['npcs'])} devices={len(d['interactables'])}")
+        for i, kind in enumerate(INTERIORS):
+            room = build_interior(did, kind, i)
+            (OUT / f"{did}_{kind}.iso.json").write_text(
+                json.dumps(room, indent=1), encoding="utf-8")
+            total_interiors += 1
+    print("interiors:", total_interiors)

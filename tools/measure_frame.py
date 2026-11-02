@@ -51,5 +51,6 @@ def main(paths):
                s["bright"], s["dark"], s["sat"], flag))
 
 
+
 if __name__ == "__main__":
     main(sys.argv[1:] or ["game/evidence/iso_probe.png"])

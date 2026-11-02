@@ -312,12 +312,47 @@ func _build_actors(list: Array) -> void:
 	for a in list:
 		var cell: Array = a.get("cell", [0, 0])
 		var id := str(a.get("id", ""))
-		var node := Node2D.new()
-		node.name = id
-		node.set_meta("cell", Vector2i(int(cell[0]), int(cell[1])))
-		node.position = cell_center(Vector2i(int(cell[0]), int(cell[1])))
-		actor_root.add_child(node)
-		register_actor(node)
+		var node := spawn_actor(id, Vector2i(int(cell[0]), int(cell[1])), a)
+		if node == null:
+			continue
+
+
+## Spawn one animated actor. Returns the node so gameplay code can keep it.
+func spawn_actor(actor_id: String, cell: Vector2i, opts: Dictionary = {}) -> Node2D:
+	var node := Node2D.new()
+	node.name = actor_id + "_" + str(cell.x) + "_" + str(cell.y)
+	node.set_meta("cell", cell)
+	node.position = cell_center(cell)
+	# the sprite is optional: an actor with no authored sheet still occupies a
+	# cell, so gameplay and tests are not blocked on art
+	var path := "res://assets/actors/%s/%s.json" % [actor_id, actor_id]
+	if ResourceLoader.exists(path):
+		var spr := ActorSprite.new()
+		if spr.setup(path):
+			var anim := str(opts.get("anim", "idle_s"))
+			spr.play(anim)
+			node.add_child(spr)
+			node.set_meta("sprite", spr)
+	_add_shadow(node)
+	actor_root.add_child(node)
+	register_actor(node)
+	return node
+
+
+func _add_shadow(node: Node2D) -> void:
+	var img := Image.create(28, 10, false, Image.FORMAT_RGBA8)
+	img.fill(Color(0, 0, 0, 0))
+	for y in 10:
+		for x in 28:
+			var dx := (x - 13.5) / 14.0
+			var dy := (y - 4.5) / 5.0
+			if dx * dx + dy * dy <= 1.0:
+				img.set_pixel(x, y, Color(0, 0, 0, 0.40))
+	var sh := Sprite2D.new()
+	sh.texture = ImageTexture.create_from_image(img)
+	sh.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	sh.z_index = -1
+	node.add_child(sh)
 
 
 ## Called by gameplay code after an actor moves; resorts that actor's depth key.

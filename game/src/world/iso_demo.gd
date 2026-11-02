@@ -51,6 +51,10 @@ func _ready() -> void:
 			player_cell = Vector2i(int(c[0]), int(c[1]))
 			move_target = player_cell
 	world.load_level(level_data, atlas)
+	# townsfolk and enemy actors declared by the level
+	for n in level_data.get("npcs", []):
+		var c: Array = n.get("cell", [0, 0])
+		world.spawn_actor(str(n.get("id", "npc_fixer")), Vector2i(int(c[0]), int(c[1])))
 	world.position = _map_center()
 	_make_player()
 	_make_lighting()
