@@ -37,8 +37,8 @@ PALETTES = {
         # roof (brightest) / south face (mid) / east face (darkest)
         "wall_lit": ("#5a7699", "#7492b4", "#93b2d0"),
         "wall_drk": ("#2e4160", "#3d5578", "#4e6a92"),
-        "neon":     ("#3ad0f0", "#a8f4ff", "#ffffff"),
-        "accent":   ("#ff2fb4", "#ff8ad8", "#ffd0f0"),
+        "neon":     ("#18c8f0", "#8cf0ff", "#ffffff"),
+        "accent":   ("#ff1493", "#ff5cc0", "#ffc4ea"),
     },
     "ind": {
         "asphalt":  ("#0a0806", "#14100b", "#211a12"),
@@ -47,8 +47,8 @@ PALETTES = {
         "concrete": ("#0d0a07", "#18130d", "#281f15"),
         "wall_lit": ("#8a7050", "#a98a62", "#c4a67c"),
         "wall_drk": ("#4a3a26", "#5e4a30", "#755c3c"),
-        "neon":     ("#e09028", "#ffd070", "#fffdf0"),
-        "accent":   ("#d8622a", "#ff8a44", "#ffc09a"),
+        "neon":     ("#f08a10", "#ffc040", "#fff8e0"),
+        "accent":   ("#e04a10", "#ff7028", "#ffb080"),
     },
     "night": {
         "asphalt":  ("#08050c", "#110a18", "#1c1226"),
@@ -57,8 +57,8 @@ PALETTES = {
         "concrete": ("#0a0610", "#140d1c", "#22172e"),
         "wall_lit": ("#7a5598", "#986db8", "#b58cd2"),
         "wall_drk": ("#3a2450", "#4c3068", "#603f80"),
-        "neon":     ("#ff2ab0", "#ff9ad8", "#ffffff"),
-        "accent":   ("#2fb4c8", "#6ee0f0", "#c8faff"),
+        "neon":     ("#ff1090", "#ff70c8", "#ffffff"),
+        "accent":   ("#10c0e0", "#50dcf4", "#b8f6ff"),
     },
 }
 

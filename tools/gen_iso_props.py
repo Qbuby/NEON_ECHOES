@@ -19,22 +19,22 @@ PAL = {
     "corp": {
         "body":  ("#1c2432", "#2a3548", "#3c4a63"),
         "dark":  ("#0c1119", "#141b26", "#1e2836"),
-        "neon":  ("#2ab8e0", "#8ef0ff", "#eaffff"),
-        "accent": ("#ff2fb4", "#ff8ad8", "#ffd4ef"),
+        "neon":  ("#18c8f0", "#8cf0ff", "#ffffff"),
+        "accent": ("#ff1493", "#ff5cc0", "#ffc4ea"),
         "metal": ("#5c6a80", "#8b9ab0", "#c8d6e6"),
     },
     "ind": {
         "body":  ("#241c12", "#33291b", "#463824"),
         "dark":  ("#100c08", "#191309", "#231a0f"),
-        "neon":  ("#c07a20", "#ffbc52", "#fff2c8"),
-        "accent": ("#d8622a", "#ff8a44", "#ffc09a"),
+        "neon":  ("#f08a10", "#ffc040", "#fff8e0"),
+        "accent": ("#e04a10", "#ff7028", "#ffb080"),
         "metal": ("#5a5248", "#847a6c", "#b6ac9c"),
     },
     "night": {
         "body":  ("#241432", "#33204a", "#452c60"),
         "dark":  ("#0c0712", "#160e1e", "#20132c"),
-        "neon":  ("#e0189c", "#ff72cc", "#ffe8f8"),
-        "accent": ("#2fb4c8", "#6ee0f0", "#c8faff"),
+        "neon":  ("#ff1090", "#ff70c8", "#ffffff"),
+        "accent": ("#10c0e0", "#50dcf4", "#b8f6ff"),
         "metal": ("#5e4a70", "#8a72a0", "#c0aad4"),
     },
 }
