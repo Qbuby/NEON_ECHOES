@@ -25,6 +25,7 @@ run "projection (iso grid)"  "$GD" --headless --path game -s res://tests/test_is
 run "acceptance suite"       "$GD" --headless --path game -s res://tests/run_suite.gd
 run "16 screens"             "$GD" --headless --path game -s res://tests/test_screens.gd
 run "isometric gameplay"     "$GD" --headless --path game -s res://tests/test_iso_play.gd
+run "audio wiring"           "$GD" --headless --path game -s res://tests/test_audio_wired.gd
 
 printf '%-28s ' "frame lighting signature"
 python tools/measure_frame.py game/evidence/iso_probe.png 2>/dev/null | grep -o 'ok$\|LOW$' | tail -1

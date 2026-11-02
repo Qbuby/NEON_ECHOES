@@ -79,9 +79,33 @@ func setup(id: String) -> bool:
 	_make_hud()
 	_make_screens()
 	_load_content()
+	_play_music(_music_for(id))
 	_log("iso.ready", {"district": id, "enemies": enemies.size(),
 		"walkable": walkable.size()})
 	return true
+
+
+## Audio is feedback, not a dependency: a missing file logs once, never throws.
+func _sfx(name: String) -> void:
+	var tree := get_tree()
+	var a = tree.root.get_node_or_null("AudioManager") if tree != null else null
+	if a != null:
+		a.play_sfx(name)
+
+
+func _play_music(track: String) -> void:
+	var tree := get_tree()
+	var a = tree.root.get_node_or_null("AudioManager") if tree != null else null
+	if a != null:
+		a.play_music(track)
+
+
+func _music_for(id: String) -> String:
+	if id.begins_with("night_row"):
+		return "mus_combat"
+	if id.begins_with("ind_belt"):
+		return "mus_calm"
+	return "mus_menu"
 
 
 func _log(event: String, data: Dictionary) -> void:
@@ -358,6 +382,7 @@ func _toggle_screen(id: String) -> void:
 		screens.close()
 		set_paused(false)
 	else:
+		_sfx("ui_open")
 		screens.open(id, screen_data())
 		set_paused(true)
 
@@ -395,6 +420,7 @@ func _try_interact() -> void:
 			best_cell = c
 	if best != "" and best_d <= 2:
 		device_used.emit(best)
+		_sfx("int_terminal")
 		hud.show_toast("USED " + best.to_upper().replace("_", " "))
 		return
 	for d in level.get("doors", []):
@@ -403,6 +429,7 @@ func _try_interact() -> void:
 		if absi(c.x - player_cell.x) + absi(c.y - player_cell.y) <= 2:
 			var target := str(d.get("target", ""))
 			door_used.emit(target)
+			_sfx("int_door")
 			hud.show_toast("ENTERING " + str(d.get("prompt", "")).to_upper())
 			_enter(target)
 			return
@@ -441,6 +468,7 @@ func _check_secrets() -> void:
 		if cell == player_cell and not secrets_taken.has(sid):
 			secrets_taken.append(sid)
 			cred += 150
+			_sfx("int_secret")
 			hud.show_toast("DATA CACHE  +150 c")
 			hud.set_values({"hp": hp, "hp_max": hp_max, "ram": ram,
 				"ram_max": ram_max, "cred": cred, "name": "RIN", "status": 3,
@@ -457,6 +485,7 @@ func _try_attack() -> void:
 		spr.play("attack_" + facing, true)
 	bullets.append({"pos": player.position + Vector2(0, -18), "dir": aim,
 		"ttl": 0.55, "damage": 18.0})
+	_sfx("gun_pistol")
 
 
 func _aim_vector() -> Vector2:
@@ -487,8 +516,10 @@ func _tick_bullets(delta: float) -> void:
 			if (ai.pos as Vector2).distance_to(b["pos"]) < 26.0:
 				var res: Dictionary = ai.take_damage(float(b["damage"]))
 				hit = true
+				_sfx("melee_slash")
 				if bool(res["dead"]):
 					kills += 1
+					_sfx("melee_hit")
 					enemy_killed.emit(str(e["id"]))
 					hud.show_toast("TARGET DOWN")
 					var node: Node2D = e["node"]

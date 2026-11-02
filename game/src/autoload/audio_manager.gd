@@ -8,8 +8,8 @@ extends Node
 ##     AudioManager.play_sfx("hit")
 ##     AudioManager.play_music("field")
 
-const SFX_DIR := "res://assets/audio/sfx"
-const MUSIC_DIR := "res://assets/audio/music"
+const SFX_DIR := "res://assets/audio"
+const MUSIC_DIR := "res://assets/audio"
 const POOL_SIZE := 8
 
 var sfx_volume := 0.8
