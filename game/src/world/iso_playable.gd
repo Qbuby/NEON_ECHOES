@@ -55,6 +55,9 @@ var weapons: Array = []
 
 
 func _ready() -> void:
+	# Juice hosts effects on the level, so the level must be findable by group.
+	# Without this every burst instantiated a node and leaked it.
+	add_to_group("level")
 	setup(district_id)
 
 
@@ -313,6 +316,37 @@ func _make_screens() -> void:
 	screens = ScreensScript.new()
 	screens.name = "Screens"
 	add_child(screens)
+	_prewarm_screens(screens)
+	_prewarm_feedback()
+
+
+## First use of a resource is what stalls a frame: the impact effect scene and
+## its texture, and the first WAV of each sound. Load them during setup.
+func _prewarm_feedback() -> void:
+	var fx := "res://src/fx/impact.tscn"
+	if ResourceLoader.exists(fx):
+		var packed := load(fx)
+		if packed is PackedScene:
+			var probe = packed.instantiate()
+			if probe != null:
+				add_child(probe)
+				# let it register its texture then drop it
+				probe.queue_free()
+	var tree := get_tree()
+	var am = tree.root.get_node_or_null("AudioManager") if tree != null else null
+	if am != null and am.has_method("preload_sounds"):
+		am.preload_sounds(["gun_pistol", "melee_slash", "melee_hit", "int_door",
+			"int_secret", "int_terminal", "ui_open", "mus_menu",
+			"mus_combat", "mus_calm"])
+
+
+## Building a screen's Control tree costs ~100 ms the first time. Do it during
+## load, once, so opening the inventory mid-fight never stalls the frame.
+func _prewarm_screens(target) -> void:
+	var data := screen_data()
+	for id in target.screen_ids():
+		target.open(id, data)
+	target.close()
 
 
 ## Advance the active quest stage for a given objective kind. Keeps the journal

@@ -16,14 +16,22 @@ func _ready() -> void:
 	if sprite_frames == null:
 		queue_free()
 		return
-	sprite_frames = sprite_frames.duplicate()
 	var names := sprite_frames.get_animation_names()
 	if names.is_empty():
+		queue_free()
 		return
 	var anim := animation_name if sprite_frames.has_animation(animation_name) else String(names[0])
 	sprite_frames.set_animation_loop(anim, false)
 	animation_finished.connect(_on_finished)
 	play(anim)
+	# safety net: an effect that never reports finished must still free itself
+	if auto_free:
+		get_tree().create_timer(maxf(0.4, free_delay + 1.2)).timeout.connect(_hard_free)
+
+
+func _hard_free() -> void:
+	if is_instance_valid(self):
+		queue_free()
 
 
 func _on_finished() -> void:

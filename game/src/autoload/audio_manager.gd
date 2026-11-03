@@ -38,6 +38,12 @@ func _ready() -> void:
 	add_child(_music)
 
 
+## Load every named stream now, so the first in-game use does not stall a frame.
+func preload_sounds(names: Array) -> void:
+	for n in names:
+		_load_stream(SFX_DIR + "/" + str(n) + ".wav")
+
+
 func play_sfx(name: String, pitch_jitter: float = 0.06) -> void:
 	var stream := _load_stream(SFX_DIR + "/" + name + ".wav")
 	if stream == null:

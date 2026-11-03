@@ -135,8 +135,9 @@ func _fill(id: String) -> void:
 				var q0: Dictionary = quests[0]
 				shell.add_detail(str(q0.get("name", "")))
 				shell.add_detail(str(q0.get("desc", "")), Color("#7e93ad"))
+				var total: int = (q0.get("stages", []) as Array).size()
 				shell.add_detail("Stage %d of %d" % [int(q0.get("stage", 1)),
-					int(q0.get("stages", 3))])
+					maxi(1, total)])
 		"inventory":
 			var items: Array = values.get("items", [])
 			for i in mini(items.size(), 10):

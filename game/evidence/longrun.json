@@ -1,0 +1,129 @@
+{
+  "area_loads": 1,
+  "avg_fps": 110.3,
+  "crashes": [],
+  "early_growth_mb": 0.5,
+  "frames": 33086,
+  "late_growth_mb": -0.1,
+  "leak_detected": false,
+  "mem_first_mb": 108.0,
+  "mem_last_mb": 108.4,
+  "mem_peak_mb": 108.5,
+  "minutes": 5,
+  "ok": true,
+  "samples": [
+    {
+      "area": "corp_core",
+      "frames": 3227,
+      "last_ms": 15.53,
+      "mem_mb": 108.0,
+      "nodes": 9946,
+      "objects": 11810,
+      "orphans": 15,
+      "resources": 54,
+      "t_s": 30
+    },
+    {
+      "area": "corp_core",
+      "frames": 6531,
+      "last_ms": 14.89,
+      "mem_mb": 108.0,
+      "nodes": 9946,
+      "objects": 11814,
+      "orphans": 15,
+      "resources": 54,
+      "t_s": 60
+    },
+    {
+      "area": "corp_core",
+      "frames": 9838,
+      "last_ms": 15.62,
+      "mem_mb": 108.4,
+      "nodes": 9952,
+      "objects": 11837,
+      "orphans": 15,
+      "resources": 54,
+      "t_s": 90
+    },
+    {
+      "area": "corp_core",
+      "frames": 13142,
+      "last_ms": 15.68,
+      "mem_mb": 108.4,
+      "nodes": 9952,
+      "objects": 11837,
+      "orphans": 15,
+      "resources": 54,
+      "t_s": 120
+    },
+    {
+      "area": "corp_core",
+      "frames": 16449,
+      "last_ms": 15.93,
+      "mem_mb": 108.4,
+      "nodes": 9952,
+      "objects": 11836,
+      "orphans": 15,
+      "resources": 54,
+      "t_s": 150
+    },
+    {
+      "area": "corp_core",
+      "frames": 19754,
+      "last_ms": 15.36,
+      "mem_mb": 108.5,
+      "nodes": 9952,
+      "objects": 11837,
+      "orphans": 15,
+      "resources": 54,
+      "t_s": 180
+    },
+    {
+      "area": "corp_core",
+      "frames": 23056,
+      "last_ms": 14.8,
+      "mem_mb": 108.4,
+      "nodes": 9952,
+      "objects": 11837,
+      "orphans": 15,
+      "resources": 54,
+      "t_s": 210
+    },
+    {
+      "area": "corp_core",
+      "frames": 26361,
+      "last_ms": 15.28,
+      "mem_mb": 108.4,
+      "nodes": 9952,
+      "objects": 11836,
+      "orphans": 15,
+      "resources": 54,
+      "t_s": 240
+    },
+    {
+      "area": "corp_core",
+      "frames": 29666,
+      "last_ms": 15.89,
+      "mem_mb": 108.5,
+      "nodes": 9952,
+      "objects": 11836,
+      "orphans": 15,
+      "resources": 54,
+      "t_s": 270
+    },
+    {
+      "area": "corp_core",
+      "frames": 32968,
+      "last_ms": 15.6,
+      "mem_mb": 108.4,
+      "nodes": 9952,
+      "objects": 11836,
+      "orphans": 15,
+      "resources": 54,
+      "t_s": 300
+    }
+  ],
+  "samples_same_area": 10,
+  "worst_gameplay_frame_ms": 24.24,
+  "worst_load_ms": 486.22
+}

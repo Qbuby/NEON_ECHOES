@@ -167,8 +167,15 @@ func burst(world_pos: Vector2, scene_path: String = IMPACT_SCENE, rot: float = 0
 	if scene == null:
 		return
 	var node := scene.instantiate()
-	var host := get_tree().current_scene
+	# host on the level, not current_scene: a SceneTree-driven test has no
+	# current_scene, and effects belong to the level they happen in
+	var host: Node = get_tree().get_first_node_in_group("level")
 	if host == null:
+		host = get_tree().current_scene
+	if host == null:
+		# no host means the node would be created and dropped, which leaks it;
+		# free it explicitly instead
+		node.free()
 		return
 	host.add_child(node)
 	node.global_position = world_pos
