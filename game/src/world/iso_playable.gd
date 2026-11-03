@@ -293,6 +293,9 @@ func _default_spawns() -> Array:
 # ---- hud ------------------------------------------------------------------------
 
 func _make_hud() -> void:
+	if hud != null and is_instance_valid(hud):
+		hud.queue_free()
+		hud = null
 	hud = IsoHudScript.new()
 	add_child(hud)
 	hud.set_values({
@@ -304,6 +307,9 @@ func _make_hud() -> void:
 
 ## The 16 screens share one instance; open() rebuilds the shell for each.
 func _make_screens() -> void:
+	if screens != null and is_instance_valid(screens):
+		screens.queue_free()
+		screens = null
 	screens = ScreensScript.new()
 	screens.name = "Screens"
 	add_child(screens)
@@ -331,6 +337,10 @@ func advance_quest(kind: String, amount: int = 1) -> void:
 
 
 func _load_content() -> void:
+	if not quests.is_empty() or not weapons.is_empty():
+		# already loaded; content does not change when the player walks through a
+		# door, so re-parsing and re-appending here was both wasteful and wrong
+		return
 	var w = JSON.parse_string(FileAccess.get_file_as_string("res://data/weapons.json"))
 	weapons = w.get("weapons", []) if w is Dictionary else []
 	var q = JSON.parse_string(FileAccess.get_file_as_string("res://data/quests.json"))

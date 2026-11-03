@@ -1,0 +1,20 @@
+{
+  "allowed_growth_mb": 64.0,
+  "areas_exercised": [
+    "corp_core"
+  ],
+  "avg_walkable_cells": 6400,
+  "failure_count": 0,
+  "failures": [],
+  "first_half_growth_mb": 7.2,
+  "growth_mb": 8.0,
+  "leak_detected": false,
+  "mem_first_mb": 87.5,
+  "mem_last_mb": 95.5,
+  "mem_peak_mb": 95.5,
+  "ok": true,
+  "sample_area": "corp_core (fixed checkpoint)",
+  "samples": 12,
+  "second_half_growth_mb": 0.8,
+  "switches": 100
+}

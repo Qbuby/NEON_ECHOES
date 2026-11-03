@@ -27,6 +27,7 @@ run "16 screens"             "$GD" --headless --path game -s res://tests/test_sc
 run "isometric gameplay"     "$GD" --headless --path game -s res://tests/test_iso_play.gd
 run "audio wiring"           "$GD" --headless --path game -s res://tests/test_audio_wired.gd
 run "performance (1080p)"    "$GD" --headless --resolution 1920x1080 --path game -s res://tests/run_perf.gd
+run "100 map switches"     "$GD" --headless --path game -s res://tests/run_soak.gd
 
 printf '%-28s ' "frame lighting signature"
 python tools/measure_frame.py game/evidence/iso_probe.png 2>/dev/null | grep -o 'ok$\|LOW$' | tail -1
