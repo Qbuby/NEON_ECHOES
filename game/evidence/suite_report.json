@@ -1,7 +1,7 @@
 {
 	"engine": "4.7.2-stable (official)",
 	"failed": 0,
-	"generated_at": "2026-11-02T15:09:27",
+	"generated_at": "2026-11-03T09:39:52",
 	"passed": 74,
 	"results": [
 		{
@@ -65,7 +65,7 @@
 			"test": "10 weapons, full config, all distinct"
 		},
 		{
-			"detail": "deadlocks=0 transitions=38",
+			"detail": "deadlocks=0 transitions=168",
 			"ok": true,
 			"test": "100 state transitions, no deadlock"
 		},

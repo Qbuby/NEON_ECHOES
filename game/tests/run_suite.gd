@@ -95,6 +95,8 @@ func test_state_machine() -> void:
 	var machine = load("res://src/player/player_state_machine.gd").new()
 	var reached := {}
 	var deadlocks := 0
+	var total_transitions := 0
+	var last_count := 0
 	var rng := RandomNumberGenerator.new()
 	rng.seed = 4242
 	var actions := ["idle", "walk", "run", "shoot", "reload", "melee", "dodge", "hit", "death"]
@@ -111,13 +113,18 @@ func test_state_machine() -> void:
 		reached[machine.state] = true
 		# let locks expire so the next action can be issued
 		machine.tick(0.5, false, false, true)
+		total_transitions += maxi(0, machine.transition_count - last_count)
+		last_count = machine.transition_count
 		if machine.state == "death":
 			# death is terminal: revive for the remaining iterations by rebuilding
 			machine = load("res://src/player/player_state_machine.gd").new()
+			last_count = 0
 		# a machine that never leaves a locking state is a deadlock
 		if machine.is_locked() and machine.state_time > 5.0:
 			deadlocks += 1
-	_check("100 state transitions, no deadlock", deadlocks == 0, "deadlocks=%d transitions=%d" % [deadlocks, machine.transition_count])
+	total_transitions += maxi(0, machine.transition_count - last_count)
+	_check("100 state transitions, no deadlock", deadlocks == 0 and total_transitions >= 100,
+		"deadlocks=%d transitions=%d" % [deadlocks, total_transitions])
 	var missing := []
 	for s in machine.STATES:
 		if not reached.has(s):

@@ -1,0 +1,22 @@
+{
+  "cpu": "11th Gen Intel(R) Core(TM) i5-11260H @ 2.60GHz",
+  "enemies": 40,
+  "frames": 600,
+  "max_ms": 8.4,
+  "mean_ms": 6.9,
+  "ok": true,
+  "over_100ms": 0,
+  "over_20ms": 0,
+  "over_33ms": 0,
+  "p50_ms": 6.9,
+  "p95_ms": 6.99,
+  "p99_ms": 7.84,
+  "renderer": "gl_compatibility",
+  "static_mem_mb": 88.1,
+  "targets": {
+    "max_stall_ms": 100.0,
+    "mem_mb": 3072.0,
+    "p95_ms": 20.0,
+    "p99_ms": 33.0
+  }
+}

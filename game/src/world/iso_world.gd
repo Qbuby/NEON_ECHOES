@@ -90,7 +90,8 @@ func load_level(data: Dictionary, atlas: Dictionary) -> void:
 	_build_props(data.get("props", []))
 	_build_actors(data.get("actors", []))
 	_dirty = true
-	sort_now()
+	sort_static()
+	_update_actors()
 
 
 func _make_root(name: String, z: int) -> Node2D:
@@ -381,37 +382,51 @@ func update_actor_cell(node: Node2D, cell: Vector2i) -> void:
 
 
 func _process(_delta: float) -> void:
+	# Only actors move, and there are a handful of them. Reordering the whole
+	# tree every frame cost 400+ ms on an 80x80 district; the static geometry is
+	# sorted once at build time and never touched again.
 	if not _dirty:
 		return
 	_dirty = false
-	sort_now()
+	_update_actors()
 
 
-## One global painter's-algorithm pass. Actors get their key from the cell they
-## stand on, so a character walks behind a wall when its cell is behind it and in
-## front when it is nearer, without any per-scene configuration.
-func sort_now() -> void:
+## Depth keys scale by this factor so a whole 80x80 district fits Godot's
+## z_index range of +-4096. Depth ranges 0..158 on that map, so 20 gives 0..3160.
+const Z_SCALE := 20
+const Z_SCALE_ACTOR_BIAS := 10
+
+
+## Sort the static geometry once. Called at the end of load_level.
+##
+## Painter's order for an axis-aligned 2:1 world is (x + y) ascending, with a
+## small height term so a tall object at the same cell draws in front. Static
+## geometry includes floors, roofs, facades and props; none of it ever moves.
+func sort_static() -> void:
+	var statics: Array = []
 	for entry in _nodes:
 		if entry.get("actor", false):
-			var node: Node2D = entry["node"]
-			if is_instance_valid(node):
-				var cell: Vector2i = node.get_meta("cell", Vector2i.ZERO)
-				entry["key"] = IsoGrid.depth_key(cell, 0.0) + 0.002
-	_nodes.sort_custom(func(a, b): return float(a["key"]) < float(b["key"]))
-	# Painters order: assign drawn order through z_index on a single layer so
-	# the engine honours it inside each root.
-	# Godot's z_index range is +-4096, but an 80x80 district holds ~21,000
-	# sprites. Rather than compress the ranking (which would create ties), keep
-	# every sprite at z_index 0 and let child order carry the painter's order:
-	# the nodes are already in sorted order, so re-appending them in that order
-	# makes the tree itself the draw list.
-	var ordered: Array = []
-	for entry in _nodes:
+			continue
 		var n = entry.get("node")
-		if is_instance_valid(n) and n.get_parent() == self:
-			ordered.append(n)
-	for n in ordered:
-		move_child(n, -1)
+		if is_instance_valid(n):
+			statics.append(entry)
+	statics.sort_custom(func(a, b): return float(a["key"]) < float(b["key"]))
+	for entry in statics:
+		var n = entry["node"]
+		n.z_index = int(round(float(entry["key"]) * Z_SCALE))
+
+
+## Per-frame actor ordering: a cheap integer assignment on the handful of actors.
+func _update_actors() -> void:
+	for entry in _nodes:
+		if not entry.get("actor", false):
+			continue
+		var node: Node2D = entry["node"]
+		if not is_instance_valid(node):
+			continue
+		var cell: Vector2i = node.get_meta("cell", Vector2i.ZERO)
+		var key := IsoGrid.depth_key(cell, 0.0)
+		node.z_index = int(round(key * Z_SCALE)) + Z_SCALE_ACTOR_BIAS
 
 
 func actor_count() -> int:

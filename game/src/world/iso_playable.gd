@@ -226,7 +226,7 @@ func _add_lighting() -> void:
 	# IsoWorld's sort re-appends its sprites after any node added later, so child
 	# order alone cannot keep the light on top. Every managed sprite sits at
 	# z_index 0, so a positive z here paints the pools last.
-	lighting.z_index = 1
+	lighting.z_index = 3800
 
 
 # ---- actors ---------------------------------------------------------------------
